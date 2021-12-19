@@ -146,3 +146,16 @@ D:/cybersoft/api.cybersoft.edu.vn/SoloDevApp.Service/obj/Debug/netcoreapp2.1/Sol
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/obj/Debug/netcoreapp2.1/SoloDevApp.Service.csproj.CopyComplete
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/obj/Debug/netcoreapp2.1/SoloDevApp.Service.dll
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/obj/Debug/netcoreapp2.1/SoloDevApp.Service.pdb
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.deps.json
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.dll
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.pdb
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.AssemblyReference.cache
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.GeneratedMSBuildEditorConfig.editorconfig
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfoInputs.cache
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfo.cs
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CoreCompileInputs.cache
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CopyComplete
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.dll
+E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.pdb

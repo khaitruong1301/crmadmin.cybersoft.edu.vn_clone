@@ -1,28 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/SoloDevApp.Service.csproj": {}
+    "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {}
   },
   "projects": {
-    "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {
+    "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
+        "projectUniqueName": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
         "projectName": "SoloDevApp.Repository",
-        "projectPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/",
+        "projectPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
+        "packagesPath": "C:\\Users\\huyhoang\\.nuget\\packages\\",
+        "outputPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\huyhoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,37 +73,36 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/SoloDevApp.Service.csproj": {
+    "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/SoloDevApp.Service.csproj",
+        "projectUniqueName": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
         "projectName": "SoloDevApp.Service",
-        "projectPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/SoloDevApp.Service.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Service/obj/",
+        "projectPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
+        "packagesPath": "C:\\Users\\huyhoang\\.nuget\\packages\\",
+        "outputPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\huyhoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {
-                "projectPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj"
+              "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
+                "projectPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
               }
             }
           }
@@ -180,7 +178,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -274,11 +274,11 @@ namespace SoloDevApp.Api
 
             // ==================== SWAGGER ====================
 
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SOLO DEV API VERSION 01");
-            //});
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SOLO DEV API VERSION 01");
+            });
 
 
 
