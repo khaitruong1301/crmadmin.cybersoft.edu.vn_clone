@@ -116,3 +116,13 @@ E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.CoreCompileInputs.cache
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.deps.json
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.AssemblyReference.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.AssemblyInfoInputs.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.AssemblyInfo.cs
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.CoreCompileInputs.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb

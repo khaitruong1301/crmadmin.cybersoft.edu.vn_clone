@@ -1399,19 +1399,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\huyhoang\\.nuget\\packages\\": {}
+    "C:\\Users\\hoang\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
+      "projectUniqueName": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
       "projectName": "SoloDevApp.Repository",
-      "projectPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
-      "packagesPath": "C:\\Users\\huyhoang\\.nuget\\packages\\",
-      "outputPath": "E:\\Wiki-project\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\obj\\",
+      "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
+      "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
+      "outputPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\huyhoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1470,7 +1470,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -159,3 +159,16 @@ E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\net
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CopyComplete
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.dll
 E:\Wiki-project\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.pdb
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.deps.json
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.dll
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.pdb
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.AssemblyReference.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfoInputs.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfo.cs
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CoreCompileInputs.cache
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CopyComplete
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.dll
+D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.pdb

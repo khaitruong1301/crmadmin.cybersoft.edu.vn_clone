@@ -9,7 +9,7 @@ namespace SoloDevApp.Service.ViewModels
        public string TenRoadMapDetail { get; set; }
        public string BiDanh { get; set; }
        public int STT { get; set; }
-       public List<dynamic>  DanhSachSkill { get; set; }
+       public string  DanhSachSkill { get; set; }
        public bool EndRoadMap { get; set; }
        public int MaRoadMap { get; set; }
     }

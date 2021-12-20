@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SoloDevApp.Api.Filters;
 using SoloDevApp.Service.Services;
-using SoloDevApp.Service.Services.HocTap;
 using SoloDevApp.Service.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -47,21 +46,15 @@ namespace SoloDevApp.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] BaiHocViewModel model)
+        public async Task<IActionResult> Put(int id, [FromBody] RoadMapViewModel model)
         {
             return await _roadMapService.UpdateAsync(id, model);
-        }
-
-        [HttpPut("question/{id}")]
-        public async Task<IActionResult> Question(int id, [FromBody] CauHoiViewModel model)
-        {
-            return await _baiHocService.AddQuestionToLessonAsync(id, model);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] List<dynamic> Ids)
         {
-            return await _baiHocService.DeleteByIdAsync(Ids);
+            return await _roadMapService.DeleteByIdAsync(Ids);
         }
     }
 }
