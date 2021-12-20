@@ -112,6 +112,9 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<XepLich, XepLichViewModel>();
             CreateMap<XemLaiBuoiHoc, XemLaiBuoiHocViewModel>();
 
+            /*=========== ROAD MAP =============*/
+            CreateMap<RoadMap, RoadMapViewModel>();
+            CreateMap<RoadMapDetail, RoadMapDetailViewModel>();
         }
     }
 }

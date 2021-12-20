@@ -93,7 +93,9 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<ChiNhanhViewModel, ChiNhanh>();
             CreateMap<XepLichViewModel, XepLich>();
             CreateMap<XemLaiBuoiHocViewModel, XemLaiBuoiHoc>();
-
+            /*=========== ROAD MAP =============*/
+            CreateMap<RoadMapViewModel, RoadMap>();
+            CreateMap<RoadMapDetailViewModel, RoadMapDetail>();
 
         }
     }

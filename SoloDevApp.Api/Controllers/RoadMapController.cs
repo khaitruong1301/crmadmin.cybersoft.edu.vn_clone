@@ -42,7 +42,7 @@ namespace SoloDevApp.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RoadMapViewModel model)
         {
-            return await _roadMapService.InsertAsync(model);
+            return await _roadMapService.InsertRoadMapAsync(model);
         }
 
         [HttpPut("{id}")]
