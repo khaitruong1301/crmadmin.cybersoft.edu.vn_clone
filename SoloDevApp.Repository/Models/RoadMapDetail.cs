@@ -11,5 +11,6 @@ namespace SoloDevApp.Repository.Models
         public string DanhSachSkill { get; set; }
         public bool EndRoadMap { get; set; }
         public int MaRoadMap { get; set; }
+       
     }
 }

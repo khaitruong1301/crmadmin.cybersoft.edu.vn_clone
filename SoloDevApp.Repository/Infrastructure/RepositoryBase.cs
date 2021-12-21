@@ -75,9 +75,7 @@ namespace SoloDevApp.Repository.Infrastructure
                 values = values.Remove(values.Length - 2, 2);
 
                 var query = $"INSERT INTO {_table} ({columns}) VALUES ({values});";
-                query += $"SELECT TOP 1 * FROM {_table}";
-                //Do Table không có NgayTao nên cần phải comment lại
-                //query += $"SELECT TOP 1 * FROM {_table} ORDER BY NgayTao DESC;";
+                query += $"SELECT TOP 1 * FROM {_table} ORDER BY NgayTao DESC;";
                 return query;
             }
             catch (Exception ex)
