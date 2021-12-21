@@ -115,6 +115,13 @@ namespace SoloDevApp.Service.AutoMapper
             /*=========== ROAD MAP =============*/
             CreateMap<RoadMap, RoadMapViewModel>();
             CreateMap<RoadMapDetail, RoadMapDetailViewModel>();
+            CreateMap<BuoiHoc, BuoiHocViewModel>();
+            CreateMap<LoaiBaiTap, LoaiBaiTapViewModel>();
+            CreateMap<Skill, SkillViewModel>();
+            CreateMap<Unit, UnitViewModel>();
+            CreateMap<UnitCourse, UnitCourseViewModel>();
+            CreateMap<VideoExtra, VideoExtraViewModel>();
+
         }
     }
 }

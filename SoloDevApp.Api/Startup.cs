@@ -68,6 +68,12 @@ namespace SoloDevApp.Api
             services.AddTransient<IXemLaiBuoiHocRepository, XemLaiBuoiHocRepository>();
             services.AddTransient<IRoadMapRepository, RoadMapRepository>();
             services.AddTransient<IRoadMapDetailRepository, RoadMapDetailRepository>();
+            services.AddTransient<IBuoiHocRepository, BuoiHocRepository>();
+            services.AddTransient<ILoaiBaiTapRepository, LoaiBaiTapRepository>();
+            services.AddTransient<ISkillRepository, SkillRepository>();
+            services.AddTransient<IUnitRepository, UnitRepository>();
+            services.AddTransient<IUnitCourseRepository, UnitCourseRepository>();
+            services.AddTransient<IVideoExtraRepository, VideoExtraRepository>();
 
             // ==================== SERVICE ====================
             services.AddTransient<IQuyenService, QuyenService>();
@@ -102,6 +108,8 @@ namespace SoloDevApp.Api
             services.AddTransient<IXemLaiBuoiHocService, XemLaiBuoiHocService>();
             services.AddTransient<IRoadMapDetailService, RoadMapDetailService>();
             services.AddTransient<IRoadMapService, RoadMapService>();
+            services.AddTransient<IBuoiHocService, BuoiHocService>();
+            services.AddTransient<ILoaiBaiTapService, LoaiBaiTapService>();
 
 
             // ==================== HELPER ====================
