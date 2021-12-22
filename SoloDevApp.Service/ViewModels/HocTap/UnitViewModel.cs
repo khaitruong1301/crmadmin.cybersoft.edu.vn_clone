@@ -1,6 +1,6 @@
 ﻿
 
-namespace SoloDevApp.Repository.Models
+namespace SoloDevApp.Service.ViewModels
 {
     public class UnitViewModel
     {
