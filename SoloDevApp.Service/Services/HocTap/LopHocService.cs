@@ -37,7 +37,6 @@ namespace SoloDevApp.Service.Services
 
         Task<ResponseEntity> GetClassByYear(int year);
 
-
     }
 
     public class LopHocService : ServiceBase<LopHoc, LopHocViewModel>, ILopHocService
