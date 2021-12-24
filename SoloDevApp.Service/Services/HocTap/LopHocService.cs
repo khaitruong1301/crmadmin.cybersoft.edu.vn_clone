@@ -616,17 +616,12 @@ namespace SoloDevApp.Service.Services
 
                     List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
 
-                    //List<KeyValuePair<string, dynamic>> column = new List<KeyValuePair<string, dynamic>>();
-
-                    //column.Add(new KeyValuePair<string, dynamic>("Id", dsBaiHocTrongBuoi));
-
                     IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
 
                     BuoiHocViewModel buoiHocVm = new BuoiHocViewModel();
 
                     buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
 
-                    buoiHocVm.BaiHoc = new List<dynamic>();
 
                     foreach (BaiHoc_TaiLieu_Link_TracNghiem baiHoc in lsBaiHoc)
                     {

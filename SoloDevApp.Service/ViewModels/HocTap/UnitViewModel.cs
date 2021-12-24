@@ -17,5 +17,7 @@ namespace SoloDevApp.Service.ViewModels
         public string User_Id { get; set; }
         public string TotalMark { get; set; }
         public int MaChuDe { get; set; }
+
+        
     }
 }

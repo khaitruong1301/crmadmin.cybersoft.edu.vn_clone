@@ -16,5 +16,16 @@ namespace SoloDevApp.Service.ViewModels
         public List<dynamic> BaiTapNop { get; set; }
         public List<dynamic> VideoXemLai { get; set; }
 
+
+
+        public BuoiHocViewModel()
+        {
+            BaiHoc = new List<dynamic>();
+            TaiLieu =   new List<dynamic>();
+            BaiTapNop = new List<dynamic>();
+            VideoXemLai = new List<dynamic>();
+
+        }
+
     }
 }
