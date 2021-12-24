@@ -13,8 +13,11 @@ namespace SoloDevApp.Service.ViewModels
         public int MaLop { get; set; }
         public List<dynamic> BaiHoc { get; set; }
         public List<dynamic> TaiLieu { get; set; }
+        public List<dynamic> BaiHocVideoFPT { get; set; }
         public List<dynamic> BaiTapNop { get; set; }
         public List<dynamic> VideoXemLai { get; set; }
+        public List<dynamic> VideoExtra { get; set; }
+
 
 
 
@@ -24,7 +27,8 @@ namespace SoloDevApp.Service.ViewModels
             TaiLieu =   new List<dynamic>();
             BaiTapNop = new List<dynamic>();
             VideoXemLai = new List<dynamic>();
-
+            BaiHocVideoFPT = new List<dynamic>();
+            VideoExtra = new List<dynamic>();
         }
 
     }
