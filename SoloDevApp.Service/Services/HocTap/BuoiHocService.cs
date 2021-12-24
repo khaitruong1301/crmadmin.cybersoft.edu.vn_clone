@@ -12,18 +12,21 @@ namespace SoloDevApp.Service.Services
 {
     public interface IBuoiHocService : IService<BuoiHoc, BuoiHocViewModel>
     {
-
+         
     }
 
     public class BuoiHocService : ServiceBase<BuoiHoc, BuoiHocViewModel>, IBuoiHocService
     {
         IBuoiHocRepository _buoiHocRepository;
-        public BuoiHocService(IBuoiHocRepository buoiHocRepository,
+        ILopHocRepository _lopHocRepository;
+        public BuoiHocService(IBuoiHocRepository buoiHocRepository,ILopHocRepository lopHocRepository,
             IMapper mapper)
             : base(buoiHocRepository, mapper)
         {
             _buoiHocRepository = buoiHocRepository;
+            _lopHocRepository = lopHocRepository;
 
         }
+        
     }
 }

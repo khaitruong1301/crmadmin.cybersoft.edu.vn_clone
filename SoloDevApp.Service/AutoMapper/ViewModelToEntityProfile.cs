@@ -102,6 +102,7 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<UnitViewModel, Unit>();
             CreateMap<UnitCourseViewModel, UnitCourse>();
             CreateMap<VideoExtraViewModel, VideoExtra>();
+            CreateMap<BaiHoc_TaiLieu_Link_TracNghiemViewModel, BaiHoc_TaiLieu_Link_TracNghiem>();
 
         }
     }

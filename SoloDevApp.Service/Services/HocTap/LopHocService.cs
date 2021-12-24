@@ -37,6 +37,8 @@ namespace SoloDevApp.Service.Services
 
         Task<ResponseEntity> GetClassByYear(int year);
 
+        Task<ResponseEntity> LayDanhSachBuoiHocTheoLop(int classId);
+
     }
 
     public class LopHocService : ServiceBase<LopHoc, LopHocViewModel>, ILopHocService
@@ -49,6 +51,8 @@ namespace SoloDevApp.Service.Services
         private IBaiTapNopRepository _baiTapNopRepository;
         private IDiemDanhRepository _diemDanhRepository;
         private ILopHoc_TaiLieuRepository _lopHoc_TaiLieuRepository;
+        private IBuoiHocRepository _buoiHocRepository;
+        private IBaiHoc_TaiLieu_Link_TracNghiemRepository _baiHoc_TaiLieu_Link_TracNghiemRepository;
         private readonly IAppSettings _appSettings;
 
 
@@ -60,7 +64,9 @@ namespace SoloDevApp.Service.Services
             IBaiTapNopRepository baiTapNopRepository,
             IDiemDanhRepository diemDanhRepository,
             ILopHoc_TaiLieuRepository lopHoc_TaiLieuRepository,
-             IAppSettings appSettings,
+            IBuoiHocRepository buoiHocRepository,
+            IBaiHoc_TaiLieu_Link_TracNghiemRepository baiHoc_TaiLieu_Link_TracNghiemRepository,
+        IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
         {
@@ -72,6 +78,8 @@ namespace SoloDevApp.Service.Services
             _baiTapNopRepository = baiTapNopRepository;
             _diemDanhRepository = diemDanhRepository;
             _lopHoc_TaiLieuRepository = lopHoc_TaiLieuRepository;
+            _buoiHocRepository = buoiHocRepository;
+            _baiHoc_TaiLieu_Link_TracNghiemRepository = baiHoc_TaiLieu_Link_TracNghiemRepository;
             _appSettings = appSettings;
 
         }
@@ -582,6 +590,64 @@ namespace SoloDevApp.Service.Services
                 }
             }
             return result;
+        }
+
+
+        public async Task<ResponseEntity> LayDanhSachBuoiHocTheoLop(int classId)
+        {
+            try
+            {
+                LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(classId);
+
+                if (lopHoc == null)
+                {
+                    return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
+                }
+
+                List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
+
+                List<int> danhSachBuoi = JsonConvert.DeserializeObject<List<int>>(lopHoc.DanhSachBuoi);
+
+                foreach (int buoiHocId in danhSachBuoi)
+                {
+                    BuoiHoc buoiHoc = new BuoiHoc();
+
+                    buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(buoiHocId);
+
+                    List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
+
+                    //List<KeyValuePair<string, dynamic>> column = new List<KeyValuePair<string, dynamic>>();
+
+                    //column.Add(new KeyValuePair<string, dynamic>("Id", dsBaiHocTrongBuoi));
+
+                    IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+
+                    BuoiHocViewModel buoiHocVm = new BuoiHocViewModel();
+
+                    buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
+
+                    buoiHocVm.BaiHoc = new List<dynamic>();
+
+                    foreach (BaiHoc_TaiLieu_Link_TracNghiem baiHoc in lsBaiHoc)
+                    {
+                        BaiHoc_TaiLieu_Link_TracNghiemViewModel baiHocVm = new BaiHoc_TaiLieu_Link_TracNghiemViewModel();
+
+                        baiHocVm = _mapper.Map<BaiHoc_TaiLieu_Link_TracNghiemViewModel>(baiHoc);
+                        buoiHocVm.BaiHoc.Add(baiHocVm);
+
+                    }
+
+                    lsBuoiHocVm.Add(buoiHocVm);
+
+                }
+
+
+                return new ResponseEntity(StatusCodeConstants.OK, lsBuoiHocVm);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, ex.Message);
+            }
         }
     }
 }

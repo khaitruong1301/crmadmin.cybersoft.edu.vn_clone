@@ -74,6 +74,7 @@ namespace SoloDevApp.Api
             services.AddTransient<IUnitRepository, UnitRepository>();
             services.AddTransient<IUnitCourseRepository, UnitCourseRepository>();
             services.AddTransient<IVideoExtraRepository, VideoExtraRepository>();
+            services.AddTransient<IBaiHoc_TaiLieu_Link_TracNghiemRepository, BaiHoc_TaiLieu_Link_TracNghiemRepository>();
 
             // ==================== SERVICE ====================
             services.AddTransient<IQuyenService, QuyenService>();

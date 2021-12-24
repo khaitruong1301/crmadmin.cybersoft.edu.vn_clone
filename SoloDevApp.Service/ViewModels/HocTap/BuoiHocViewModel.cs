@@ -11,10 +11,10 @@ namespace SoloDevApp.Service.ViewModels
         public string DanhSachBaiHocTracNghiem { get; set; }
         public int STT { get; set; }
         public int MaLop { get; set; }
+        public List<dynamic> BaiHoc { get; set; }
+        public List<dynamic> TaiLieu { get; set; }
+        public List<dynamic> BaiTapNop { get; set; }
+        public List<dynamic> VideoXemLai { get; set; }
 
-        public List<VideoExtraViewModel> ListVideoExtra { get; set; }
-        public List<LopHoc_TaiLieuViewModel> ListLopHoc_TaiLieu { get; set; }
-        public List<BaiHocViewModel> ListBaiHoc { get; set; }
-        public List<XemLaiBuoiHocViewModel> listXemLaiBuoiHoc { get; set; }
     }
 }
