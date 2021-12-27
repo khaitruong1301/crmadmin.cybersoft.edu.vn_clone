@@ -18,9 +18,6 @@ namespace SoloDevApp.Service.ViewModels
         public List<dynamic> VideoXemLai { get; set; }
         public List<dynamic> VideoExtra { get; set; }
 
-
-
-
         public BuoiHocViewModel()
         {
             BaiHoc = new List<dynamic>();
