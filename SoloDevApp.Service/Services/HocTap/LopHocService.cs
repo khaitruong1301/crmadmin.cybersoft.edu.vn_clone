@@ -740,7 +740,7 @@ namespace SoloDevApp.Service.Services
 
                     lsCacBuoiHoc.Add(classesId);
 
-                    String lsCacBuoiHocString = JsonConvert.SerializeObject(lsCacBuoiHoc);
+                    string lsCacBuoiHocString = JsonConvert.SerializeObject(lsCacBuoiHoc);
 
                     lopHocHienTai.DanhSachBuoi = lsCacBuoiHocString; 
 

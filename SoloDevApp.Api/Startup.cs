@@ -111,6 +111,7 @@ namespace SoloDevApp.Api
             services.AddTransient<IRoadMapService, RoadMapService>();
             services.AddTransient<IBuoiHocService, BuoiHocService>();
             services.AddTransient<ILoaiBaiTapService, LoaiBaiTapService>();
+            services.AddTransient<IBaiHocNewService, BaiHocNewService>();
 
 
             // ==================== HELPER ====================
