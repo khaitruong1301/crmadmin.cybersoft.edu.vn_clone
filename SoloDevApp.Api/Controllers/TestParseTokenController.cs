@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using SoloDevApp.Service.Utilities;
 
 namespace SoloDevApp.Api.Controllers
 {
@@ -23,14 +24,11 @@ namespace SoloDevApp.Api.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "VIEW_ROLE")]
-        public async Task<IActionResult> Get(string tokenstring)
+        public async Task<IActionResult> Get([FromHeader] string Token)
         {
-            tokenstring = tokenstring.Replace("Bearer ", "");
-            //var stream = Encoding.ASCII.GetBytes("CYBERSOFT2020_SECRET");
-            JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(tokenstring);
-            var email = token.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            string userId = FuncUtilities.GetUserIdFromHeaderToken(Token);
 
-            return new ResponseEntity(StatusCodeConstants.OK, email);
+            return new ResponseEntity(StatusCodeConstants.OK, userId);
         }
 
     }
