@@ -10,6 +10,7 @@ namespace SoloDevApp.Repository.Models
         public string DanhSachBaiHocTracNghiem { get; set; }
         public int STT { get; set; }
         public int MaLop { get; set; }
+        public string MaSkill { get; set; }
 
     }
 }

@@ -123,6 +123,13 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<VideoExtra, VideoExtraViewModel>();
             CreateMap<BaiHoc_TaiLieu_Link_TracNghiem, BaiHoc_TaiLieu_Link_TracNghiemViewModel>();
 
+            /*=========== ROAD MAP VIEW TABLE =============*/
+            CreateMap<TaiLieuBaiHoc, TaiLieuBaiHocViewModel>();
+            CreateMap<TaiLieuBaiTap,TaiLieuBaiTapViewModel>();
+            CreateMap<TaiLieuDocThem, TaiLieuDocThemViewModel>();
+            CreateMap<TaiLieuProjectLamThem, TaiLieuProjectLamThemViewModel>();
+            CreateMap<TracNghiem, TracNghiemViewModel>();
+            CreateMap<VideoFPT, VideoFPTViewModel>();
         }
     }
 }
