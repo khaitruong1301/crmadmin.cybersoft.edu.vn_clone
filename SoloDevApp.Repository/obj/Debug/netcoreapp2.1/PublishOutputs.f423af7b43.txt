@@ -1,0 +1,16 @@
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/SoloDevApp.Repository.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/SoloDevApp.Repository.deps.json
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/SoloDevApp.Repository.pdb
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/Dapper.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/Microsoft.Extensions.Primitives.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/Newtonsoft.Json.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/System.Data.SqlClient.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/System.Runtime.CompilerServices.Unsafe.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/System.Text.Encoding.CodePages.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/win-arm64/native/sni.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/win-x64/native/sni.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/win-x86/native/sni.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/bin/Debug/netcoreapp2.1/publish/runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll

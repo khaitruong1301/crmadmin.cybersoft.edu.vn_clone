@@ -7,6 +7,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Api\bin/Release/netcoreapp2.1/publish</_PublishTargetUrl>
-    <History>True|2021-12-31T05:22:28.5910234Z;</History>
+    <History>True|2021-12-31T05:25:33.2965903Z;False|2021-12-31T12:23:54.5165607+07:00;False|2021-12-31T12:23:21.9434421+07:00;True|2021-12-31T12:22:28.5910234+07:00;</History>
   </PropertyGroup>
 </Project>
