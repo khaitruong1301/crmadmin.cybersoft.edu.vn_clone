@@ -126,3 +126,12 @@ D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\De
 D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.CoreCompileInputs.cache
 D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
 D:\BIG-PROJECT\WIKI\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.deps.json
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csprojAssemblyReference.cache
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.AssemblyInfo.cs
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
+C:\Users\HP\Desktop\crmadmin.cybersoft.edu.vn_clone\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb

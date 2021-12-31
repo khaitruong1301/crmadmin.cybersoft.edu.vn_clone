@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj": {}
+    "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj": {}
   },
   "projects": {
-    "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj": {
+    "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
         "projectName": "SoloDevApp.Api",
-        "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\obj\\",
+        "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +31,11 @@
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
-                "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
+              "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
               },
-              "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
-                "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj"
+              "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj"
               }
             }
           }
@@ -83,21 +86,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
+    "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
         "projectName": "SoloDevApp.Repository",
-        "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\obj\\",
+        "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -156,21 +162,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
+    "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
         "projectName": "SoloDevApp.Service",
-        "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\obj\\",
+        "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -184,8 +193,8 @@
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
-                "projectPath": "D:\\BIG-PROJECT\\WIKI\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
+              "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\crmadmin.cybersoft.edu.vn_clone\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
               }
             }
           }
@@ -261,7 +270,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
