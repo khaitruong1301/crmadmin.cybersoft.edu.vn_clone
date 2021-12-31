@@ -638,39 +638,37 @@ namespace SoloDevApp.Service.Services
 
                 foreach (int buoiHocId in danhSachBuoi)
                 {
-                    BuoiHoc buoiHoc = new BuoiHoc();
-
-                    buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(buoiHocId);
+                    BuoiHoc buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(buoiHocId);
 
                     List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
 
-                    BuoiHocViewModel buoiHocVm = new BuoiHocViewModel();
+                    BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
 
                     //Lấy ra dữ liệu của các View và gán cho buoiHocView
                     //TaiLieuBaiHoc
                     IEnumerable<TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuBaiHoc.AddRange(_mapper.Map<TaiLieuBaiHocViewModel>(lsTaiLieuBaiHoc));
+                    buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
 
                     //TaiLieuBaiTap
                     IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuBaiTap.Add(_mapper.Map<TaiLieuBaiTapViewModel>(lsTaiLieuBaiTap));
+                    buoiHocVm.TaiLieuBaiTap = (_mapper.Map<List<TaiLieuBaiTapViewModel>>(lsTaiLieuBaiTap));
 
                     //TaiLieuDocThem
                     IEnumerable<TaiLieuDocThem> lsTaiLieuDocThem = await _taiLieuDocThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuDocThem.Add(_mapper.Map<TaiLieuDocThemViewModel>(lsTaiLieuDocThem));
+                    buoiHocVm.TaiLieuDocThem =(_mapper.Map<List<TaiLieuDocThemViewModel>>(lsTaiLieuDocThem));
 
                     //TaiLieuProjectLamThem
                     IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuProjectLamThem.Add(_mapper.Map<TaiLieuProjectLamThemViewModel>(lsTaiLieuProjectLamThem));
+                    buoiHocVm.TaiLieuProjectLamThem =(_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
 
                     //TracNghiem
                     IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TracNghiem.Add(_mapper.Map<TracNghiemViewModel>(lsTracNghiem));
+                    buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
 
 
                     //VideoFPT
                     IEnumerable<VideoFPT> lsVideoFPT = await _videoFPTRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.VideoFPT.Add(_mapper.Map<VideoFPTViewModel>(lsVideoFPT));
+                    buoiHocVm.VideoFPT = (_mapper.Map<List<VideoFPTViewModel>>(lsVideoFPT));
 
                     //IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
 
