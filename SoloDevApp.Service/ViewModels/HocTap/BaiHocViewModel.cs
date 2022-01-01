@@ -15,4 +15,6 @@ namespace SoloDevApp.Service.ViewModels
         public bool online { get; set; }
         public string Vimeo { get; set; }
     }
+
+   
 }

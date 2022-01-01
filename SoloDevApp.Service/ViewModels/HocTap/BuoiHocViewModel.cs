@@ -39,4 +39,10 @@ namespace SoloDevApp.Service.ViewModels
         }
 
     }
+
+    public class BuoiHocBySkillViewModel
+    {
+        public string tenSkill;
+        public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
+    }
 }
