@@ -106,3 +106,8 @@ D:/cybersoft/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.dll
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.pdb
 /Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.csprojAssemblyReference.cache
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.AssemblyInfoInputs.cache
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.AssemblyInfo.cs
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.csproj.CoreCompileInputs.cache
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.dll
+/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/Debug/netcoreapp2.1/SoloDevApp.Repository.pdb

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {}
+    "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {}
   },
   "projects": {
-    "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {
+    "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
+        "projectUniqueName": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
         "projectName": "SoloDevApp.Repository",
-        "projectPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/Documents/api.cybersoft.edu.vn/SoloDevApp.Repository/obj/",
+        "projectPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "/Users/macbook/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -74,7 +74,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
         }
       }
     }
