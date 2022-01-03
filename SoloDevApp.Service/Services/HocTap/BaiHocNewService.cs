@@ -72,7 +72,7 @@ namespace SoloDevApp.Service.Services
 
                 //Thêm bài học vào buổi học
 
-                //Lấy danh sách các bài học của lớp học và thêm Id bài học vào list
+                //Lấy danh sách các bài học của buổi học và thêm Id bài học vào list
                 List<int> lsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<int>>(buoiHoc.DanhSachBaiHocTracNghiem);
                 lsBaiHocTrongBuoi.Add(baiHoc.Id);
 
