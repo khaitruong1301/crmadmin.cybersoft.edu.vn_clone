@@ -37,6 +37,9 @@ namespace SoloDevApp.Service.Services
 
         Task<ResponseEntity> GetClassByYear(int year);
 
+        Task<ResponseEntity> GetListClassesByClassId(int classId);
+
+        Task<ResponseEntity> AddClassesToClass(int classId, int classesId);
 
     }
 
@@ -50,6 +53,18 @@ namespace SoloDevApp.Service.Services
         private IBaiTapNopRepository _baiTapNopRepository;
         private IDiemDanhRepository _diemDanhRepository;
         private ILopHoc_TaiLieuRepository _lopHoc_TaiLieuRepository;
+        private IBuoiHocRepository _buoiHocRepository;
+        private IBaiHoc_TaiLieu_Link_TracNghiemRepository _baiHoc_TaiLieu_Link_TracNghiemRepository;
+        private IXemLaiBuoiHocRepository _xemLaiBuoiHocRepository;
+        private IVideoExtraRepository _videoExtraRepository;
+        private ITaiLieuBaiHocRepository _taiLieuBaiHocRepository;
+        private ITaiLieuBaiTapRepository _taiLieuBaiTapRepository;
+        private ITaiLieuDocThemRepository _taiLieuDocThemRepository;
+        private ITaiLieuProjectLamThemRepository _taiLieuProjectLamThemRepository;
+        private ITracNghiemRepository _tracNghiemRepository;
+        private IVideoFPTRepository _videoFPTRepository;
+
+
         private readonly IAppSettings _appSettings;
 
 
@@ -61,7 +76,17 @@ namespace SoloDevApp.Service.Services
             IBaiTapNopRepository baiTapNopRepository,
             IDiemDanhRepository diemDanhRepository,
             ILopHoc_TaiLieuRepository lopHoc_TaiLieuRepository,
-             IAppSettings appSettings,
+            IBuoiHocRepository buoiHocRepository,
+            IBaiHoc_TaiLieu_Link_TracNghiemRepository baiHoc_TaiLieu_Link_TracNghiemRepository,
+            IXemLaiBuoiHocRepository xemLaiBuoiHocRepository,
+            IVideoExtraRepository videoExtraRepository,
+            ITaiLieuBaiHocRepository taiLieuBaiHocRepository,
+            ITaiLieuBaiTapRepository taiLieuBaiTapRepository,
+            ITaiLieuDocThemRepository taiLieuDocThemRepository,
+            ITaiLieuProjectLamThemRepository taiLieuProjectLamThemRepository,
+            ITracNghiemRepository tracNghiemRepository,
+            IVideoFPTRepository videoFPTRepository,
+        IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
         {
@@ -73,6 +98,16 @@ namespace SoloDevApp.Service.Services
             _baiTapNopRepository = baiTapNopRepository;
             _diemDanhRepository = diemDanhRepository;
             _lopHoc_TaiLieuRepository = lopHoc_TaiLieuRepository;
+            _buoiHocRepository = buoiHocRepository;
+            _baiHoc_TaiLieu_Link_TracNghiemRepository = baiHoc_TaiLieu_Link_TracNghiemRepository;
+            _xemLaiBuoiHocRepository = xemLaiBuoiHocRepository;
+            _videoExtraRepository = videoExtraRepository;
+            _taiLieuBaiHocRepository = taiLieuBaiHocRepository;
+            _taiLieuBaiTapRepository = taiLieuBaiTapRepository;
+            _taiLieuDocThemRepository = taiLieuDocThemRepository;
+            _taiLieuProjectLamThemRepository = taiLieuProjectLamThemRepository;
+            _tracNghiemRepository = tracNghiemRepository;
+            _videoFPTRepository = videoFPTRepository;
             _appSettings = appSettings;
 
         }
@@ -583,6 +618,189 @@ namespace SoloDevApp.Service.Services
                 }
             }
             return result;
+        }
+
+
+        public async Task<ResponseEntity> GetListClassesByClassId(int classId)
+        {
+            try
+            {
+                LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(classId);
+
+                if (lopHoc == null)
+                {
+                    return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
+                }
+
+                List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
+
+                List<int> danhSachBuoi = JsonConvert.DeserializeObject<List<int>>(lopHoc.DanhSachBuoi);
+
+                foreach (int buoiHocId in danhSachBuoi)
+                {
+                    BuoiHoc buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(buoiHocId);
+
+                    List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
+
+                    BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
+
+                    //Lấy ra dữ liệu của các View và gán cho buoiHocView
+                    //TaiLieuBaiHoc
+                    IEnumerable<TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
+
+                    //TaiLieuBaiTap
+                    IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.TaiLieuBaiTap = (_mapper.Map<List<TaiLieuBaiTapViewModel>>(lsTaiLieuBaiTap));
+
+                    //TaiLieuDocThem
+                    IEnumerable<TaiLieuDocThem> lsTaiLieuDocThem = await _taiLieuDocThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.TaiLieuDocThem =(_mapper.Map<List<TaiLieuDocThemViewModel>>(lsTaiLieuDocThem));
+
+                    //TaiLieuProjectLamThem
+                    IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.TaiLieuProjectLamThem =(_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
+
+                    //TracNghiem
+                    IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
+
+
+                    //VideoFPT
+                    IEnumerable<VideoFPT> lsVideoFPT = await _videoFPTRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                    buoiHocVm.VideoFPT = (_mapper.Map<List<VideoFPTViewModel>>(lsVideoFPT));
+
+                    //IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+
+
+
+                    //buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
+
+                    //Add Bai Hoc
+                    //foreach (BaiHoc_TaiLieu_Link_TracNghiem baiHoc in lsBaiHoc)
+                    //{
+                    //    BaiHoc_TaiLieu_Link_TracNghiemViewModel baiHocVm = new BaiHoc_TaiLieu_Link_TracNghiemViewModel();
+
+                    //    baiHocVm = _mapper.Map<BaiHoc_TaiLieu_Link_TracNghiemViewModel>(baiHoc);
+
+                    //    switch (baiHocVm.MaLoaiBaiHoc)
+                    //    {
+                    //        case "VIDEO_FPT":
+                    //            buoiHocVm.BaiHocVideoFPT.Add(baiHocVm);
+                    //            break;
+                    //        case "FILE":
+                    //            buoiHocVm.TaiLieu.Add(baiHocVm);
+                    //            break;
+                    //        case "ARTICLE":
+                    //            buoiHocVm.BaiHoc.Add(baiHocVm);
+                    //            break;
+                    //    }
+
+                    //}
+
+
+                    //Add VideoXemLai
+                    List<KeyValuePair<string, dynamic>> colums = new List<KeyValuePair<string, dynamic>>();
+
+                    colums.Add(new KeyValuePair<string, dynamic>("MaBuoi", buoiHocId));
+
+
+                    IEnumerable<XemLaiBuoiHoc> lsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetMultiByListConditionAndAsync(colums);
+                    
+                    if (lsXemLaiBuoiHoc != null)
+                    {
+                        foreach (XemLaiBuoiHoc video in lsXemLaiBuoiHoc)
+                        {
+                            XemLaiBuoiHocViewModel xemLaiBuoiHocVm = new XemLaiBuoiHocViewModel();
+                            xemLaiBuoiHocVm = _mapper.Map<XemLaiBuoiHocViewModel>(video);
+                            buoiHocVm.VideoXemLai.Add(xemLaiBuoiHocVm);
+                        }
+                    }
+
+                    //Add Video Extra
+      
+
+                    IEnumerable<VideoExtra> lsVideoExtra = await _videoExtraRepository.GetMultiByListConditionAndAsync(colums);
+
+                    if (lsVideoExtra != null)
+                    {
+                        foreach (VideoExtra video in lsVideoExtra)
+                        {
+                            VideoExtraViewModel videoExtraVm = new VideoExtraViewModel();
+                            videoExtraVm = _mapper.Map<VideoExtraViewModel>(video);
+                            buoiHocVm.VideoExtra.Add(videoExtraVm);
+                        }
+                    }
+
+                    //Add Bai tap Nop
+
+                    //IEnumerable<BaiTapNop> lsBaiTapNop = await _baiTapNopRepository.GetMultiByListConditionAndAsync(colums);
+
+                    //if (lsBaiTapNop != null)
+                    //{
+                    //    foreach (BaiTapNop baiTapNop in lsBaiTapNop)
+                    //    {
+                    //        BaiTapNopViewModel baiTapNopVm = new BaiTapNopViewModel();
+                    //        baiTapNopVm = _mapper.Map<BaiTapNopViewModel>(baiTapNop);
+                    //        buoiHocVm.BaiTapNop.Add(baiTapNopVm);
+                    //    }
+                    //}
+
+
+                    lsBuoiHocVm.Add(buoiHocVm);
+
+                }
+
+
+                return new ResponseEntity(StatusCodeConstants.OK, lsBuoiHocVm);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, ex.Message);
+            }
+        }
+
+        public async Task<ResponseEntity> AddClassesToClass(int classId, int classesId) 
+        {
+        
+                try
+                {
+                //Kiểm tra buổi học có trong hệ thống hay không
+                BuoiHoc buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(classesId);
+                if (buoiHoc == null)
+                {
+                    return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
+                }
+ 
+                    //Lấy ra danh sách các buổi học của lớp
+                    LopHoc lopHocHienTai = await _lopHocRepository.GetSingleByIdAsync(classId);
+
+                    List<int> lsCacBuoiHoc = JsonConvert.DeserializeObject<List<int>>(lopHocHienTai.DanhSachBuoi);
+                //Kiểm tra xem hiện tại có chứa buổi học muốn thêm chưa
+             
+                if (lsCacBuoiHoc.Contains(classesId))
+                    {
+                    return new ResponseEntity(StatusCodeConstants.BAD_REQUEST, "Buổi học đã tồn tại", MessageConstants.INSERT_ERROR);
+                    }
+
+                    lsCacBuoiHoc.Add(classesId);
+
+                    string lsCacBuoiHocString = JsonConvert.SerializeObject(lsCacBuoiHoc);
+
+                    lopHocHienTai.DanhSachBuoi = lsCacBuoiHocString; 
+
+ 
+                    if (( await _lopHocRepository.UpdateAsync(classId, lopHocHienTai)) == null)
+                    return new ResponseEntity(StatusCodeConstants.BAD_REQUEST, lopHocHienTai, MessageConstants.INSERT_ERROR);
+
+
+                return new ResponseEntity(StatusCodeConstants.OK, lopHocHienTai, MessageConstants.INSERT_SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, ex.Message);
+                }
+
         }
     }
 }

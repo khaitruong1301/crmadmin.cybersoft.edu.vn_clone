@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace SoloDevApp.Service.Utilities
 {
@@ -190,6 +192,14 @@ namespace SoloDevApp.Service.Utilities
             DateTime dateNow = GetDateCurrent();
             TimeSpan ts = date - dateNow;
             return ts.Days;
+        }
+
+        public static string GetUserIdFromHeaderToken(string userToken)
+        {
+            userToken = userToken.Replace("Bearer ", "");
+            JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(userToken);
+            string userId = token.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            return userId;
         }
     }
 }

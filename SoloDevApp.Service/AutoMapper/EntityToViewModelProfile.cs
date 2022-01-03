@@ -112,6 +112,24 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<XepLich, XepLichViewModel>();
             CreateMap<XemLaiBuoiHoc, XemLaiBuoiHocViewModel>();
 
+            /*=========== ROAD MAP =============*/
+            CreateMap<RoadMap, RoadMapViewModel>();
+            CreateMap<RoadMapDetail, RoadMapDetailViewModel>();
+            CreateMap<BuoiHoc, BuoiHocViewModel>();
+            CreateMap<LoaiBaiTap, LoaiBaiTapViewModel>();
+            CreateMap<Skill, SkillViewModel>();
+            CreateMap<Unit, UnitViewModel>();
+            CreateMap<UnitCourse, UnitCourseViewModel>();
+            CreateMap<VideoExtra, VideoExtraViewModel>();
+            CreateMap<BaiHoc_TaiLieu_Link_TracNghiem, BaiHoc_TaiLieu_Link_TracNghiemViewModel>();
+
+            /*=========== ROAD MAP VIEW TABLE =============*/
+            CreateMap<TaiLieuBaiHoc, TaiLieuBaiHocViewModel>();
+            CreateMap<TaiLieuBaiTap,TaiLieuBaiTapViewModel>();
+            CreateMap<TaiLieuDocThem, TaiLieuDocThemViewModel>();
+            CreateMap<TaiLieuProjectLamThem, TaiLieuProjectLamThemViewModel>();
+            CreateMap<TracNghiem, TracNghiemViewModel>();
+            CreateMap<VideoFPT, VideoFPTViewModel>();
         }
     }
 }

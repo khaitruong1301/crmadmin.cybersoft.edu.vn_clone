@@ -22,6 +22,8 @@ namespace SoloDevApp.Repository.Models
         public string Token { get; set; }
         public int ThuMucVimeo { get; set; }
 
+        public string DanhSachBuoi { get; set; }
+
     }
     public class ThongTinHocVienGhiDanh
     {
