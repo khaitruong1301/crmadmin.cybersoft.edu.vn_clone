@@ -47,5 +47,4 @@
     public class TracNghiem : TaiLieu
     {
     }
-    public class VideoFPT : Video { }
 }

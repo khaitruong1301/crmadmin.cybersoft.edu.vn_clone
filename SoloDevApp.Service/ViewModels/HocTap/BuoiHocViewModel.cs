@@ -22,7 +22,6 @@ namespace SoloDevApp.Service.ViewModels
         public List<TaiLieuProjectLamThemViewModel> TaiLieuProjectLamThem { get; set; }
         public List<TracNghiemViewModel> TracNghiem { get; set; }
 
-        public List<VideoFPTViewModel> VideoFPT { get; set; }
         public List<dynamic> VideoXemLai { get; set; }
         public List<dynamic> VideoExtra { get; set; }
 
@@ -33,7 +32,6 @@ namespace SoloDevApp.Service.ViewModels
             TaiLieuDocThem = new List<TaiLieuDocThemViewModel>();
             TaiLieuProjectLamThem = new List<TaiLieuProjectLamThemViewModel>();
             TracNghiem = new List<TracNghiemViewModel> ();
-            VideoFPT = new List<VideoFPTViewModel> ();
             VideoXemLai = new List<dynamic>();
             VideoExtra = new List<dynamic>();
         }

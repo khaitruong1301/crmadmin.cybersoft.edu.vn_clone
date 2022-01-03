@@ -109,7 +109,6 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<TaiLieuBaiTapViewModel, TaiLieuBaiTap>();
             CreateMap<TaiLieuDocThemViewModel, TaiLieuDocThem>();
             CreateMap<TaiLieuProjectLamThemViewModel, TaiLieuProjectLamThem>();
-            CreateMap<VideoFPTViewModel, VideoFPT>();
             CreateMap<TracNghiemViewModel, TracNghiem>();
         }
     }

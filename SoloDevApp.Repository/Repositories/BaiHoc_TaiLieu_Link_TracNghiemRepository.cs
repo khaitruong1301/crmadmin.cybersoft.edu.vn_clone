@@ -77,17 +77,7 @@ namespace SoloDevApp.Repository.Repositories
             }
         }
 
-        public interface IVideoFPTRepository : IRepository<VideoFPT>
-        {
-        }
-
-        public class VideoFPTRepository : RepositoryBase<VideoFPT>, IVideoFPTRepository
-    {
-            public VideoFPTRepository(IConfiguration configuration)
-                : base(configuration)
-            {
-            }
-        }
+      
 
     
 }

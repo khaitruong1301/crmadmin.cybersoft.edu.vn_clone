@@ -62,7 +62,6 @@ namespace SoloDevApp.Service.Services
         private ITaiLieuDocThemRepository _taiLieuDocThemRepository;
         private ITaiLieuProjectLamThemRepository _taiLieuProjectLamThemRepository;
         private ITracNghiemRepository _tracNghiemRepository;
-        private IVideoFPTRepository _videoFPTRepository;
 
 
         private readonly IAppSettings _appSettings;
@@ -85,7 +84,6 @@ namespace SoloDevApp.Service.Services
             ITaiLieuDocThemRepository taiLieuDocThemRepository,
             ITaiLieuProjectLamThemRepository taiLieuProjectLamThemRepository,
             ITracNghiemRepository tracNghiemRepository,
-            IVideoFPTRepository videoFPTRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -107,7 +105,6 @@ namespace SoloDevApp.Service.Services
             _taiLieuDocThemRepository = taiLieuDocThemRepository;
             _taiLieuProjectLamThemRepository = taiLieuProjectLamThemRepository;
             _tracNghiemRepository = tracNghiemRepository;
-            _videoFPTRepository = videoFPTRepository;
             _appSettings = appSettings;
 
         }
@@ -676,44 +673,10 @@ namespace SoloDevApp.Service.Services
                         buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
 
 
-                        //VideoFPT
-                        IEnumerable<VideoFPT> lsVideoFPT = await _videoFPTRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                        buoiHocVm.VideoFPT = (_mapper.Map<List<VideoFPTViewModel>>(lsVideoFPT));
-
-                        //IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-
-
-
-                        //buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
-
-                        //Add Bai Hoc
-                        //foreach (BaiHoc_TaiLieu_Link_TracNghiem baiHoc in lsBaiHoc)
-                        //{
-                        //    BaiHoc_TaiLieu_Link_TracNghiemViewModel baiHocVm = new BaiHoc_TaiLieu_Link_TracNghiemViewModel();
-
-                        //    baiHocVm = _mapper.Map<BaiHoc_TaiLieu_Link_TracNghiemViewModel>(baiHoc);
-
-                        //    switch (baiHocVm.MaLoaiBaiHoc)
-                        //    {
-                        //        case "VIDEO_FPT":
-                        //            buoiHocVm.BaiHocVideoFPT.Add(baiHocVm);
-                        //            break;
-                        //        case "FILE":
-                        //            buoiHocVm.TaiLieu.Add(baiHocVm);
-                        //            break;
-                        //        case "ARTICLE":
-                        //            buoiHocVm.BaiHoc.Add(baiHocVm);
-                        //            break;
-                        //    }
-
-                        //}
-
-
                         //Add VideoXemLai
                         List<KeyValuePair<string, dynamic>> colums = new List<KeyValuePair<string, dynamic>>();
 
                         colums.Add(new KeyValuePair<string, dynamic>("MaBuoi", buoiHoc.Id));
-
 
                         IEnumerable<XemLaiBuoiHoc> lsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetMultiByListConditionAndAsync(colums);
 
@@ -727,9 +690,7 @@ namespace SoloDevApp.Service.Services
                             }
                         }
 
-                        //Add Video Extra
-
-
+                        //Add các Video extra vào
                         IEnumerable<VideoExtra> lsVideoExtra = await _videoExtraRepository.GetMultiByListConditionAndAsync(colums);
 
                         if (lsVideoExtra != null)
@@ -741,25 +702,10 @@ namespace SoloDevApp.Service.Services
                                 buoiHocVm.VideoExtra.Add(videoExtraVm);
                             }
                         }
-
-                        //Add Bai tap Nop
-
-                        //IEnumerable<BaiTapNop> lsBaiTapNop = await _baiTapNopRepository.GetMultiByListConditionAndAsync(colums);
-
-                        //if (lsBaiTapNop != null)
-                        //{
-                        //    foreach (BaiTapNop baiTapNop in lsBaiTapNop)
-                        //    {
-                        //        BaiTapNopViewModel baiTapNopVm = new BaiTapNopViewModel();
-                        //        baiTapNopVm = _mapper.Map<BaiTapNopViewModel>(baiTapNop);
-                        //        buoiHocVm.BaiTapNop.Add(baiTapNopVm);
-                        //    }
-                        //}
-
-
+                        //Add buổi học vào list buổi học
                         lsBuoiHocVm.Add(buoiHocVm);
                     }
-
+                    
                     buoiHocBySkillVm.DanhSachBuoiHoc = lsBuoiHocVm;
                     dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
                 }

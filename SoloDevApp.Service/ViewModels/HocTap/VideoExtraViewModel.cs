@@ -4,7 +4,7 @@ namespace SoloDevApp.Service.ViewModels
 {
     public class VideoExtraViewModel
     {
-    public int Id { get; set; }
+        public int Id { get; set; }
         public string TieuDe { get; set; }
         public string BiDanh { get; set; }
         public int ThoiLuong { get; set; }
