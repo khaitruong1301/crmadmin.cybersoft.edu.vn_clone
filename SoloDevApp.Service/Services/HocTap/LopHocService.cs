@@ -63,8 +63,7 @@ namespace SoloDevApp.Service.Services
         private ITaiLieuProjectLamThemRepository _taiLieuProjectLamThemRepository;
         private ITaiLieuCapstoneRepository _taiLieuCapstoneRepository;
         private ITracNghiemRepository _tracNghiemRepository;
-        private IKhoaHocSkillRepository _khoaHocSkillRepository;
-        private IChuongHocRepository _chuongHocRepository;
+     private IChuongHocRepository _chuongHocRepository;
         private IBaiHocRepository _baiHocRepository;
 
 
@@ -89,7 +88,6 @@ namespace SoloDevApp.Service.Services
             ITaiLieuProjectLamThemRepository taiLieuProjectLamThemRepository,
             ITaiLieuCapstoneRepository taiLieuCapstoneRepository,
             ITracNghiemRepository tracNghiemRepository,
-            IKhoaHocSkillRepository khoaHocSkillRepository,
             IChuongHocRepository chuongHocRepository,
             IBaiHocRepository baiHocRepository,
         IAppSettings appSettings,
@@ -114,7 +112,6 @@ namespace SoloDevApp.Service.Services
             _taiLieuProjectLamThemRepository = taiLieuProjectLamThemRepository;
             _taiLieuCapstoneRepository = taiLieuCapstoneRepository;
             _tracNghiemRepository = tracNghiemRepository;
-            _khoaHocSkillRepository = khoaHocSkillRepository;
             _chuongHocRepository = chuongHocRepository;
             _baiHocRepository = baiHocRepository;
             _appSettings = appSettings;
@@ -655,16 +652,27 @@ namespace SoloDevApp.Service.Services
 
                     buoiHocBySkillVm.tenSkill = groupSkill.Key;
 
-                    //Lấy ra các khóa học của skill
+                    buoiHocBySkillVm.DanhSachKhoaHocBySkill = new List<dynamic>();
+
+                    //Lấy ra các khóa học video liên quan của skill
                     List<KeyValuePair<string, dynamic>> khoaHoccolums = new List<KeyValuePair<string, dynamic>>();
 
                     khoaHoccolums.Add(new KeyValuePair<string, dynamic>("MaSkill", groupSkill.Key));
 
-                    IEnumerable<KhoaHocSkill> lsKhoaHocBySkill = await _khoaHocSkillRepository.GetMultiByListConditionAndAsync(khoaHoccolums);
+                    IEnumerable<KhoaHoc> lsKhoaHocBySkill = await _khoaHocRepository.GetMultiByListConditionAndAsync(khoaHoccolums);
 
-                    foreach (KhoaHocSkill khoaHoc in lsKhoaHocBySkill)
+                    foreach (KhoaHoc khoaHoc in lsKhoaHocBySkill)
                     {
-                        
+                        KhoaHocViewModel khoaHocVm = _mapper.Map<KhoaHocViewModel>(khoaHoc);
+
+                        KhoaHocSkillViewModel khoaHocSkillVm = new KhoaHocSkillViewModel();
+
+                        khoaHocSkillVm.TenKhoaHoc = khoaHocVm.TenKhoaHoc;
+                        khoaHocSkillVm.HinhAnh = khoaHocVm.HinhAnh;
+                        khoaHocSkillVm.SoNgayKichHoat = khoaHocVm.SoNgayKichHoat;
+
+
+                        khoaHocSkillVm.DanhSachChuongHocSkill = new List<dynamic>();
 
                         //Lấy ra danh sách các chương học trong khóa
                         List<dynamic> dsChuongHocTrongKhoa = JsonConvert.DeserializeObject<List<dynamic>>(khoaHoc.DanhSachChuongHoc);
@@ -674,6 +682,11 @@ namespace SoloDevApp.Service.Services
                         //Duyệt từng chương học để lấy bài học 
                         foreach (ChuongHoc chuongHoc in lsChuongHoc)
                         {
+                            
+                            ChuongHocViewModel chuongHocVm = _mapper.Map<ChuongHocViewModel>(chuongHoc);
+
+                            chuongHocVm.DanhSachBaiHoc = new List<dynamic>();
+
                             //Lấy ra danh sách bài học trong chương
                             List<dynamic> dsBaiHocTrongChuong = JsonConvert.DeserializeObject<List<dynamic>>(chuongHoc.DanhSachBaiHoc);
                             IEnumerable<BaiHoc> lsBaiHoc = await _baiHocRepository.GetMultiByIdAsync(dsBaiHocTrongChuong);
@@ -682,7 +695,11 @@ namespace SoloDevApp.Service.Services
 
                             List<BaiHocViewModel> lsBaiHocVm = _mapper.Map<List<BaiHocViewModel>>(lsBaiHoc);
 
+                            chuongHocVm.DanhSachBaiHoc.Add(lsBaiHocVm);
+                            khoaHocSkillVm.DanhSachChuongHocSkill.Add(chuongHocVm);
                         }
+                        
+                        buoiHocBySkillVm.DanhSachKhoaHocBySkill.Add(khoaHocSkillVm);
 
                     }
 
@@ -713,6 +730,10 @@ namespace SoloDevApp.Service.Services
                         //TaiLieuProjectLamThem
                         IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
                         buoiHocVm.TaiLieuProjectLamThem = (_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
+
+                        //TaiLieuCapstone
+                        IEnumerable<TaiLieuCapstone> lsTaiLieuCapstone = await _taiLieuCapstoneRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuCapstone = (_mapper.Map<List<TaiLieuCapstoneViewModel>>(lsTaiLieuCapstone));
 
                         //TracNghiem
                         IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);

@@ -44,7 +44,7 @@ namespace SoloDevApp.Service.ViewModels
     public class BuoiHocBySkillViewModel
     {
         public string tenSkill;
-        public List<KhoaHocSkillViewModel> danhSachKhoaHocBySkill;
+        public List<dynamic> DanhSachKhoaHocBySkill;
         public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
     }
 }

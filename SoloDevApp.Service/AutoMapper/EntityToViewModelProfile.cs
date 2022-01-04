@@ -130,6 +130,7 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<TaiLieuProjectLamThem, TaiLieuProjectLamThemViewModel>();
             CreateMap<TracNghiem, TracNghiemViewModel>();
             CreateMap<TaiLieuCapstone, TaiLieuCapstoneViewModel>();
+           
         }
     }
 }

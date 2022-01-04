@@ -17,8 +17,11 @@ namespace SoloDevApp.Service.ViewModels
 
     }
 
-    public class KhoaHocSkillViewModel : KhoaHocViewModel
+    public class KhoaHocSkillViewModel
     {
-        public string MaSkill { get; set; }
+        public string TenKhoaHoc { get; set; }
+        public string HinhAnh { get; set; }
+        public int SoNgayKichHoat { get; set; }
+        public List<dynamic> DanhSachChuongHocSkill { get; set; }
     }
 }
