@@ -76,9 +76,21 @@ namespace SoloDevApp.Repository.Repositories
             {
             }
         }
+        public interface ITaiLieuCapstoneRepository : IRepository<TaiLieuCapstone>
+        {
+        }
 
-      
+        public class TaiLieuCapstoneRepository : RepositoryBase<TaiLieuCapstone>, ITaiLieuCapstoneRepository
+        {
+            public TaiLieuCapstoneRepository(IConfiguration configuration)
+                : base(configuration)
+            {
+            }
+        }
 
-    
+
+
+
+
 }
 

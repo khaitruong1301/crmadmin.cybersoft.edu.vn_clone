@@ -13,4 +13,9 @@
         public int SoNgayKichHoat { get; set; }
         public bool KichHoatSan { get; set; }
     }
+
+    public class KhoaHocSkill :KhoaHoc
+    {
+        public string MaSkil { get; set; }
+    }
 }

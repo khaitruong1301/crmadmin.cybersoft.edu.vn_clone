@@ -16,4 +16,9 @@ namespace SoloDevApp.Service.ViewModels
         public bool KichHoatSan { get; set; }
 
     }
+
+    public class KhoaHocSkillViewModel : KhoaHocViewModel
+    {
+        public string MaSkill { get; set; }
+    }
 }

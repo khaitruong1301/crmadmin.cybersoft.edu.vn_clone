@@ -15,4 +15,16 @@ namespace SoloDevApp.Repository.Repositories
         {
         }
     }
+
+    public interface IKhoaHocSkillRepository : IRepository<KhoaHocSkill>
+    {
+
+    }
+    public class KhoaHocSkillRepository : RepositoryBase<KhoaHocSkill>, IKhoaHocSkillRepository
+    {
+        public KhoaHocSkillRepository (IConfiguration configuration) : base (configuration)
+        {
+
+        }
+    }
 }

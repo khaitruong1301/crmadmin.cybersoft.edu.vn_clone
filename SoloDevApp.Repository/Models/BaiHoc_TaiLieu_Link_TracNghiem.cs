@@ -47,4 +47,9 @@
     public class TracNghiem : TaiLieu
     {
     }
+
+    public class TaiLieuCapstone : TaiLieu
+    {
+
+    }
 }

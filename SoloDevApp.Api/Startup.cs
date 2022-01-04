@@ -80,6 +80,8 @@ namespace SoloDevApp.Api
             services.AddTransient<ITaiLieuDocThemRepository, TaiLieuDocThemRepository>();
             services.AddTransient<ITaiLieuProjectLamThemRepository, TaiLieuProjectLamThemRepository>();
             services.AddTransient<ITracNghiemRepository, TracNghiemRepository>();
+            services.AddTransient<IKhoaHocSkillRepository, KhoaHocSkillRepository>();
+            services.AddTransient<ITaiLieuCapstoneRepository, TaiLieuCapstoneRepository>();
 
 
             // ==================== SERVICE ====================
@@ -113,6 +115,7 @@ namespace SoloDevApp.Api
             services.AddTransient<IChiNhanhService, ChiNhanhService>();
             services.AddTransient<IXepLichService, XepLichService>();
             services.AddTransient<IXemLaiBuoiHocService, XemLaiBuoiHocService>();
+
             services.AddTransient<IRoadMapDetailService, RoadMapDetailService>();
             services.AddTransient<IRoadMapService, RoadMapService>();
             services.AddTransient<IBuoiHocService, BuoiHocService>();

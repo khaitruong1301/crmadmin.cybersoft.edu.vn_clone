@@ -11,7 +11,7 @@ namespace SoloDevApp.Api.Controllers
 {
     [Route("api/khoahoc")]
     [ApiController]
-    [ApiKeyAuth]
+    //[ApiKeyAuth]
     public class KhoaHocController : ControllerBase
     {
         private IKhoaHocService _khoaHocService;

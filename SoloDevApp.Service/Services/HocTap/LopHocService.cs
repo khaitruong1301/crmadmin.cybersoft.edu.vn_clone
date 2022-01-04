@@ -61,7 +61,11 @@ namespace SoloDevApp.Service.Services
         private ITaiLieuBaiTapRepository _taiLieuBaiTapRepository;
         private ITaiLieuDocThemRepository _taiLieuDocThemRepository;
         private ITaiLieuProjectLamThemRepository _taiLieuProjectLamThemRepository;
+        private ITaiLieuCapstoneRepository _taiLieuCapstoneRepository;
         private ITracNghiemRepository _tracNghiemRepository;
+        private IKhoaHocSkillRepository _khoaHocSkillRepository;
+        private IChuongHocRepository _chuongHocRepository;
+        private IBaiHocRepository _baiHocRepository;
 
 
         private readonly IAppSettings _appSettings;
@@ -83,7 +87,11 @@ namespace SoloDevApp.Service.Services
             ITaiLieuBaiTapRepository taiLieuBaiTapRepository,
             ITaiLieuDocThemRepository taiLieuDocThemRepository,
             ITaiLieuProjectLamThemRepository taiLieuProjectLamThemRepository,
+            ITaiLieuCapstoneRepository taiLieuCapstoneRepository,
             ITracNghiemRepository tracNghiemRepository,
+            IKhoaHocSkillRepository khoaHocSkillRepository,
+            IChuongHocRepository chuongHocRepository,
+            IBaiHocRepository baiHocRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -104,7 +112,11 @@ namespace SoloDevApp.Service.Services
             _taiLieuBaiTapRepository = taiLieuBaiTapRepository;
             _taiLieuDocThemRepository = taiLieuDocThemRepository;
             _taiLieuProjectLamThemRepository = taiLieuProjectLamThemRepository;
+            _taiLieuCapstoneRepository = taiLieuCapstoneRepository;
             _tracNghiemRepository = tracNghiemRepository;
+            _khoaHocSkillRepository = khoaHocSkillRepository;
+            _chuongHocRepository = chuongHocRepository;
+            _baiHocRepository = baiHocRepository;
             _appSettings = appSettings;
 
         }
@@ -635,6 +647,7 @@ namespace SoloDevApp.Service.Services
 
                 List<BuoiHocBySkillViewModel> dsBuoiHocBySkillVm = new List<BuoiHocBySkillViewModel>();
 
+
                 foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
                 {
                     BuoiHocBySkillViewModel buoiHocBySkillVm = new BuoiHocBySkillViewModel();
@@ -642,7 +655,40 @@ namespace SoloDevApp.Service.Services
 
                     buoiHocBySkillVm.tenSkill = groupSkill.Key;
 
-                    //Duyệt từng buổi học trong skill để lấy data
+                    //Lấy ra các khóa học của skill
+                    List<KeyValuePair<string, dynamic>> khoaHoccolums = new List<KeyValuePair<string, dynamic>>();
+
+                    khoaHoccolums.Add(new KeyValuePair<string, dynamic>("MaSkill", groupSkill.Key));
+
+                    IEnumerable<KhoaHocSkill> lsKhoaHocBySkill = await _khoaHocSkillRepository.GetMultiByListConditionAndAsync(khoaHoccolums);
+
+                    foreach (KhoaHocSkill khoaHoc in lsKhoaHocBySkill)
+                    {
+                        
+
+                        //Lấy ra danh sách các chương học trong khóa
+                        List<dynamic> dsChuongHocTrongKhoa = JsonConvert.DeserializeObject<List<dynamic>>(khoaHoc.DanhSachChuongHoc);
+
+                        IEnumerable<ChuongHoc> lsChuongHoc = await _chuongHocRepository.GetMultiByIdAsync(dsChuongHocTrongKhoa);
+
+                        //Duyệt từng chương học để lấy bài học 
+                        foreach (ChuongHoc chuongHoc in lsChuongHoc)
+                        {
+                            //Lấy ra danh sách bài học trong chương
+                            List<dynamic> dsBaiHocTrongChuong = JsonConvert.DeserializeObject<List<dynamic>>(chuongHoc.DanhSachBaiHoc);
+                            IEnumerable<BaiHoc> lsBaiHoc = await _baiHocRepository.GetMultiByIdAsync(dsBaiHocTrongChuong);
+
+                            //Chuyển list modal bài học thành list view
+
+                            List<BaiHocViewModel> lsBaiHocVm = _mapper.Map<List<BaiHocViewModel>>(lsBaiHoc);
+
+                        }
+
+                    }
+
+
+
+                    //Duyệt từng buổi học trong skill để lấy data bài học
 
                     foreach (var buoiHoc in groupSkill)
                     {
