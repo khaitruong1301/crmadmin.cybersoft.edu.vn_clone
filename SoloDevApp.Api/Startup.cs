@@ -81,6 +81,7 @@ namespace SoloDevApp.Api
             services.AddTransient<ITaiLieuProjectLamThemRepository, TaiLieuProjectLamThemRepository>();
             services.AddTransient<ITracNghiemRepository, TracNghiemRepository>();
             services.AddTransient<ITaiLieuCapstoneRepository, TaiLieuCapstoneRepository>();
+            services.AddTransient<IBuoiHoc_NguoiDungRepository, BuoiHoc_NguoiDungRepository>();
 
 
             // ==================== SERVICE ====================

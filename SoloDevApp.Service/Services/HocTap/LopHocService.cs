@@ -65,6 +65,7 @@ namespace SoloDevApp.Service.Services
         private ITracNghiemRepository _tracNghiemRepository;
      private IChuongHocRepository _chuongHocRepository;
         private IBaiHocRepository _baiHocRepository;
+        private IBuoiHoc_NguoiDungRepository _buoiHocNguoiDungRepository;
 
 
         private readonly IAppSettings _appSettings;
@@ -90,6 +91,7 @@ namespace SoloDevApp.Service.Services
             ITracNghiemRepository tracNghiemRepository,
             IChuongHocRepository chuongHocRepository,
             IBaiHocRepository baiHocRepository,
+            IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -114,6 +116,7 @@ namespace SoloDevApp.Service.Services
             _tracNghiemRepository = tracNghiemRepository;
             _chuongHocRepository = chuongHocRepository;
             _baiHocRepository = baiHocRepository;
+            _buoiHocNguoiDungRepository = buoiHoc_NguoiDungRepository;
             _appSettings = appSettings;
 
         }
@@ -724,9 +727,24 @@ namespace SoloDevApp.Service.Services
 
                         BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
 
+                        //Lấy ra dữ liệu BuoiHoc_NguoiDung về bài tập
+                        List<KeyValuePair<string, dynamic>> buoiHocNguoiDungColumns = new List<KeyValuePair<string, dynamic>>();
+                        //Gán cứng mã người dùng của sĩ để test sau này sẽ lấy từ token gắn ở header
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", "d9699b77-f003-42c4-b050-26607079a789"));
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaBuoiHoc", buoiHoc.Id));
+
+                        BuoiHoc_NguoiDung buoiHocNguoiDung = await _buoiHocNguoiDungRepository.GetSingleByListConditionAsync(buoiHocNguoiDungColumns);
+
+                        if (buoiHocNguoiDung != null)
+                        {
+                            IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
+
+                            buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
+                        }
+
                         //Lấy ra dữ liệu của các View và gán cho buoiHocView
                         //TaiLieuBaiHoc
-                        IEnumerable<TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        IEnumerable <TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
                         buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
 
                         //TaiLieuBaiTap

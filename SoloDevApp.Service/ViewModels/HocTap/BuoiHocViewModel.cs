@@ -24,11 +24,14 @@ namespace SoloDevApp.Service.ViewModels
         public List<TaiLieuCapstoneViewModel> TaiLieuCapstone { get; set; }
         public List<TracNghiemViewModel> TracNghiem { get; set; }
 
+        public List<LichSuHocTapViewModel> LichSuHocTap { get; set; }
+
         public List<dynamic> VideoXemLai { get; set; }
         public List<dynamic> VideoExtra { get; set; }
 
         public BuoiHocViewModel()
         {
+            LichSuHocTap = new List<LichSuHocTapViewModel>();
             TaiLieuBaiHoc = new List<TaiLieuBaiHocViewModel>();
             TaiLieuBaiTap =   new List<TaiLieuBaiTapViewModel>();
             TaiLieuDocThem = new List<TaiLieuDocThemViewModel>();
