@@ -638,7 +638,17 @@ namespace SoloDevApp.Service.Services
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
                 }
 
-                List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
+                ThongTinLopHocBySkill thongTinLopHoc = new ThongTinLopHocBySkill();
+
+                thongTinLopHoc.TenLopHoc = lopHoc.TenLopHoc;
+                thongTinLopHoc.BiDanh = lopHoc.BiDanh;
+                thongTinLopHoc.NgayBatDau = FuncUtilities.ConvertDateToString(lopHoc.NgayBatDau);
+                thongTinLopHoc.NgayKetThuc = FuncUtilities.ConvertDateToString(lopHoc.NgayKetThuc);
+                thongTinLopHoc.SoHocVien = lopHoc.SoHocVien;
+                thongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
+                thongTinLopHoc.Token = lopHoc?.Token;
+
+        List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
 
                 IEnumerable<BuoiHoc> dsBuoiHoc = await _buoiHocRepository.GetMultiByIdAsync(danhSachBuoi);
 
@@ -777,7 +787,7 @@ namespace SoloDevApp.Service.Services
                     dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
                 }
                
-                return new ResponseEntity(StatusCodeConstants.OK, dsBuoiHocBySkillVm);
+                return new ResponseEntity(StatusCodeConstants.OK, new { thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
             }
             catch (Exception ex)
             {
