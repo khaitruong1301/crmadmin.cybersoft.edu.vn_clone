@@ -66,7 +66,7 @@ namespace SoloDevApp.Service.Services
      private IChuongHocRepository _chuongHocRepository;
         private IBaiHocRepository _baiHocRepository;
         private IBuoiHoc_NguoiDungRepository _buoiHocNguoiDungRepository;
-
+        private IThongBaoRepository _thongBaoRepository;
 
         private readonly IAppSettings _appSettings;
 
@@ -92,6 +92,7 @@ namespace SoloDevApp.Service.Services
             IChuongHocRepository chuongHocRepository,
             IBaiHocRepository baiHocRepository,
             IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository,
+            IThongBaoRepository thongBaoRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -117,6 +118,7 @@ namespace SoloDevApp.Service.Services
             _chuongHocRepository = chuongHocRepository;
             _baiHocRepository = baiHocRepository;
             _buoiHocNguoiDungRepository = buoiHoc_NguoiDungRepository;
+            _thongBaoRepository = thongBaoRepository;
             _appSettings = appSettings;
 
         }
@@ -634,12 +636,32 @@ namespace SoloDevApp.Service.Services
         {
             try
             {
+                string maNguoiDung = "d9699b77-f003-42c4-b050-26607079a789";
+
                 LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(classId);
 
                 if (lopHoc == null)
                 {
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
                 }
+
+                //Lấy tất cả thông báo của người dùng
+                ThongBao thongBao = await _thongBaoRepository.GetSingleByConditionAsync("MaNguoiDung", maNguoiDung);
+
+                List<NoiDungThongBao> lsNoiDungThongBaoVm = new List<NoiDungThongBao>();
+
+                if (thongBao != null)
+                {
+                    IEnumerable<NoiDungThongBao> lsNoiDungThongBao = JsonConvert.DeserializeObject<IEnumerable<NoiDungThongBao>>(thongBao.NoiDung);
+
+                    lsNoiDungThongBaoVm = lsNoiDungThongBao.ToList();
+
+
+                }
+
+
+
+                //Lấy thông tin của lớp học
 
                 ThongTinLopHocBySkill thongTinLopHoc = new ThongTinLopHocBySkill();
 
@@ -651,7 +673,7 @@ namespace SoloDevApp.Service.Services
                 thongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
                 thongTinLopHoc.Token = lopHoc?.Token;
 
-        List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
+                List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
 
                 IEnumerable<BuoiHoc> dsBuoiHoc = await _buoiHocRepository.GetMultiByIdAsync(danhSachBuoi);
 
@@ -730,7 +752,7 @@ namespace SoloDevApp.Service.Services
                         //Lấy ra dữ liệu BuoiHoc_NguoiDung về bài tập
                         List<KeyValuePair<string, dynamic>> buoiHocNguoiDungColumns = new List<KeyValuePair<string, dynamic>>();
                         //Gán cứng mã người dùng của sĩ để test sau này sẽ lấy từ token gắn ở header
-                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", "d9699b77-f003-42c4-b050-26607079a789"));
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", maNguoiDung));
                         buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaBuoiHoc", buoiHoc.Id));
 
                         BuoiHoc_NguoiDung buoiHocNguoiDung = await _buoiHocNguoiDungRepository.GetSingleByListConditionAsync(buoiHocNguoiDungColumns);
@@ -805,7 +827,7 @@ namespace SoloDevApp.Service.Services
                     dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
                 }
                
-                return new ResponseEntity(StatusCodeConstants.OK, new { thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
+                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
             }
             catch (Exception ex)
             {

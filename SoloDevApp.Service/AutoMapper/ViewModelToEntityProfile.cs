@@ -104,6 +104,7 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<VideoExtraViewModel, VideoExtra>();
             CreateMap<BaiHoc_TaiLieu_Link_TracNghiemViewModel, BaiHoc_TaiLieu_Link_TracNghiem>();
             CreateMap<LichSuHocTapViewModel, LichSuHocTap>();
+            CreateMap<NoiDungThongBaoViewModel, NoiDungThongBao>();
 
             /*=========== ROAD MAP VIEW TABLE =============*/
             CreateMap<TaiLieuBaiHocViewModel, TaiLieuBaiHoc>();
