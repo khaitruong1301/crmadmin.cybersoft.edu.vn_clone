@@ -122,6 +122,11 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<UnitCourse, UnitCourseViewModel>();
             CreateMap<VideoExtra, VideoExtraViewModel>();
             CreateMap<BaiHoc_TaiLieu_Link_TracNghiem, BaiHoc_TaiLieu_Link_TracNghiemViewModel>();
+            CreateMap<LichSuHocTap, LichSuHocTapViewModel>();
+            CreateMap<NoiDungThongBao, NoiDungThongBaoViewModel>()
+                .ForMember(modelVm => modelVm.NgayThang,
+                                    m => m.MapFrom(entity => FuncUtilities.ConvertStringToDate(entity.NgayThang)));
+ 
 
             /*=========== ROAD MAP VIEW TABLE =============*/
             CreateMap<TaiLieuBaiHoc, TaiLieuBaiHocViewModel>();
@@ -129,7 +134,9 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<TaiLieuDocThem, TaiLieuDocThemViewModel>();
             CreateMap<TaiLieuProjectLamThem, TaiLieuProjectLamThemViewModel>();
             CreateMap<TracNghiem, TracNghiemViewModel>();
-            CreateMap<VideoFPT, VideoFPTViewModel>();
+            CreateMap<TaiLieuCapstone, TaiLieuCapstoneViewModel>();
+            
+           
         }
     }
 }

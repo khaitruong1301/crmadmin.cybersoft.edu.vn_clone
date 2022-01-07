@@ -57,6 +57,7 @@ namespace SoloDevApp.Api.Controllers
         {
             return await _xemLaiBuoiHocService.DeleteByIdAsync(Ids);
         }
+
         [HttpGet("lay-theo-lop/{malop}")]
         public async Task<IActionResult> Delete(int malop)
         {

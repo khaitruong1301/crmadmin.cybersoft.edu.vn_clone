@@ -4,17 +4,15 @@ using SoloDevApp.Repository.Models;
 
 namespace SoloDevApp.Repository.Repositories
 {
-    public interface IKhoaHocRepository : IRepository<KhoaHoc>
+    public interface IThongBaoRepository : IRepository<ThongBao>
     {
     }
 
-    public class KhoaHocRepository : RepositoryBase<KhoaHoc>, IKhoaHocRepository
+    public class ThongBaoRepository : RepositoryBase<ThongBao>, IThongBaoRepository
     {
-        public KhoaHocRepository(IConfiguration configuration)
+        public ThongBaoRepository(IConfiguration configuration)
             : base(configuration)
         {
         }
     }
-
-  
 }

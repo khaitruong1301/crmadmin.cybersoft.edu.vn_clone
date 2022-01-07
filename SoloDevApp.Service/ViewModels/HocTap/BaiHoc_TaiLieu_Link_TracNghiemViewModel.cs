@@ -29,6 +29,7 @@ namespace SoloDevApp.Service.ViewModels
     public class TaiLieuBaiTapViewModel : TaiLieuViewModel { }
     public class TaiLieuDocThemViewModel : TaiLieuViewModel { }
     public class TaiLieuProjectLamThemViewModel : TaiLieuViewModel { }
+    public class TaiLieuCapstoneViewModel : TaiLieuViewModel {}
     public class TracNghiemViewModel : TaiLieuViewModel { }
 
     public class VideoFPTViewModel : TaiLieuViewModel {

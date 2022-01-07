@@ -76,19 +76,21 @@ namespace SoloDevApp.Repository.Repositories
             {
             }
         }
-
-        public interface IVideoFPTRepository : IRepository<VideoFPT>
+        public interface ITaiLieuCapstoneRepository : IRepository<TaiLieuCapstone>
         {
         }
 
-        public class VideoFPTRepository : RepositoryBase<VideoFPT>, IVideoFPTRepository
-    {
-            public VideoFPTRepository(IConfiguration configuration)
+        public class TaiLieuCapstoneRepository : RepositoryBase<TaiLieuCapstone>, ITaiLieuCapstoneRepository
+        {
+            public TaiLieuCapstoneRepository(IConfiguration configuration)
                 : base(configuration)
             {
             }
         }
 
-    
+
+
+
+
 }
 

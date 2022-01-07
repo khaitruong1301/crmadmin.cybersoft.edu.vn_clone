@@ -61,9 +61,12 @@ namespace SoloDevApp.Service.Services
         private ITaiLieuBaiTapRepository _taiLieuBaiTapRepository;
         private ITaiLieuDocThemRepository _taiLieuDocThemRepository;
         private ITaiLieuProjectLamThemRepository _taiLieuProjectLamThemRepository;
+        private ITaiLieuCapstoneRepository _taiLieuCapstoneRepository;
         private ITracNghiemRepository _tracNghiemRepository;
-        private IVideoFPTRepository _videoFPTRepository;
-
+     private IChuongHocRepository _chuongHocRepository;
+        private IBaiHocRepository _baiHocRepository;
+        private IBuoiHoc_NguoiDungRepository _buoiHocNguoiDungRepository;
+        private IThongBaoRepository _thongBaoRepository;
 
         private readonly IAppSettings _appSettings;
 
@@ -84,8 +87,12 @@ namespace SoloDevApp.Service.Services
             ITaiLieuBaiTapRepository taiLieuBaiTapRepository,
             ITaiLieuDocThemRepository taiLieuDocThemRepository,
             ITaiLieuProjectLamThemRepository taiLieuProjectLamThemRepository,
+            ITaiLieuCapstoneRepository taiLieuCapstoneRepository,
             ITracNghiemRepository tracNghiemRepository,
-            IVideoFPTRepository videoFPTRepository,
+            IChuongHocRepository chuongHocRepository,
+            IBaiHocRepository baiHocRepository,
+            IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository,
+            IThongBaoRepository thongBaoRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -106,8 +113,12 @@ namespace SoloDevApp.Service.Services
             _taiLieuBaiTapRepository = taiLieuBaiTapRepository;
             _taiLieuDocThemRepository = taiLieuDocThemRepository;
             _taiLieuProjectLamThemRepository = taiLieuProjectLamThemRepository;
+            _taiLieuCapstoneRepository = taiLieuCapstoneRepository;
             _tracNghiemRepository = tracNghiemRepository;
-            _videoFPTRepository = videoFPTRepository;
+            _chuongHocRepository = chuongHocRepository;
+            _baiHocRepository = baiHocRepository;
+            _buoiHocNguoiDungRepository = buoiHoc_NguoiDungRepository;
+            _thongBaoRepository = thongBaoRepository;
             _appSettings = appSettings;
 
         }
@@ -625,6 +636,8 @@ namespace SoloDevApp.Service.Services
         {
             try
             {
+                string maNguoiDung = "d9699b77-f003-42c4-b050-26607079a789";
+
                 LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(classId);
 
                 if (lopHoc == null)
@@ -632,127 +645,189 @@ namespace SoloDevApp.Service.Services
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
                 }
 
-                List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
+                //Lấy tất cả thông báo của người dùng
+                ThongBao thongBao = await _thongBaoRepository.GetSingleByConditionAsync("MaNguoiDung", maNguoiDung);
 
-                List<int> danhSachBuoi = JsonConvert.DeserializeObject<List<int>>(lopHoc.DanhSachBuoi);
+                List<NoiDungThongBao> lsNoiDungThongBaoVm = new List<NoiDungThongBao>();
 
-                foreach (int buoiHocId in danhSachBuoi)
+                if (thongBao != null)
                 {
-                    BuoiHoc buoiHoc = await _buoiHocRepository.GetSingleByIdAsync(buoiHocId);
+                    IEnumerable<NoiDungThongBao> lsNoiDungThongBao = JsonConvert.DeserializeObject<IEnumerable<NoiDungThongBao>>(thongBao.NoiDung);
 
-                    List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
+                    lsNoiDungThongBaoVm = lsNoiDungThongBao.ToList();
 
-                    BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
-
-                    //Lấy ra dữ liệu của các View và gán cho buoiHocView
-                    //TaiLieuBaiHoc
-                    IEnumerable<TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
-
-                    //TaiLieuBaiTap
-                    IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuBaiTap = (_mapper.Map<List<TaiLieuBaiTapViewModel>>(lsTaiLieuBaiTap));
-
-                    //TaiLieuDocThem
-                    IEnumerable<TaiLieuDocThem> lsTaiLieuDocThem = await _taiLieuDocThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuDocThem =(_mapper.Map<List<TaiLieuDocThemViewModel>>(lsTaiLieuDocThem));
-
-                    //TaiLieuProjectLamThem
-                    IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TaiLieuProjectLamThem =(_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
-
-                    //TracNghiem
-                    IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
-
-
-                    //VideoFPT
-                    IEnumerable<VideoFPT> lsVideoFPT = await _videoFPTRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-                    buoiHocVm.VideoFPT = (_mapper.Map<List<VideoFPTViewModel>>(lsVideoFPT));
-
-                    //IEnumerable<BaiHoc_TaiLieu_Link_TracNghiem> lsBaiHoc = await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
-
-
-
-                    //buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
-
-                    //Add Bai Hoc
-                    //foreach (BaiHoc_TaiLieu_Link_TracNghiem baiHoc in lsBaiHoc)
-                    //{
-                    //    BaiHoc_TaiLieu_Link_TracNghiemViewModel baiHocVm = new BaiHoc_TaiLieu_Link_TracNghiemViewModel();
-
-                    //    baiHocVm = _mapper.Map<BaiHoc_TaiLieu_Link_TracNghiemViewModel>(baiHoc);
-
-                    //    switch (baiHocVm.MaLoaiBaiHoc)
-                    //    {
-                    //        case "VIDEO_FPT":
-                    //            buoiHocVm.BaiHocVideoFPT.Add(baiHocVm);
-                    //            break;
-                    //        case "FILE":
-                    //            buoiHocVm.TaiLieu.Add(baiHocVm);
-                    //            break;
-                    //        case "ARTICLE":
-                    //            buoiHocVm.BaiHoc.Add(baiHocVm);
-                    //            break;
-                    //    }
-
-                    //}
-
-
-                    //Add VideoXemLai
-                    List<KeyValuePair<string, dynamic>> colums = new List<KeyValuePair<string, dynamic>>();
-
-                    colums.Add(new KeyValuePair<string, dynamic>("MaBuoi", buoiHocId));
-
-
-                    IEnumerable<XemLaiBuoiHoc> lsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetMultiByListConditionAndAsync(colums);
-                    
-                    if (lsXemLaiBuoiHoc != null)
-                    {
-                        foreach (XemLaiBuoiHoc video in lsXemLaiBuoiHoc)
-                        {
-                            XemLaiBuoiHocViewModel xemLaiBuoiHocVm = new XemLaiBuoiHocViewModel();
-                            xemLaiBuoiHocVm = _mapper.Map<XemLaiBuoiHocViewModel>(video);
-                            buoiHocVm.VideoXemLai.Add(xemLaiBuoiHocVm);
-                        }
-                    }
-
-                    //Add Video Extra
-      
-
-                    IEnumerable<VideoExtra> lsVideoExtra = await _videoExtraRepository.GetMultiByListConditionAndAsync(colums);
-
-                    if (lsVideoExtra != null)
-                    {
-                        foreach (VideoExtra video in lsVideoExtra)
-                        {
-                            VideoExtraViewModel videoExtraVm = new VideoExtraViewModel();
-                            videoExtraVm = _mapper.Map<VideoExtraViewModel>(video);
-                            buoiHocVm.VideoExtra.Add(videoExtraVm);
-                        }
-                    }
-
-                    //Add Bai tap Nop
-
-                    //IEnumerable<BaiTapNop> lsBaiTapNop = await _baiTapNopRepository.GetMultiByListConditionAndAsync(colums);
-
-                    //if (lsBaiTapNop != null)
-                    //{
-                    //    foreach (BaiTapNop baiTapNop in lsBaiTapNop)
-                    //    {
-                    //        BaiTapNopViewModel baiTapNopVm = new BaiTapNopViewModel();
-                    //        baiTapNopVm = _mapper.Map<BaiTapNopViewModel>(baiTapNop);
-                    //        buoiHocVm.BaiTapNop.Add(baiTapNopVm);
-                    //    }
-                    //}
-
-
-                    lsBuoiHocVm.Add(buoiHocVm);
 
                 }
 
 
-                return new ResponseEntity(StatusCodeConstants.OK, lsBuoiHocVm);
+
+                //Lấy thông tin của lớp học
+
+                ThongTinLopHocBySkill thongTinLopHoc = new ThongTinLopHocBySkill();
+
+                thongTinLopHoc.TenLopHoc = lopHoc.TenLopHoc;
+                thongTinLopHoc.BiDanh = lopHoc.BiDanh;
+                thongTinLopHoc.NgayBatDau = FuncUtilities.ConvertDateToString(lopHoc.NgayBatDau);
+                thongTinLopHoc.NgayKetThuc = FuncUtilities.ConvertDateToString(lopHoc.NgayKetThuc);
+                thongTinLopHoc.SoHocVien = lopHoc.SoHocVien;
+                thongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
+                thongTinLopHoc.Token = lopHoc?.Token;
+
+                List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
+
+                IEnumerable<BuoiHoc> dsBuoiHoc = await _buoiHocRepository.GetMultiByIdAsync(danhSachBuoi);
+
+                List<BuoiHocBySkillViewModel> dsBuoiHocBySkillVm = new List<BuoiHocBySkillViewModel>();
+
+
+                foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
+                {
+                    BuoiHocBySkillViewModel buoiHocBySkillVm = new BuoiHocBySkillViewModel();
+                    List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
+
+                    buoiHocBySkillVm.tenSkill = groupSkill.Key;
+
+                    buoiHocBySkillVm.DanhSachKhoaHocBySkill = new List<dynamic>();
+
+                    //Lấy ra các khóa học video liên quan của skill
+                    List<KeyValuePair<string, dynamic>> khoaHoccolums = new List<KeyValuePair<string, dynamic>>();
+
+                    khoaHoccolums.Add(new KeyValuePair<string, dynamic>("MaSkill", groupSkill.Key));
+
+                    IEnumerable<KhoaHoc> lsKhoaHocBySkill = await _khoaHocRepository.GetMultiByListConditionAndAsync(khoaHoccolums);
+
+                    foreach (KhoaHoc khoaHoc in lsKhoaHocBySkill)
+                    {
+                        KhoaHocViewModel khoaHocVm = _mapper.Map<KhoaHocViewModel>(khoaHoc);
+
+                        KhoaHocSkillViewModel khoaHocSkillVm = new KhoaHocSkillViewModel();
+
+                        khoaHocSkillVm.TenKhoaHoc = khoaHocVm.TenKhoaHoc;
+                        khoaHocSkillVm.HinhAnh = khoaHocVm.HinhAnh;
+                        khoaHocSkillVm.SoNgayKichHoat = khoaHocVm.SoNgayKichHoat;
+
+
+                        khoaHocSkillVm.DanhSachChuongHocSkill = new List<dynamic>();
+
+                        //Lấy ra danh sách các chương học trong khóa
+                        List<dynamic> dsChuongHocTrongKhoa = JsonConvert.DeserializeObject<List<dynamic>>(khoaHoc.DanhSachChuongHoc);
+
+                        IEnumerable<ChuongHoc> lsChuongHoc = await _chuongHocRepository.GetMultiByIdAsync(dsChuongHocTrongKhoa);
+
+                        //Duyệt từng chương học để lấy bài học 
+                        foreach (ChuongHoc chuongHoc in lsChuongHoc)
+                        {
+                            
+                            ChuongHocViewModel chuongHocVm = _mapper.Map<ChuongHocViewModel>(chuongHoc);
+
+                            chuongHocVm.DanhSachBaiHoc = new List<dynamic>();
+
+                            //Lấy ra danh sách bài học trong chương
+                            List<dynamic> dsBaiHocTrongChuong = JsonConvert.DeserializeObject<List<dynamic>>(chuongHoc.DanhSachBaiHoc);
+                            IEnumerable<BaiHoc> lsBaiHoc = await _baiHocRepository.GetMultiByIdAsync(dsBaiHocTrongChuong);
+
+                            //Chuyển list modal bài học thành list view
+
+                            List<BaiHocViewModel> lsBaiHocVm = _mapper.Map<List<BaiHocViewModel>>(lsBaiHoc);
+
+                            chuongHocVm.DanhSachBaiHoc.Add(lsBaiHocVm);
+                            khoaHocSkillVm.DanhSachChuongHocSkill.Add(chuongHocVm);
+                        }
+                        
+                        buoiHocBySkillVm.DanhSachKhoaHocBySkill.Add(khoaHocSkillVm);
+
+                    }
+
+
+
+                    //Duyệt từng buổi học trong skill để lấy data bài học
+
+                    foreach (var buoiHoc in groupSkill)
+                    {
+           
+                        List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
+
+                        BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
+
+                        //Lấy ra dữ liệu BuoiHoc_NguoiDung về bài tập
+                        List<KeyValuePair<string, dynamic>> buoiHocNguoiDungColumns = new List<KeyValuePair<string, dynamic>>();
+                        //Gán cứng mã người dùng của sĩ để test sau này sẽ lấy từ token gắn ở header
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", maNguoiDung));
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaBuoiHoc", buoiHoc.Id));
+
+                        BuoiHoc_NguoiDung buoiHocNguoiDung = await _buoiHocNguoiDungRepository.GetSingleByListConditionAsync(buoiHocNguoiDungColumns);
+
+                        if (buoiHocNguoiDung != null)
+                        {
+                            IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
+
+                            buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
+                        }
+
+                        //Lấy ra dữ liệu của các View và gán cho buoiHocView
+                        //TaiLieuBaiHoc
+                        IEnumerable <TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
+
+                        //TaiLieuBaiTap
+                        IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuBaiTap = (_mapper.Map<List<TaiLieuBaiTapViewModel>>(lsTaiLieuBaiTap));
+
+                        //TaiLieuDocThem
+                        IEnumerable<TaiLieuDocThem> lsTaiLieuDocThem = await _taiLieuDocThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuDocThem = (_mapper.Map<List<TaiLieuDocThemViewModel>>(lsTaiLieuDocThem));
+
+                        //TaiLieuProjectLamThem
+                        IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuProjectLamThem = (_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
+
+                        //TaiLieuCapstone
+                        IEnumerable<TaiLieuCapstone> lsTaiLieuCapstone = await _taiLieuCapstoneRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuCapstone = (_mapper.Map<List<TaiLieuCapstoneViewModel>>(lsTaiLieuCapstone));
+
+                        //TracNghiem
+                        IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
+
+
+                        //Add VideoXemLai
+                        List<KeyValuePair<string, dynamic>> colums = new List<KeyValuePair<string, dynamic>>();
+
+                        colums.Add(new KeyValuePair<string, dynamic>("MaBuoi", buoiHoc.Id));
+
+                        IEnumerable<XemLaiBuoiHoc> lsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetMultiByListConditionAndAsync(colums);
+
+                        if (lsXemLaiBuoiHoc != null)
+                        {
+                            foreach (XemLaiBuoiHoc video in lsXemLaiBuoiHoc)
+                            {
+                                XemLaiBuoiHocViewModel xemLaiBuoiHocVm = new XemLaiBuoiHocViewModel();
+                                xemLaiBuoiHocVm = _mapper.Map<XemLaiBuoiHocViewModel>(video);
+                                buoiHocVm.VideoXemLai.Add(xemLaiBuoiHocVm);
+                            }
+                        }
+
+                        //Add các Video extra vào
+                        IEnumerable<VideoExtra> lsVideoExtra = await _videoExtraRepository.GetMultiByListConditionAndAsync(colums);
+
+                        if (lsVideoExtra != null)
+                        {
+                            foreach (VideoExtra video in lsVideoExtra)
+                            {
+                                VideoExtraViewModel videoExtraVm = new VideoExtraViewModel();
+                                videoExtraVm = _mapper.Map<VideoExtraViewModel>(video);
+                                buoiHocVm.VideoExtra.Add(videoExtraVm);
+                            }
+                        }
+                        //Add buổi học vào list buổi học
+                        lsBuoiHocVm.Add(buoiHocVm);
+                    }
+                    
+                    buoiHocBySkillVm.DanhSachBuoiHoc = lsBuoiHocVm;
+                    dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
+                }
+               
+                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
             }
             catch (Exception ex)
             {

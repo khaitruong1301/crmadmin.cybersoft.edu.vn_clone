@@ -22,6 +22,16 @@ namespace SoloDevApp.Service.ViewModels
         public int ChiNhanh { get; set; }
         public string Token { get; set; }
         public int ThuMucVimeo { get; set; }
+    }
 
+    public class ThongTinLopHocBySkill
+    {
+        public string TenLopHoc { get; set; }
+        public string BiDanh { get; set; }
+        public int SoHocVien { get; set; }
+        public string NgayBatDau { get; set; }
+        public string NgayKetThuc { get; set; }
+        public string ThoiKhoaBieu { get; set; }
+        public string Token { get; set; }
     }
 }
