@@ -15,10 +15,10 @@ namespace SoloDevApp.Service.ViewModels
 
     public class LichSuHocTapViewModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string NoiDung { get; set; }
-        public long Diem { get; set; }
-        public long MaBaiHoc { get; set; }
+        public int Diem { get; set; }
+        public int MaBaiHoc { get; set; }
         public string NguoiCham { get; set; }
         public string NhanXet { get; set; }
         public string LoaiBaiTap { get; set; }
@@ -28,15 +28,22 @@ namespace SoloDevApp.Service.ViewModels
 
     public class LichSuHocTap
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string NoiDung { get; set; }
-        public long Diem { get; set; }
-        public long MaBaiHoc { get; set; }
+        public int Diem { get; set; }
+        public int MaBaiHoc { get; set; }
         public string NguoiCham { get; set; }
         public string NhanXet { get; set; }
         public string LoaiBaiTap { get; set; }
         public string HanNop { get; set; }
         public string NgayThang { get; set; }
+    }
+
+
+    public class thongTinHocTapNguoiDung
+    {
+        public string MaNguoiDung;
+        public int DiemTrongBuoiHoc;
     }
 
 
