@@ -712,6 +712,21 @@ namespace SoloDevApp.Service.Services
                     lsIdNguoiDungCanLayRa.Add(maNguoiDung);
                 }
 
+                //Duyệt theo mảng listId đã được sắp xếp để ra kết quả theo đúng thứ tự
+                foreach(var (nguoiDung,index) in lsIdNguoiDungCanLayRa.Select((nguoiDung, index) => (nguoiDung, index)))
+                {
+                    //Lấy tên người dùng 
+                    string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung.Key)).HoTen;
+                    //Lấy thứ tự người dùng
+                    int thuTuNguoiDung = index + 1;
+
+
+                }
+               
+
+
+
+
                 //Lọc lại dữ liệu danh sách buổi học người dùng trong lớp chỉ lấy ra những người cần 
                 IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocTrongLopFiltered = dsBuoiHocNguoiDungTrongLop.Where(item => lsIdNguoiDungCanLayRa.Contains(item.MaNguoiDung));
 
@@ -722,6 +737,7 @@ namespace SoloDevApp.Service.Services
                 foreach (var (nguoiDung,index) in dsBuoiHocTrongLopFiltered.GroupBy(x => x.MaNguoiDung).Select((nguoiDung, index) => (nguoiDung,index))) {
                     //Lấy tên người dùng
                     string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung.Key)).HoTen;
+                    //Lấy thứ tự người dùng
                     int thuTuNguoiDung = index + 1;
 
                     List<dynamic> lsDiemCuaTungBuoiHoc = new List<dynamic>();
