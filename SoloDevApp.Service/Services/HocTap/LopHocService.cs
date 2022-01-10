@@ -739,7 +739,7 @@ namespace SoloDevApp.Service.Services
 
                     thongTinChart.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
                 }
-               
+
 
                 //Lấy ra buổi học group theo skill
                 foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
@@ -748,6 +748,19 @@ namespace SoloDevApp.Service.Services
                     List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
 
                     buoiHocBySkillVm.tenSkill = groupSkill.Key;
+
+                    //Hardcode hiện thông tin active của skill nếu là HTML-CSS, BOOTSTRAP và GIT thì active còn khác thì inactive
+                    //Trường hợp sau này sẽ sử dụng 1 biên cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
+                    string[] listSkill = {"HTML-CSS","BOOTSTRAP", "GIT"};
+
+                    if (listSkill.Contains(groupSkill.Key))
+                    {
+                        buoiHocBySkillVm.isActive = true;
+                    } else
+                    {
+                        buoiHocBySkillVm.isActive = false;
+                    }
+
 
                     buoiHocBySkillVm.DanhSachKhoaHocBySkill = new List<dynamic>();
 

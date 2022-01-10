@@ -48,6 +48,10 @@ namespace SoloDevApp.Service.ViewModels
     {
         public string tenSkill;
         public List<dynamic> DanhSachKhoaHocBySkill;
+
+        public bool isActive;
+
+        public dynamic diemBuoiHoc;
         public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
     }
 }
