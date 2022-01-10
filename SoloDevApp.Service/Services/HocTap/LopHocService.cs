@@ -750,7 +750,7 @@ namespace SoloDevApp.Service.Services
                     buoiHocBySkillVm.tenSkill = groupSkill.Key;
 
                     //Hardcode hiện thông tin active của skill nếu là HTML-CSS, BOOTSTRAP và GIT thì active còn khác thì inactive
-                    //Trường hợp sau này sẽ sử dụng 1 biên cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
+                    //Trường hợp sau này sẽ sử dụng 1 biến cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
                     string[] listSkill = {"HTML-CSS","BOOTSTRAP", "GIT"};
 
                     if (listSkill.Contains(groupSkill.Key))
@@ -811,6 +811,11 @@ namespace SoloDevApp.Service.Services
 
                     }
 
+                    //Khởi tạo biến đếm số buổi học có điểm bài tập trong 1 skill, biến lưu giá trị điểm
+                    int soBuoiHocCamTrongMotSkill = 0;
+                    int soBuoiHocTimTrongMotSkill = 0;
+                    int phanTramVongTronCam = 0;
+                    int phanTramVongTronTim = 0;
 
 
                     //Duyệt từng buổi học trong skill để lấy data bài học
@@ -835,7 +840,51 @@ namespace SoloDevApp.Service.Services
                             IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
 
                             buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
+
+
+                            //Xử lý tính % điểm của người dùng trong 1 buổi, duyệt tất cả object trong đó nếu là QUIZ_PURPLE thì tính bên thằng tím
+
+                            bool isCountPurple = false;
+                            bool isCountOrange = false;
+
+                            foreach(var item in lsLichSuHocTap)
+                            {
+                                if (item.Diem > 0)
+                                {
+                                    if (item.LoaiBaiTap.Contains("QUIZ_PURPLE"))
+                                    {
+                                        phanTramVongTronTim += item.Diem * 100;
+                                        if (!isCountPurple)
+                                        {
+                                            isCountPurple = true;
+                                            soBuoiHocTimTrongMotSkill++;
+                                        }
+                                    } else
+                                    {
+                                        phanTramVongTronCam += item.Diem * 100;
+                                        if (!isCountOrange)
+                                        {
+                                            isCountOrange = true;
+                                            soBuoiHocCamTrongMotSkill++;
+                                        }
+                                    }
+                                }
+                            }
                         }
+
+                        //Tính phần trăm của skill 
+                        if (soBuoiHocCamTrongMotSkill > 0)
+                        {
+                            phanTramVongTronCam = phanTramVongTronCam / soBuoiHocCamTrongMotSkill;
+                        }
+
+                        if (soBuoiHocTimTrongMotSkill > 0)
+                        {
+                            phanTramVongTronTim = phanTramVongTronTim / soBuoiHocTimTrongMotSkill;
+                        }
+                        
+
+                        buoiHocBySkillVm.diemBuoiHoc = new {phanTramCam = phanTramVongTronCam, phanTramTim = phanTramVongTronTim};
 
                         //Lấy ra dữ liệu của các View và gán cho buoiHocView
                         //TaiLieuBaiHoc
