@@ -712,37 +712,24 @@ namespace SoloDevApp.Service.Services
                     lsIdNguoiDungCanLayRa.Add(maNguoiDung);
                 }
 
-                //Duyệt theo mảng listId đã được sắp xếp để ra kết quả theo đúng thứ tự
-                foreach(var (nguoiDung,index) in lsIdNguoiDungCanLayRa.Select((nguoiDung, index) => (nguoiDung, index)))
-                {
-                    //Lấy tên người dùng 
-                    string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung.Key)).HoTen;
-                    //Lấy thứ tự người dùng
-                    int thuTuNguoiDung = index + 1;
-
-
-                }
-               
-
-
-
-
-                //Lọc lại dữ liệu danh sách buổi học người dùng trong lớp chỉ lấy ra những người cần 
-                IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocTrongLopFiltered = dsBuoiHocNguoiDungTrongLop.Where(item => lsIdNguoiDungCanLayRa.Contains(item.MaNguoiDung));
-
-
-                //Duyệt mảng để lấy ra dữ liệu cần thiết gồm tên người dùng, thứ tự, buổi, điểm trong buổi đó
                 List<dynamic> thongTinChart = new List<dynamic>();
 
-                foreach (var (nguoiDung,index) in dsBuoiHocTrongLopFiltered.GroupBy(x => x.MaNguoiDung).Select((nguoiDung, index) => (nguoiDung,index))) {
-                    //Lấy tên người dùng
-                    string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung.Key)).HoTen;
+                //Duyệt theo mảng listId đã được sắp xếp để ra kết quả theo đúng thứ tự
+                foreach (var (nguoiDung,index) in lsIdNguoiDungCanLayRa.Select((nguoiDung, index) => (nguoiDung, index)))
+                {
+                    //Lấy tên người dùng 
+                    string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung)).HoTen;
                     //Lấy thứ tự người dùng
                     int thuTuNguoiDung = index + 1;
+
+                    //Lọc lấy ra các dữ liệu của người dùng
+                    IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocCuaNguoiDungFiltered = dsBuoiHocNguoiDungTrongLop.Where(item => item.MaNguoiDung.Equals(nguoiDung));
+
+                    //Xử lý tính điểm tổng của người dùng trong từng buổi học
 
                     List<dynamic> lsDiemCuaTungBuoiHoc = new List<dynamic>();
 
-                    foreach (var item in nguoiDung)
+                    foreach (var item in dsBuoiHocCuaNguoiDungFiltered)
                     {
                         int thuTuBuoiHoc = (await _buoiHocRepository.GetSingleByIdAsync(item.MaBuoiHoc)).STT;
                         int tongDiemTrongBuoi = (JsonConvert.DeserializeObject<List<LichSuHocTap>>(item.LichSuHocTap)).Aggregate(0, (acc, x) => acc + x.Diem);
@@ -750,10 +737,9 @@ namespace SoloDevApp.Service.Services
                         lsDiemCuaTungBuoiHoc.Add(new { sttBuoi = thuTuBuoiHoc, tongDiem = tongDiemTrongBuoi });
                     }
 
-                    thongTinChart.Add(new {tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
-
+                    thongTinChart.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
                 }
-
+               
 
                 //Lấy ra buổi học group theo skill
                 foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
@@ -781,8 +767,6 @@ namespace SoloDevApp.Service.Services
                         khoaHocSkillVm.TenKhoaHoc = khoaHocVm.TenKhoaHoc;
                         khoaHocSkillVm.HinhAnh = khoaHocVm.HinhAnh;
                         khoaHocSkillVm.SoNgayKichHoat = khoaHocVm.SoNgayKichHoat;
-
-
                         khoaHocSkillVm.DanhSachChuongHocSkill = new List<dynamic>();
 
                         //Lấy ra danh sách các chương học trong khóa
