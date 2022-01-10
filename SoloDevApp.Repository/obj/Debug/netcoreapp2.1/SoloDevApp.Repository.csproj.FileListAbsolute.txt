@@ -6,3 +6,4 @@ C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloD
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csproj.CoreCompileInputs.cache
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
+C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Repository\obj\Debug\netcoreapp2.1\SoloDevApp.Repository.csprojAssemblyReference.cache
