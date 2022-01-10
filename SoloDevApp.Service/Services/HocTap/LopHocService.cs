@@ -740,14 +740,25 @@ namespace SoloDevApp.Service.Services
                     thongTinChart.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
                 }
 
+                List<dynamic> danhSachTaiLieuBuoiHocTheoSkill = new List<dynamic>();
+
+                List<dynamic> danhSachDiemBaiTapTheoSkill = new List<dynamic>();
+
 
                 //Lấy ra buổi học group theo skill
                 foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
                 {
                     BuoiHocBySkillViewModel buoiHocBySkillVm = new BuoiHocBySkillViewModel();
+
+                    TaiLieuBuoiHocTheoSkillViewModel taiLieuBuoiHocTheoSkillVm = new TaiLieuBuoiHocTheoSkillViewModel();
+
+                    DiemNguoiDungTheoSkillViewModel diemNguoiDungTheoSkillVm = new DiemNguoiDungTheoSkillViewModel();
+
                     List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
 
-                    buoiHocBySkillVm.tenSkill = groupSkill.Key;
+                    diemNguoiDungTheoSkillVm.TenSkill = groupSkill.Key;
+                    taiLieuBuoiHocTheoSkillVm.TenSkill = groupSkill.Key;
+                    buoiHocBySkillVm.TenSkill = groupSkill.Key;
 
                     //Hardcode hiện thông tin active của skill nếu là HTML-CSS, BOOTSTRAP và GIT thì active còn khác thì inactive
                     //Trường hợp sau này sẽ sử dụng 1 biến cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
@@ -849,6 +860,7 @@ namespace SoloDevApp.Service.Services
 
                             foreach(var item in lsLichSuHocTap)
                             {
+                                //Xử lý lấy điểm cho phần trăm
                                 if (item.Diem > 0)
                                 {
                                     if (item.LoaiBaiTap.Contains("QUIZ_PURPLE"))
@@ -869,6 +881,14 @@ namespace SoloDevApp.Service.Services
                                         }
                                     }
                                 }
+
+                                //Xử lý lấy điểm và tieuDeBaiHoc cho phần xem điểm
+                               DiemBaiTapViewModel diemBaiTapVm = new DiemBaiTapViewModel();
+                                diemBaiTapVm.TieuDe = (await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetSingleByIdAsync(item.MaBaiHoc)).TieuDe;
+                                diemBaiTapVm.DiemBaiTap = item.Diem;
+                                diemBaiTapVm.LoaiBaiTap = item.LoaiBaiTap;
+
+                                diemNguoiDungTheoSkillVm.danhSachDiem.Add(diemBaiTapVm); 
                             }
                         }
 
@@ -884,12 +904,15 @@ namespace SoloDevApp.Service.Services
                         }
                         
 
-                        buoiHocBySkillVm.diemBuoiHoc = new {phanTramCam = phanTramVongTronCam, phanTramTim = phanTramVongTronTim};
+                        buoiHocBySkillVm.DiemBuoiHoc = new {phanTramCam = phanTramVongTronCam, phanTramTim = phanTramVongTronTim};
 
                         //Lấy ra dữ liệu của các View và gán cho buoiHocView
                         //TaiLieuBaiHoc
                         IEnumerable <TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
                         buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
+                        //Thêm Tài liệu vào danh sách tài liệu bài học theo skill
+                        taiLieuBuoiHocTheoSkillVm.danhSachBaiHoc.AddRange(buoiHocVm.TaiLieuBaiHoc);
+
 
                         //TaiLieuBaiTap
                         IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
@@ -947,9 +970,11 @@ namespace SoloDevApp.Service.Services
                     
                     buoiHocBySkillVm.DanhSachBuoiHoc = lsBuoiHocVm;
                     dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
+                    danhSachTaiLieuBuoiHocTheoSkill.Add(taiLieuBuoiHocTheoSkillVm);
+                    danhSachDiemBaiTapTheoSkill.Add(diemNguoiDungTheoSkillVm);
                 }
                
-                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongKeDiemNguoiDung = thongTinChart, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
+                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongKeDiemNguoiDung = thongTinChart, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm, danhSachTaiLieuTheoSkill = danhSachTaiLieuBuoiHocTheoSkill, danhSachDiemBaiTapTheoSkill = danhSachDiemBaiTapTheoSkill });
             }
             catch (Exception ex)
             {

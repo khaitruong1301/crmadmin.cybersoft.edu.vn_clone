@@ -40,10 +40,17 @@ namespace SoloDevApp.Service.ViewModels
     }
 
 
-    public class thongTinHocTapNguoiDung
+    public class ThongTinHocTapNguoiDungViewModel
     {
         public string MaNguoiDung;
         public int DiemTrongBuoiHoc;
+    }
+
+    public class DiemBaiTapViewModel
+    {
+        public string TieuDe;
+        public int DiemBaiTap;
+        public string LoaiBaiTap;
     }
 
 
