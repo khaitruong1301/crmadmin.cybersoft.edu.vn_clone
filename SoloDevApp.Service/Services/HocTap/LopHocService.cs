@@ -655,11 +655,7 @@ namespace SoloDevApp.Service.Services
                     IEnumerable<NoiDungThongBao> lsNoiDungThongBao = JsonConvert.DeserializeObject<IEnumerable<NoiDungThongBao>>(thongBao.NoiDung);
 
                     lsNoiDungThongBaoVm = lsNoiDungThongBao.ToList();
-
-
                 }
-
-
 
                 //Lấy thông tin của lớp học
 
@@ -679,13 +675,92 @@ namespace SoloDevApp.Service.Services
 
                 List<BuoiHocBySkillViewModel> dsBuoiHocBySkillVm = new List<BuoiHocBySkillViewModel>();
 
+                //Lấy ra danh sách các buoihoc_nguoidung từ danh sách buổi
+                IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocNguoiDungTrongLop = await _buoiHocNguoiDungRepository.GetTheoDanhSachMaBuoi(danhSachBuoi);
 
+                //Group lại theo mã người dùng sau đó dùng reducer để tính điểm 
+                List<dynamic> lsDiemCuaNguoiDung = new List<dynamic>();
+
+                foreach (var nguoiDung in dsBuoiHocNguoiDungTrongLop.GroupBy(x => x.MaNguoiDung))
+                {
+                    int tongDiem = 0;
+                    foreach (var buoi in nguoiDung)
+                    {
+                        List<LichSuHocTap> lichSuHocTap = JsonConvert.DeserializeObject<List<LichSuHocTap>>(buoi.LichSuHocTap);
+
+                        tongDiem += lichSuHocTap.Aggregate(0, (acc, x) => acc + x.Diem);
+
+                    }
+                    lsDiemCuaNguoiDung.Add(new { maNguoiDung = nguoiDung.Key, tongDiemNguoiDung = tongDiem });
+                }
+
+                //Có list danh sách người dùng và điểm rồi thì xử lý sort và lấy ra 3 người cao điểm nhất
+
+                //Sort điểm người dùng
+                List<dynamic> lsDiemCuaNguoiDungSorted = lsDiemCuaNguoiDung.OrderByDescending(nguoiDung => nguoiDung.tongDiemNguoiDung).Take(3).ToList();
+
+                List<dynamic> lsIdNguoiDungCanLayRa = new List<dynamic>();
+
+                foreach (var item in lsDiemCuaNguoiDungSorted)
+                {
+                    lsIdNguoiDungCanLayRa.Add(item.maNguoiDung);
+                }
+
+                //Thêm Ids của người dùng hiện tại vào list để trả ra cùng nếu như trong list chưa có
+                if (!lsIdNguoiDungCanLayRa.Contains(maNguoiDung))
+                {
+                    lsIdNguoiDungCanLayRa.Add(maNguoiDung);
+                }
+
+                List<dynamic> thongTinChart = new List<dynamic>();
+
+                //Duyệt theo mảng listId đã được sắp xếp để ra kết quả theo đúng thứ tự
+                foreach (var (nguoiDung,index) in lsIdNguoiDungCanLayRa.Select((nguoiDung, index) => (nguoiDung, index)))
+                {
+                    //Lấy tên người dùng 
+                    string tenNguoiDung = (await _nguoiDungRepository.GetSingleByIdAsync(nguoiDung)).HoTen;
+                    //Lấy thứ tự người dùng
+                    int thuTuNguoiDung = index + 1;
+
+                    //Lọc lấy ra các dữ liệu của người dùng
+                    IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocCuaNguoiDungFiltered = dsBuoiHocNguoiDungTrongLop.Where(item => item.MaNguoiDung.Equals(nguoiDung));
+
+                    //Xử lý tính điểm tổng của người dùng trong từng buổi học
+
+                    List<dynamic> lsDiemCuaTungBuoiHoc = new List<dynamic>();
+
+                    foreach (var item in dsBuoiHocCuaNguoiDungFiltered)
+                    {
+                        int thuTuBuoiHoc = (await _buoiHocRepository.GetSingleByIdAsync(item.MaBuoiHoc)).STT;
+                        int tongDiemTrongBuoi = (JsonConvert.DeserializeObject<List<LichSuHocTap>>(item.LichSuHocTap)).Aggregate(0, (acc, x) => acc + x.Diem);
+
+                        lsDiemCuaTungBuoiHoc.Add(new { sttBuoi = thuTuBuoiHoc, tongDiem = tongDiemTrongBuoi });
+                    }
+
+                    thongTinChart.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
+                }
+
+
+                //Lấy ra buổi học group theo skill
                 foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
                 {
                     BuoiHocBySkillViewModel buoiHocBySkillVm = new BuoiHocBySkillViewModel();
                     List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
 
                     buoiHocBySkillVm.tenSkill = groupSkill.Key;
+
+                    //Hardcode hiện thông tin active của skill nếu là HTML-CSS, BOOTSTRAP và GIT thì active còn khác thì inactive
+                    //Trường hợp sau này sẽ sử dụng 1 biến cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
+                    string[] listSkill = {"HTML-CSS","BOOTSTRAP", "GIT"};
+
+                    if (listSkill.Contains(groupSkill.Key))
+                    {
+                        buoiHocBySkillVm.isActive = true;
+                    } else
+                    {
+                        buoiHocBySkillVm.isActive = false;
+                    }
+
 
                     buoiHocBySkillVm.DanhSachKhoaHocBySkill = new List<dynamic>();
 
@@ -705,8 +780,6 @@ namespace SoloDevApp.Service.Services
                         khoaHocSkillVm.TenKhoaHoc = khoaHocVm.TenKhoaHoc;
                         khoaHocSkillVm.HinhAnh = khoaHocVm.HinhAnh;
                         khoaHocSkillVm.SoNgayKichHoat = khoaHocVm.SoNgayKichHoat;
-
-
                         khoaHocSkillVm.DanhSachChuongHocSkill = new List<dynamic>();
 
                         //Lấy ra danh sách các chương học trong khóa
@@ -738,6 +811,11 @@ namespace SoloDevApp.Service.Services
 
                     }
 
+                    //Khởi tạo biến đếm số buổi học có điểm bài tập trong 1 skill, biến lưu giá trị điểm
+                    int soBuoiHocCamTrongMotSkill = 0;
+                    int soBuoiHocTimTrongMotSkill = 0;
+                    int phanTramVongTronCam = 0;
+                    int phanTramVongTronTim = 0;
 
 
                     //Duyệt từng buổi học trong skill để lấy data bài học
@@ -762,7 +840,51 @@ namespace SoloDevApp.Service.Services
                             IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
 
                             buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
+
+
+                            //Xử lý tính % điểm của người dùng trong 1 buổi, duyệt tất cả object trong đó nếu là QUIZ_PURPLE thì tính bên thằng tím
+
+                            bool isCountPurple = false;
+                            bool isCountOrange = false;
+
+                            foreach(var item in lsLichSuHocTap)
+                            {
+                                if (item.Diem > 0)
+                                {
+                                    if (item.LoaiBaiTap.Contains("QUIZ_PURPLE"))
+                                    {
+                                        phanTramVongTronTim += item.Diem * 100;
+                                        if (!isCountPurple)
+                                        {
+                                            isCountPurple = true;
+                                            soBuoiHocTimTrongMotSkill++;
+                                        }
+                                    } else
+                                    {
+                                        phanTramVongTronCam += item.Diem * 100;
+                                        if (!isCountOrange)
+                                        {
+                                            isCountOrange = true;
+                                            soBuoiHocCamTrongMotSkill++;
+                                        }
+                                    }
+                                }
+                            }
                         }
+
+                        //Tính phần trăm của skill 
+                        if (soBuoiHocCamTrongMotSkill > 0)
+                        {
+                            phanTramVongTronCam = phanTramVongTronCam / soBuoiHocCamTrongMotSkill;
+                        }
+
+                        if (soBuoiHocTimTrongMotSkill > 0)
+                        {
+                            phanTramVongTronTim = phanTramVongTronTim / soBuoiHocTimTrongMotSkill;
+                        }
+                        
+
+                        buoiHocBySkillVm.diemBuoiHoc = new {phanTramCam = phanTramVongTronCam, phanTramTim = phanTramVongTronTim};
 
                         //Lấy ra dữ liệu của các View và gán cho buoiHocView
                         //TaiLieuBaiHoc
@@ -827,7 +949,7 @@ namespace SoloDevApp.Service.Services
                     dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
                 }
                
-                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
+                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongKeDiemNguoiDung = thongTinChart, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm });
             }
             catch (Exception ex)
             {

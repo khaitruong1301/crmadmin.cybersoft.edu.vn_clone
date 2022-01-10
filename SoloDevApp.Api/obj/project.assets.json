@@ -8656,7 +8656,6 @@
       "path": "runtime.native.system/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -8685,7 +8684,6 @@
       "path": "runtime.native.system.io.compression/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -8699,7 +8697,6 @@
       "path": "runtime.native.system.net.http/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -8726,6 +8723,7 @@
       "path": "runtime.native.system.security.cryptography.apple/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -9239,7 +9237,6 @@
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -9278,6 +9275,7 @@
       "path": "system.collections.specialized/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -9849,6 +9847,7 @@
       "path": "system.diagnostics.stacktrace/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -10960,7 +10959,6 @@
       "path": "system.net.nameresolution/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12122,7 +12120,6 @@
       "path": "system.runtime.serialization.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12378,7 +12375,6 @@
       "path": "system.security.cryptography.csp/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12624,7 +12620,6 @@
       "path": "system.security.principal/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13203,7 +13198,6 @@
       "path": "system.threading.tasks.parallel/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13260,7 +13254,6 @@
       "path": "system.threading.thread/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13300,7 +13293,6 @@
       "path": "system.threading.threadpool/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13496,7 +13488,6 @@
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13535,7 +13526,6 @@
       "path": "system.xml.xpath/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13629,39 +13619,41 @@
     ]
   },
   "packageFolders": {
-    "/Users/macbook/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\HP\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Api/SoloDevApp.Api.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
       "projectName": "SoloDevApp.Api",
-      "projectPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Api/SoloDevApp.Api.csproj",
-      "packagesPath": "/Users/macbook/.nuget/packages/",
-      "outputPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Api/obj/",
+      "projectPath": "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\SoloDevApp.Api.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
           "targetAlias": "netcoreapp2.1",
           "projectReferences": {
-            "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj": {
-              "projectPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Repository/SoloDevApp.Repository.csproj"
+            "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Repository\\SoloDevApp.Repository.csproj"
             },
-            "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Service/SoloDevApp.Service.csproj": {
-              "projectPath": "/Users/macbook/Documents/wiki1.cybersoft.edu.vn/crmadmin.cybersoft.edu.vn_clone/SoloDevApp.Service/SoloDevApp.Service.csproj"
+            "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\wiki1.cybersoft.edu.vn\\crmadmin.cybersoft.edu.vn_clone\\SoloDevApp.Service\\SoloDevApp.Service.csproj"
             }
           }
         }
@@ -13712,7 +13704,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
