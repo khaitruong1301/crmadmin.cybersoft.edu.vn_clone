@@ -2,3 +2,6 @@
 /SoloDevApp.Api/bin/Release/netcoreapp2.1/publish/wwwroot/files
 /SoloDevApp.Api/bin/Release/netcoreapp2.1/publish/wwwroot/videos
 /.vs
+/SoloDevApp.Api/obj
+/SoloDevApp.Repository/obj
+/SoloDevApp.Service/obj

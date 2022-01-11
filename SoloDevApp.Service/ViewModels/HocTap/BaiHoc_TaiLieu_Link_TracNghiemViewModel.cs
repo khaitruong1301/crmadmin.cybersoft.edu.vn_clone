@@ -37,4 +37,26 @@ namespace SoloDevApp.Service.ViewModels
         public string ThoiLuong { get; set; }
     }
 
+    public class TaiLieuBuoiHocTheoSkillViewModel
+    {
+        public string TenSkill;
+        public List<dynamic> danhSachBaiHoc;
+        public TaiLieuBuoiHocTheoSkillViewModel()
+        {
+            danhSachBaiHoc = new List<dynamic>();
+        }
+    }
+
+    public class DiemNguoiDungTheoSkillViewModel
+    {
+        public string TenSkill;
+        public List<dynamic> danhSachDiem;
+        public DiemNguoiDungTheoSkillViewModel()
+        {
+            danhSachDiem = new List<dynamic>();
+        }
+    }
+
+
+
 }
