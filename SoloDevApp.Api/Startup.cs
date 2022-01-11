@@ -122,6 +122,7 @@ namespace SoloDevApp.Api
             services.AddTransient<IBuoiHocService, BuoiHocService>();
             services.AddTransient<ILoaiBaiTapService, LoaiBaiTapService>();
             services.AddTransient<IBaiHocNewService, BaiHocNewService>();
+            services.AddTransient<IBuoiHoc_NguoiDungService, BuoiHoc_NguoiDungService>();
 
 
             // ==================== HELPER ====================
