@@ -8,8 +8,7 @@ namespace SoloDevApp.Service.ViewModels
         public string MaNguoiDung { get; set; }
         public int MaBuoiHoc { get; set; }
         public string LichSuHocTap { get; set; }
-        public bool DaXoa { get; set; }
-        public DateTime NgayTao { get; set; }
+
 
     }
 

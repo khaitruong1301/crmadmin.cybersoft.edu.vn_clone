@@ -21,6 +21,8 @@ namespace SoloDevApp.Api.Controllers
             _buoiHoc_NguoiDungService = buoiHoc_NguoiDungService;
         }
 
+        // Cần xử lý khi nộp bài tập thì cập nhật vào trong cái tracking luôn
+        
         [HttpPost("nop-bai-tap")]
         public async Task<IActionResult> NopBaiTap([FromBody] ThongTinNopBaiTapViewModel model)
         {

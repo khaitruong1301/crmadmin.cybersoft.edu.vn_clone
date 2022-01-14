@@ -13,6 +13,7 @@ namespace SoloDevApp.Repository.Models
         public string Email { get; set; }
         public string SoDienThoai { get; set; }
         public DateTime NgayCuoiCungHoatDong { get; set; }
+        public int MaLop { get; set; }
         public string LoaiHanhDong { get; set; }
     }
 }

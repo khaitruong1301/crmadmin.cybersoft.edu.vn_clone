@@ -20,8 +20,6 @@ namespace SoloDevApp.Api.Controllers
     public class TestParseTokenController : ControllerBase
     {
 
-       
-
         [HttpGet]
         //[Authorize(Roles = "VIEW_ROLE")]
         public async Task<IActionResult> Get([FromHeader] string Token)
@@ -30,6 +28,8 @@ namespace SoloDevApp.Api.Controllers
 
             return new ResponseEntity(StatusCodeConstants.OK, userId);
         }
+
+
 
     }
 }

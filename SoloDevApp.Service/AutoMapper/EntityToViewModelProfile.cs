@@ -126,6 +126,7 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<NoiDungThongBao, NoiDungThongBaoViewModel>()
                 .ForMember(modelVm => modelVm.NgayThang,
                                     m => m.MapFrom(entity => FuncUtilities.ConvertStringToDate(entity.NgayThang)));
+            CreateMap<TrackingNguoiDung, TrackingNguoiDungViewModel>();
  
 
             /*=========== ROAD MAP VIEW TABLE =============*/

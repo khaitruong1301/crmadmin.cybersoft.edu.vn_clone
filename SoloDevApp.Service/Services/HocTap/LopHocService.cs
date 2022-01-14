@@ -561,7 +561,6 @@ namespace SoloDevApp.Service.Services
 
         public async Task<ResponseEntity> UpdateClassAsync(int id, LopHocViewModel model)
         {
-           
 
                 LopHoc lhHienTai = await _lopHocRepository.GetSingleByIdAsync(id);
                 //Tìm những thằng cũ remove ra
