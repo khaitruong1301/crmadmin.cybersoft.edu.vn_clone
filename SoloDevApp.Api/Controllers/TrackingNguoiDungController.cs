@@ -38,11 +38,11 @@ namespace SoloDevApp.Api.Controllers
             return await _trackingNguoiDungService.GetSingleByIdAsync(id);
         }
 
-        [HttpGet("lay-thong-bao")]
-        public async Task<IActionResult> LayThongBaoNguoiDung()
-        {
-            return await _trackingNguoiDungService.getThongBaoNguoiDung();
-        }
+        //[HttpGet("lay-thong-bao")]
+        //public async Task<IActionResult> LayThongBaoNguoiDung()
+        //{
+        //    return await _trackingNguoiDungService.getThongBaoNguoiDung();
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TrackingNguoiDungViewModel model)

@@ -24,7 +24,7 @@ namespace SoloDevApp.Service.ViewModels
         public int ThuMucVimeo { get; set; }
     }
 
-    public class ThongTinLopHocBySkill
+    public class ThongTinLopHocBySkillViewModel
     {
         public string TenLopHoc { get; set; }
         public string BiDanh { get; set; }

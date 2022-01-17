@@ -92,6 +92,7 @@ namespace SoloDevApp.Service.Services
                         break;
                 }
 
+               
                 //Map ngược lại lịch sử học tập thành string sau đó gán vào lại thằng entity rồi cập nhật vào db
                 entity.LichSuHocTap = JsonConvert.SerializeObject(lsLichSuHocTap);
 

@@ -67,6 +67,7 @@ namespace SoloDevApp.Service.Services
         private IBaiHocRepository _baiHocRepository;
         private IBuoiHoc_NguoiDungRepository _buoiHocNguoiDungRepository;
         private IThongBaoRepository _thongBaoRepository;
+        private ITrackingNguoiDungRepository _trackingNguoiDungRepository;
 
         private readonly IAppSettings _appSettings;
 
@@ -93,6 +94,7 @@ namespace SoloDevApp.Service.Services
             IBaiHocRepository baiHocRepository,
             IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository,
             IThongBaoRepository thongBaoRepository,
+            ITrackingNguoiDungRepository trackingNguoiDungRepository,
         IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
@@ -119,6 +121,7 @@ namespace SoloDevApp.Service.Services
             _baiHocRepository = baiHocRepository;
             _buoiHocNguoiDungRepository = buoiHoc_NguoiDungRepository;
             _thongBaoRepository = thongBaoRepository;
+            _trackingNguoiDungRepository = trackingNguoiDungRepository;
             _appSettings = appSettings;
 
         }
@@ -644,35 +647,45 @@ namespace SoloDevApp.Service.Services
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
                 }
 
+                ThongTinBuoiHocTheoLopViewModel thongTinBuoiHocTheoLopVm = new ThongTinBuoiHocTheoLopViewModel();
+
+
                 //Lấy tất cả thông báo của người dùng
-                ThongBao thongBao = await _thongBaoRepository.GetSingleByConditionAsync("MaNguoiDung", maNguoiDung);
 
-                List<NoiDungThongBao> lsNoiDungThongBaoVm = new List<NoiDungThongBao>();
+                IEnumerable<TrackingNguoiDung> lsTrackingNguoiDung = await _trackingNguoiDungRepository.GetMultiByConditionAsync("MaNguoiDung", maNguoiDung);
 
-                if (thongBao != null)
+                if (lsTrackingNguoiDung != null)
                 {
-                    IEnumerable<NoiDungThongBao> lsNoiDungThongBao = JsonConvert.DeserializeObject<IEnumerable<NoiDungThongBao>>(thongBao.NoiDung);
-
-                    lsNoiDungThongBaoVm = lsNoiDungThongBao.ToList();
+                    thongTinBuoiHocTheoLopVm.ThongBao = TrackingNguoiDungService.getThongBaoNguoiDung(lsTrackingNguoiDung);
                 }
+
+
+                //ThongBao thongBao = await _thongBaoRepository.GetSingleByConditionAsync("MaNguoiDung", maNguoiDung);
+
+                //List<NoiDungThongBao> lsNoiDungThongBaoVm = new List<NoiDungThongBao>();
+
+                //if (thongBao != null)
+                //{
+                //    IEnumerable<NoiDungThongBao> lsNoiDungThongBao = JsonConvert.DeserializeObject<IEnumerable<NoiDungThongBao>>(thongBao.NoiDung);
+
+                //    lsNoiDungThongBaoVm = lsNoiDungThongBao.ToList();
+                //}
 
                 //Lấy thông tin của lớp học
 
-                ThongTinLopHocBySkill thongTinLopHoc = new ThongTinLopHocBySkill();
 
-                thongTinLopHoc.TenLopHoc = lopHoc.TenLopHoc;
-                thongTinLopHoc.BiDanh = lopHoc.BiDanh;
-                thongTinLopHoc.NgayBatDau = FuncUtilities.ConvertDateToString(lopHoc.NgayBatDau);
-                thongTinLopHoc.NgayKetThuc = FuncUtilities.ConvertDateToString(lopHoc.NgayKetThuc);
-                thongTinLopHoc.SoHocVien = lopHoc.SoHocVien;
-                thongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
-                thongTinLopHoc.Token = lopHoc?.Token;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.TenLopHoc = lopHoc.TenLopHoc;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.BiDanh = lopHoc.BiDanh;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.NgayBatDau = FuncUtilities.ConvertDateToString(lopHoc.NgayBatDau);
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.NgayKetThuc = FuncUtilities.ConvertDateToString(lopHoc.NgayKetThuc);
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.SoHocVien = lopHoc.SoHocVien;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.Token = lopHoc?.Token;
 
                 List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
 
                 IEnumerable<BuoiHoc> dsBuoiHoc = await _buoiHocRepository.GetMultiByIdAsync(danhSachBuoi);
 
-                List<BuoiHocBySkillViewModel> dsBuoiHocBySkillVm = new List<BuoiHocBySkillViewModel>();
 
                 //Lấy ra danh sách các buoihoc_nguoidung từ danh sách buổi
                 IEnumerable<BuoiHoc_NguoiDung> dsBuoiHocNguoiDungTrongLop = await _buoiHocNguoiDungRepository.GetTheoDanhSachMaBuoi(danhSachBuoi);
@@ -711,7 +724,7 @@ namespace SoloDevApp.Service.Services
                     lsIdNguoiDungCanLayRa.Add(maNguoiDung);
                 }
 
-                List<dynamic> thongTinChart = new List<dynamic>();
+                
 
                 //Duyệt theo mảng listId đã được sắp xếp để ra kết quả theo đúng thứ tự
                 foreach (var (nguoiDung,index) in lsIdNguoiDungCanLayRa.Select((nguoiDung, index) => (nguoiDung, index)))
@@ -736,12 +749,10 @@ namespace SoloDevApp.Service.Services
                         lsDiemCuaTungBuoiHoc.Add(new { sttBuoi = thuTuBuoiHoc, tongDiem = tongDiemTrongBuoi });
                     }
 
-                    thongTinChart.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
+                    thongTinBuoiHocTheoLopVm.ThongKeDiemNguoiDung.Add(new { tenNguoiDung = tenNguoiDung, thuTuNguoiDung = thuTuNguoiDung, lsDiemCuaTungBuoiHoc = lsDiemCuaTungBuoiHoc });
                 }
 
-                List<dynamic> danhSachTaiLieuBuoiHocTheoSkill = new List<dynamic>();
-
-                List<dynamic> danhSachDiemBaiTapTheoSkill = new List<dynamic>();
+               
 
 
                 //Lấy ra buổi học group theo skill
@@ -968,12 +979,12 @@ namespace SoloDevApp.Service.Services
                     }
                     
                     buoiHocBySkillVm.DanhSachBuoiHoc = lsBuoiHocVm;
-                    dsBuoiHocBySkillVm.Add(buoiHocBySkillVm);
-                    danhSachTaiLieuBuoiHocTheoSkill.Add(taiLieuBuoiHocTheoSkillVm);
-                    danhSachDiemBaiTapTheoSkill.Add(diemNguoiDungTheoSkillVm);
+                    thongTinBuoiHocTheoLopVm.DanhSachBuoiHocTheoSkill.Add(buoiHocBySkillVm);
+                    thongTinBuoiHocTheoLopVm.DanhSachTaiLieuTheoSkill.Add(taiLieuBuoiHocTheoSkillVm);
+                    thongTinBuoiHocTheoLopVm.DanhSachDiemBaiTapTheoSkill.Add(diemNguoiDungTheoSkillVm);
                 }
                
-                return new ResponseEntity(StatusCodeConstants.OK, new { thongBao = lsNoiDungThongBaoVm, thongKeDiemNguoiDung = thongTinChart, thongTinLopHoc = thongTinLopHoc, danhSachBuoiHocTheoSkill = dsBuoiHocBySkillVm, danhSachTaiLieuTheoSkill = danhSachTaiLieuBuoiHocTheoSkill, danhSachDiemBaiTapTheoSkill = danhSachDiemBaiTapTheoSkill });
+                return new ResponseEntity(StatusCodeConstants.OK, thongTinBuoiHocTheoLopVm);
             }
             catch (Exception ex)
             {
@@ -1023,5 +1034,7 @@ namespace SoloDevApp.Service.Services
                 }
 
         }
+
+       
     }
 }

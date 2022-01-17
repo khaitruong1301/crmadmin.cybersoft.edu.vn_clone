@@ -15,7 +15,7 @@ namespace SoloDevApp.Service.Services
 {
     public interface ITrackingNguoiDungService : IService<TrackingNguoiDung, TrackingNguoiDungViewModel>
     {
-        Task<ResponseEntity> getThongBaoNguoiDung();
+        
     }
     public class TrackingNguoiDungService : ServiceBase<TrackingNguoiDung, TrackingNguoiDungViewModel>, ITrackingNguoiDungService
     {
@@ -27,24 +27,11 @@ namespace SoloDevApp.Service.Services
             _trackingNguoiDungRepository = trackingNguoiDungRepository;
         }
 
-        public async Task<ResponseEntity> getThongBaoNguoiDung()
+        public static List<ThongBaoTrackingViewModel> getThongBaoNguoiDung(IEnumerable<TrackingNguoiDung> lsTrackingNguoiDung)
         {
-            try
-            {
-                //Tam set cung maNguoiDung de test
-                string maNguoiDung = "d9699b77-f003-42c4-b050-26607079a789";
 
                 int soBaiTapChuaNop = 0;
                 int soVideoChuaXem = 0;
-
-                IEnumerable<TrackingNguoiDung> lsTrackingNguoiDung = await _trackingNguoiDungRepository.GetMultiByConditionAsync("MaNguoiDung", maNguoiDung);
-
-
-
-                if (lsTrackingNguoiDung == null)
-                {
-                    return null;
-                }
 
                 List<ThongBaoTrackingViewModel> lsThongBao = new List<ThongBaoTrackingViewModel>();
 
@@ -70,6 +57,7 @@ namespace SoloDevApp.Service.Services
                     }
                 }
 
+                //Bổ sung thêm tracking động lực
                 if (soBaiTapChuaNop == 1)
                 {
                     lsThongBao.Add(new ThongBaoTrackingViewModel("Bạn đã không nộp bài tập, hãy cố gắng làm bài tập nhé", "DONG_LUC", DateTime.Now));
@@ -87,18 +75,12 @@ namespace SoloDevApp.Service.Services
                     lsThongBao.Add(new ThongBaoTrackingViewModel("Hệ thống nhận thấy bạn đang học không tốt (không nộp bài, không xem lại video), bạn hãy dàn nhiều thời gian để học hơn nhé", "THONG_BAO_GHIM", DateTime.Now));
                 }
 
-                return new ResponseEntity(StatusCodeConstants.OK, lsThongBao);
-            }
-            catch (Exception ex)
-            {
-                return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, ex.Message);
-            }
-
+            return lsThongBao;
 
         }
 
         //Trả thêm số bài tập chưa nộp nên trả ra dạng dynamic 1 object
-        private dynamic KiemTraTrackingBaiTap (IEnumerable<TrackingNguoiDung> lsTracking)
+        private static dynamic KiemTraTrackingBaiTap (IEnumerable<TrackingNguoiDung> lsTracking)
         {
             List<ThongBaoTrackingViewModel> lsThongBao = new List<ThongBaoTrackingViewModel> ();
 
@@ -149,7 +131,7 @@ namespace SoloDevApp.Service.Services
 
 
         //Trả thêm số video chưa xem nên trả ra dạng dynamic 1 object
-        private dynamic KiemTraTrackingVideoXemLai(IEnumerable<TrackingNguoiDung> lsTracking)
+        private static dynamic KiemTraTrackingVideoXemLai(IEnumerable<TrackingNguoiDung> lsTracking)
         {
             List<ThongBaoTrackingViewModel> lsThongBao = new List<ThongBaoTrackingViewModel>();
 

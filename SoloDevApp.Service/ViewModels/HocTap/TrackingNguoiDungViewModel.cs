@@ -27,7 +27,6 @@ namespace SoloDevApp.Service.ViewModels
             NoiDung = _noiDung;
             LoaiThongBao = _loaiThongBao;
             NgayThang = _ngayThang;
-
         }
     }
 

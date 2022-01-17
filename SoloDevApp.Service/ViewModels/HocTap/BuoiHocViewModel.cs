@@ -54,4 +54,23 @@ namespace SoloDevApp.Service.ViewModels
         public dynamic DiemBuoiHoc;
         public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
     }
+
+    public class ThongTinBuoiHocTheoLopViewModel
+    {
+        public List<ThongBaoTrackingViewModel> ThongBao { get; set; }
+        public List<dynamic> ThongKeDiemNguoiDung { get; set; }
+        public ThongTinLopHocBySkillViewModel ThongTinLopHoc { get; set; }
+        public List<BuoiHocBySkillViewModel> DanhSachBuoiHocTheoSkill { get; set; }
+        public List<dynamic> DanhSachTaiLieuTheoSkill { get; set; }
+        public List<dynamic> DanhSachDiemBaiTapTheoSkill { get; set; }
+
+        public ThongTinBuoiHocTheoLopViewModel() {
+            ThongBao = new List<ThongBaoTrackingViewModel>();
+            ThongKeDiemNguoiDung = new List<dynamic>();
+            ThongTinLopHoc = new ThongTinLopHocBySkillViewModel();
+            DanhSachBuoiHocTheoSkill = new List<BuoiHocBySkillViewModel>();
+            DanhSachTaiLieuTheoSkill = new List<dynamic>();
+            DanhSachDiemBaiTapTheoSkill = new List<dynamic>();
+        }
+    }
 }
