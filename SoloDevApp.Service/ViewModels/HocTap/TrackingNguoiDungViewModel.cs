@@ -19,7 +19,16 @@ namespace SoloDevApp.Service.ViewModels
     public class ThongBaoTrackingViewModel
     {
         public DateTime NgayThang { get; set; }
-        public string NoiDungThongBao { get; set; }
+        public string NoiDung { get; set; }
+        public string LoaiThongBao { get; set; }
+
+        public ThongBaoTrackingViewModel(string _noiDung, string _loaiThongBao, DateTime _ngayThang)
+        {
+            NoiDung = _noiDung;
+            LoaiThongBao = _loaiThongBao;
+            NgayThang = _ngayThang;
+
+        }
     }
 
     public class ChiTietHanhDongBaseViewModel
@@ -46,6 +55,7 @@ namespace SoloDevApp.Service.ViewModels
         public string TieuDe { get; set; }
         public DateTime NgayHetHan { get; set; }
         public bool DaXem { get; set; }
+        public DateTime NgayThang { get; set; }
     }
 
     public class ChiTietHanhDongUpBaiTapViewModel : ChiTietHanhDongBaseViewModel
@@ -57,7 +67,7 @@ namespace SoloDevApp.Service.ViewModels
 
     public class ChiTietHanhDongUpTaiLieuViewModel :ChiTietHanhDongBaseViewModel { }
 
-    public class ChiTietHanhDongUpVideo
+    public class ChiTietHanhDongUpVideoViewModel
     {
         public string TieuDe { set; get; }
         public DateTime NgayThang { set; get; }
