@@ -4,16 +4,17 @@ namespace SoloDevApp.Service.ViewModels
 {
     public class BuoiHocViewModel
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string TenBuoiHoc { get; set; }
         public string BiDanh { get; set; }
         public int MaRoadMapDetail { get; set; }
         public int STT { get; set; }
         public int MaLop { get; set; }
-
         public string MaSkill { get; set; }
 
-        
+        // public DateTime NgayHoc { get; set; }
+
+
 
         public List<TaiLieuBaiHocViewModel> TaiLieuBaiHoc { get; set; }
         public List<BaiTapBuoiHocViewModel> TaiLieuBaiTap { get; set; }
@@ -33,11 +34,11 @@ namespace SoloDevApp.Service.ViewModels
         {
             LichSuHocTap = new List<LichSuHocTapViewModel>();
             TaiLieuBaiHoc = new List<TaiLieuBaiHocViewModel>();
-            TaiLieuBaiTap =   new List<BaiTapBuoiHocViewModel>();
+            TaiLieuBaiTap = new List<BaiTapBuoiHocViewModel>();
             TaiLieuDocThem = new List<TaiLieuDocThemViewModel>();
             TaiLieuProjectLamThem = new List<TaiLieuProjectLamThemViewModel>();
             TaiLieuCapstone = new List<BaiTapBuoiHocViewModel>();
-            TracNghiem = new List<BaiTapBuoiHocViewModel> ();
+            TracNghiem = new List<BaiTapBuoiHocViewModel>();
             TracNghiemExtra = new List<BaiTapBuoiHocViewModel>();
             VideoXemLai = new List<dynamic>();
             VideoExtra = new List<dynamic>();
@@ -53,12 +54,12 @@ namespace SoloDevApp.Service.ViewModels
         public bool isActive;
 
         public dynamic DiemBuoiHoc;
-        public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
+        public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set; }
 
         public BuoiHocBySkillViewModel()
         {
-            DanhSachKhoaHocBySkill = new List<dynamic> ();
-            DanhSachBuoiHoc = new List<BuoiHocViewModel> ();
+            DanhSachKhoaHocBySkill = new List<dynamic>();
+            DanhSachBuoiHoc = new List<BuoiHocViewModel>();
         }
     }
 
@@ -71,7 +72,8 @@ namespace SoloDevApp.Service.ViewModels
         public List<dynamic> DanhSachTaiLieuTheoSkill { get; set; }
         public List<dynamic> DanhSachDiemBaiTapTheoSkill { get; set; }
 
-        public ThongTinBuoiHocTheoLopViewModel() {
+        public ThongTinBuoiHocTheoLopViewModel()
+        {
             ThongBao = new List<ThongBaoTrackingViewModel>();
             ThongKeDiemNguoiDung = new List<dynamic>();
             ThongTinLopHoc = new ThongTinLopHocBySkillViewModel();
@@ -85,6 +87,6 @@ namespace SoloDevApp.Service.ViewModels
     {
         public int MaLop { get; set; }
         public int SoBuoiHocCuaLop { get; set; }
-        public int? MaRoadMapDetail { get; set; } //Có cũng được không có không sao
+        public int MaRoadMapDetail { get; set; } //Có cũng được không có không sao
     }
 }

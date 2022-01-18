@@ -23,7 +23,7 @@ namespace SoloDevApp.Service.Services
         IBuoiHocRepository _buoiHocRepository;
         ILopHocRepository _lopHocRepository;
         IRoadMapDetailRepository _roadMapDetailRepository;
-        public BuoiHocService(IBuoiHocRepository buoiHocRepository,ILopHocRepository lopHocRepository,IRoadMapDetailRepository roadMapDetailRepository,
+        public BuoiHocService(IBuoiHocRepository buoiHocRepository, ILopHocRepository lopHocRepository, IRoadMapDetailRepository roadMapDetailRepository,
             IMapper mapper)
             : base(buoiHocRepository, mapper)
         {
@@ -85,7 +85,7 @@ namespace SoloDevApp.Service.Services
                 {
                     return new ResponseEntity(StatusCodeConstants.BAD_REQUEST, buoiHoc, MessageConstants.INSERT_ERROR);
                 }
-                   
+
 
                 return new ResponseEntity(StatusCodeConstants.OK, buoiHoc, MessageConstants.INSERT_SUCCESS);
             }
@@ -95,7 +95,7 @@ namespace SoloDevApp.Service.Services
             }
         }
 
-        public async Task<ResponseEntity> ThemListBuoiHocTheoMaLop (InputThemListBuoiHocTheoMaLopViewModel modelVm)
+        public async Task<ResponseEntity> ThemListBuoiHocTheoMaLop(InputThemListBuoiHocTheoMaLopViewModel modelVm)
         {
             try
             {
@@ -118,18 +118,46 @@ namespace SoloDevApp.Service.Services
                 }
 
                 int bienDemThuTuBuoiHoc = 0;
-
-                DateTime ngayKhaiGiang = lopHoc.NgayBatDau;
-
-                List<BuoiHoc> lsBuoiHoc = new List<BuoiHoc>();
+                DateTime _ngayHoc = lopHoc.NgayBatDau;
 
 
 
+                List<int> lsMaBuoiHocNew = new List<int>();
+
+                List<int> thoiKhoaBieu = JsonConvert.DeserializeObject<List<int>>(lopHoc.ThoiKhoaBieu);
+
+                //Map list thời khóa biểu về dạng phù hợp
+                thoiKhoaBieu = thoiKhoaBieu.ConvertAll(item => ConvertNgayTrongTuan(item));
+
+                do
+                {
+                    if (thoiKhoaBieu.Contains((int)_ngayHoc.DayOfWeek))
+                    {
+                        bienDemThuTuBuoiHoc++;
+                        BuoiHoc buoiHoc = new BuoiHoc();
+                        buoiHoc.STT = bienDemThuTuBuoiHoc;
+                        buoiHoc.NgayHoc = _ngayHoc;
+                        buoiHoc.MaLop = modelVm.MaLop;
+                        buoiHoc.MaRoadMapDetail = modelVm.MaRoadMapDetail;
+
+                        lsMaBuoiHocNew.Add((await _buoiHocRepository.InsertAsync(buoiHoc)).Id);
+                    }
+                    //Tăng ngày học lên 1 
+                    _ngayHoc = _ngayHoc.AddDays(1);
+                } while (bienDemThuTuBuoiHoc <= modelVm.SoBuoiHocCuaLop);
+
+                //Lấy ra lớp học và cập nhật danh sách id buổi học vào
+                LopHoc lopHocModel = await _lopHocRepository.GetSingleByIdAsync(modelVm.MaLop);
+
+                lopHocModel.DanhSachBuoi = JsonConvert.SerializeObject(lsMaBuoiHocNew);
+
+                await _lopHocRepository.UpdateAsync(lopHocModel.Id, lopHocModel);
 
 
 
-                
-               
+
+
+
                 ////Thêm buổi học vào hệ thống
                 //BuoiHoc buoiHoc = _mapper.Map<BuoiHoc>(modelVm);
 
