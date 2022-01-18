@@ -66,6 +66,7 @@ namespace SoloDevApp.Api
             services.AddTransient<IChiNhanhRepository, ChiNhanhRepository>();
             services.AddTransient<IXepLichRepository, XepLichRepository>();
             services.AddTransient<IXemLaiBuoiHocRepository, XemLaiBuoiHocRepository>();
+
             services.AddTransient<IRoadMapRepository, RoadMapRepository>();
             services.AddTransient<IRoadMapDetailRepository, RoadMapDetailRepository>();
             services.AddTransient<IBuoiHocRepository, BuoiHocRepository>();
@@ -80,9 +81,12 @@ namespace SoloDevApp.Api
             services.AddTransient<ITaiLieuDocThemRepository, TaiLieuDocThemRepository>();
             services.AddTransient<ITaiLieuProjectLamThemRepository, TaiLieuProjectLamThemRepository>();
             services.AddTransient<ITracNghiemRepository, TracNghiemRepository>();
+            services.AddTransient<ITracNghiemExtraRepository, TracNghiemExtraRepository>();
             services.AddTransient<ITaiLieuCapstoneRepository, TaiLieuCapstoneRepository>();
+
             services.AddTransient<IBuoiHoc_NguoiDungRepository, BuoiHoc_NguoiDungRepository>();
             services.AddTransient<IThongBaoRepository, ThongBaoRepository>();
+            services.AddTransient<ITrackingNguoiDungRepository, TrackingNguoiDungRepository>();
 
 
             // ==================== SERVICE ====================
@@ -123,6 +127,8 @@ namespace SoloDevApp.Api
             services.AddTransient<ILoaiBaiTapService, LoaiBaiTapService>();
             services.AddTransient<IBaiHocNewService, BaiHocNewService>();
             services.AddTransient<IBuoiHoc_NguoiDungService, BuoiHoc_NguoiDungService>();
+            services.AddTransient<ITrackingNguoiDungService, TrackingNguoiDungService>();
+
 
 
             // ==================== HELPER ====================

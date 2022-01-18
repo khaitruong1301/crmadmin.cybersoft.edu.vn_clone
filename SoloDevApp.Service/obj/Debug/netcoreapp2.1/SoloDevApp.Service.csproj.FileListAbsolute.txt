@@ -1,12 +1,12 @@
+C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csprojAssemblyReference.cache
+C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfo.cs
+C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CoreCompileInputs.cache
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.deps.json
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.dll
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Service.pdb
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.dll
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\bin\Debug\netcoreapp2.1\SoloDevApp.Repository.pdb
-C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csprojAssemblyReference.cache
-C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfoInputs.cache
-C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.AssemblyInfo.cs
-C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CoreCompileInputs.cache
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.csproj.CopyComplete
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.dll
 C:\Users\HP\Desktop\wiki1.cybersoft.edu.vn\crmadmin.cybersoft.edu.vn_clone\SoloDevApp.Service\obj\Debug\netcoreapp2.1\SoloDevApp.Service.pdb

@@ -94,6 +94,8 @@ namespace SoloDevApp.Api.Controllers
             return await _lopHocService.CheckSoLuongMentor();
         }
 
+        //WIKI BEGIN
+
         [HttpGet("lay-danh-sach-buoi-hoc-theo-lop/{classId}")]
         public async Task<IActionResult> LayDanhSachBuoiHocTheoLop(int classId)
         {
