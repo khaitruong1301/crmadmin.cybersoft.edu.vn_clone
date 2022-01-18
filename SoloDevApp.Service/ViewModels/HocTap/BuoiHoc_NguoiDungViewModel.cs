@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SoloDevApp.Service.ViewModels
 {
@@ -8,8 +9,19 @@ namespace SoloDevApp.Service.ViewModels
         public string MaNguoiDung { get; set; }
         public int MaBuoiHoc { get; set; }
         public string LichSuHocTap { get; set; }
+    }
 
-
+    public class DiemPhanTramCuaBuoiHocViewModel
+    {
+        public List<int> TongPhanTramQuizVongTronCam { get; set; }
+        public List<int> TongPhanTramBaiTapVongTronCam { get; set; }
+        public List<int> TongPhanTramVongTronTim { get; set; }
+        public DiemPhanTramCuaBuoiHocViewModel()
+        {
+            TongPhanTramQuizVongTronCam = new List<int>();
+            TongPhanTramBaiTapVongTronCam = new List<int>();
+            TongPhanTramVongTronTim = new List<int>();
+        }
     }
 
     public class LichSuHocTapViewModel

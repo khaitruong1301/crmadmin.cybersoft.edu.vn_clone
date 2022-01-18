@@ -109,10 +109,9 @@ namespace SoloDevApp.Service.AutoMapper
 
             /*=========== ROAD MAP VIEW TABLE =============*/
             CreateMap<TaiLieuBaiHocViewModel, TaiLieuBaiHoc>();
-            CreateMap<TaiLieuBaiTapViewModel, TaiLieuBaiTap>();
             CreateMap<TaiLieuDocThemViewModel, TaiLieuDocThem>();
             CreateMap<TaiLieuProjectLamThemViewModel, TaiLieuProjectLamThem>();
-            CreateMap<TracNghiemViewModel, TracNghiem>();
+
         }
     }
 }

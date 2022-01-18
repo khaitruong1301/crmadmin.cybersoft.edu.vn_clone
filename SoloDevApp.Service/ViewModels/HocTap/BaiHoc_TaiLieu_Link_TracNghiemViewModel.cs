@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SoloDevApp.Service.ViewModels
 {
@@ -25,12 +26,19 @@ namespace SoloDevApp.Service.ViewModels
         public string MoTa { get; set; }
     }
 
+    public class BaiTapBuoiHocViewModel : TaiLieuViewModel
+    {
+        public int Diem { get; set; }
+        public string LoaiBaiTap { get; set; }
+        public DateTime HanNop { get; set; }
+        
+    }
+
     public class TaiLieuBaiHocViewModel : TaiLieuViewModel { }
-    public class TaiLieuBaiTapViewModel : TaiLieuViewModel { }
+    
     public class TaiLieuDocThemViewModel : TaiLieuViewModel { }
     public class TaiLieuProjectLamThemViewModel : TaiLieuViewModel { }
-    public class TaiLieuCapstoneViewModel : TaiLieuViewModel {}
-    public class TracNghiemViewModel : TaiLieuViewModel { }
+   
 
     public class VideoFPTViewModel : TaiLieuViewModel {
         public string Vimeo { get; set; }

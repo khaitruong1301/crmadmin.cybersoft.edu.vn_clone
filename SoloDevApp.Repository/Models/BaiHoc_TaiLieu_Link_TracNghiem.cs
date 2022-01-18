@@ -48,6 +48,8 @@
     {
     }
 
+    public class TracNghiemExtra : TaiLieu { }
+
     public class TaiLieuCapstone : TaiLieu
     {
 

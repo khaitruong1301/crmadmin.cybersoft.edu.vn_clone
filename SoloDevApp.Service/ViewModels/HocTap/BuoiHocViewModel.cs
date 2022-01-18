@@ -8,7 +8,6 @@ namespace SoloDevApp.Service.ViewModels
         public string TenBuoiHoc { get; set; }
         public string BiDanh { get; set; }
         public int MaRoadMapDetail { get; set; }
-        public string DanhSachBaiHocTracNghiem { get; set; }
         public int STT { get; set; }
         public int MaLop { get; set; }
 
@@ -17,12 +16,13 @@ namespace SoloDevApp.Service.ViewModels
         
 
         public List<TaiLieuBaiHocViewModel> TaiLieuBaiHoc { get; set; }
-        public List<TaiLieuBaiTapViewModel> TaiLieuBaiTap { get; set; }
+        public List<BaiTapBuoiHocViewModel> TaiLieuBaiTap { get; set; }
         public List<TaiLieuDocThemViewModel> TaiLieuDocThem { get; set; }
         public List<TaiLieuProjectLamThemViewModel> TaiLieuProjectLamThem { get; set; }
 
-        public List<TaiLieuCapstoneViewModel> TaiLieuCapstone { get; set; }
-        public List<TracNghiemViewModel> TracNghiem { get; set; }
+        public List<BaiTapBuoiHocViewModel> TaiLieuCapstone { get; set; }
+        public List<BaiTapBuoiHocViewModel> TracNghiem { get; set; }
+        public List<BaiTapBuoiHocViewModel> TracNghiemExtra { get; set; }
 
         public List<LichSuHocTapViewModel> LichSuHocTap { get; set; }
 
@@ -33,11 +33,12 @@ namespace SoloDevApp.Service.ViewModels
         {
             LichSuHocTap = new List<LichSuHocTapViewModel>();
             TaiLieuBaiHoc = new List<TaiLieuBaiHocViewModel>();
-            TaiLieuBaiTap =   new List<TaiLieuBaiTapViewModel>();
+            TaiLieuBaiTap =   new List<BaiTapBuoiHocViewModel>();
             TaiLieuDocThem = new List<TaiLieuDocThemViewModel>();
             TaiLieuProjectLamThem = new List<TaiLieuProjectLamThemViewModel>();
-            TaiLieuCapstone = new List<TaiLieuCapstoneViewModel>();
-            TracNghiem = new List<TracNghiemViewModel> ();
+            TaiLieuCapstone = new List<BaiTapBuoiHocViewModel>();
+            TracNghiem = new List<BaiTapBuoiHocViewModel> ();
+            TracNghiemExtra = new List<BaiTapBuoiHocViewModel>();
             VideoXemLai = new List<dynamic>();
             VideoExtra = new List<dynamic>();
         }
@@ -53,6 +54,12 @@ namespace SoloDevApp.Service.ViewModels
 
         public dynamic DiemBuoiHoc;
         public List<BuoiHocViewModel> DanhSachBuoiHoc { get; set;}
+
+        public BuoiHocBySkillViewModel()
+        {
+            DanhSachKhoaHocBySkill = new List<dynamic> ();
+            DanhSachBuoiHoc = new List<BuoiHocViewModel> ();
+        }
     }
 
     public class ThongTinBuoiHocTheoLopViewModel
