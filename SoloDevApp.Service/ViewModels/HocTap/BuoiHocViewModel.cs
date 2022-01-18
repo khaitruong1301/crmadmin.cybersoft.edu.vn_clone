@@ -80,4 +80,11 @@ namespace SoloDevApp.Service.ViewModels
             DanhSachDiemBaiTapTheoSkill = new List<dynamic>();
         }
     }
+
+    public class InputThemListBuoiHocTheoMaLopViewModel
+    {
+        public int MaLop { get; set; }
+        public int SoBuoiHocCuaLop { get; set; }
+        public int? MaRoadMapDetail { get; set; } //Có cũng được không có không sao
+    }
 }
