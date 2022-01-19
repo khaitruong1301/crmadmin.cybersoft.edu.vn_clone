@@ -153,11 +153,6 @@ namespace SoloDevApp.Service.Services
 
                 await _lopHocRepository.UpdateAsync(lopHocModel.Id, lopHocModel);
 
-
-
-
-
-
                 ////Thêm buổi học vào hệ thống
                 //BuoiHoc buoiHoc = _mapper.Map<BuoiHoc>(modelVm);
 
@@ -191,7 +186,6 @@ namespace SoloDevApp.Service.Services
                 //{
                 //    return new ResponseEntity(StatusCodeConstants.BAD_REQUEST, buoiHoc, MessageConstants.INSERT_ERROR);
                 //}
-
 
                 return new ResponseEntity(StatusCodeConstants.OK);
             }
