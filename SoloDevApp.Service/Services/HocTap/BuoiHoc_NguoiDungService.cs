@@ -21,12 +21,14 @@ namespace SoloDevApp.Service.Services
     public class BuoiHoc_NguoiDungService : ServiceBase<BuoiHoc_NguoiDung, BuoiHoc_NguoiDungViewModel>, IBuoiHoc_NguoiDungService
     {
         IBuoiHoc_NguoiDungRepository _buoiHoc_NguoiDungRepository;
+        ITrackingNguoiDungRepository _trackingNguoiDungRepository;
 
-        public BuoiHoc_NguoiDungService(IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository,
+        public BuoiHoc_NguoiDungService(IBuoiHoc_NguoiDungRepository buoiHoc_NguoiDungRepository, ITrackingNguoiDungRepository trackingNguoiDungRepository,
             IMapper mapper)
             : base(buoiHoc_NguoiDungRepository, mapper)
         {
             _buoiHoc_NguoiDungRepository = buoiHoc_NguoiDungRepository;
+            _trackingNguoiDungRepository = trackingNguoiDungRepository;
         }
 
         public async Task<ResponseEntity> NopBaiTap(dynamic modelVm)
@@ -69,6 +71,7 @@ namespace SoloDevApp.Service.Services
 
                             //Set điểm thành -1 để biết là chưa chấm
                             lichSuHocTap.Diem = -1;
+                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
                         }
                         break;
                     case "QUIZ":
@@ -76,6 +79,7 @@ namespace SoloDevApp.Service.Services
                         {
                             //Cập nhật điểm vì nộp là bài chấm điểm
                             lichSuHocTap.Diem = modelVm.Diem;
+                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
                         }
                         break;
                     case "CAPSTONE":
@@ -88,15 +92,45 @@ namespace SoloDevApp.Service.Services
 
                             //Set điểm thành -1 để biết là chưa chấm
                             lichSuHocTap.Diem = -1;
+                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
                         }
                         break;
                 }
 
-               
                 //Map ngược lại lịch sử học tập thành string sau đó gán vào lại thằng entity rồi cập nhật vào db
                 entity.LichSuHocTap = JsonConvert.SerializeObject(lsLichSuHocTap);
+                
+
+                //Xử lý cập nhật thông tin vào tracking người dùng
+                List<KeyValuePair<string ,dynamic>> columsTracking = new List<KeyValuePair<string, dynamic>>();
+
+                columsTracking.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", modelVm.MaNguoiDung));
+                columsTracking.Add(new KeyValuePair<string, dynamic>("MaLop", modelVm.MaLop));
+                columsTracking.Add(new KeyValuePair<string, dynamic>("LoaiHanhDong", "BAI_TAP"));
+                
+
+                TrackingNguoiDung trackingBaiTap = await _trackingNguoiDungRepository.GetSingleByListConditionAsync(columsTracking);
+                //Chuyển string thành object để xử lý
+                List<ChiTietHanhDongBaiTapViewModel> lsChiTietBaiTap = JsonConvert.DeserializeObject < List<ChiTietHanhDongBaiTapViewModel>>(trackingBaiTap.ChiTietHanhDong);
+
+                //Tìm index của bài tập và cập nhật da nop + ngay thang
+                int baiTapIndex = lsChiTietBaiTap.FindIndex(item => item.MaBaiHoc == modelVm.MaBaiHoc);
+                if (baiTapIndex == -1) {
+                    return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, "Không có thông tin bài tập trong tracking");
+                }
+
+                lsChiTietBaiTap[baiTapIndex].DaNop = true;
+                lsChiTietBaiTap[baiTapIndex].NgayThang = DateTime.Now;
+
+                //Covert object về string và update lại record
+                trackingBaiTap.ChiTietHanhDong = JsonConvert.SerializeObject(lsChiTietBaiTap);
+                trackingBaiTap.NgayCuoiCungHoatDong = DateTime.Now;
+
+                //Ok hết mới ghi vào DB
 
                 var result = await _buoiHoc_NguoiDungRepository.UpdateAsync(entity.Id, entity);
+
+                await _trackingNguoiDungRepository.UpdateAsync(trackingBaiTap.Id, trackingBaiTap);
 
                 return new ResponseEntity(StatusCodeConstants.OK, result);
             }

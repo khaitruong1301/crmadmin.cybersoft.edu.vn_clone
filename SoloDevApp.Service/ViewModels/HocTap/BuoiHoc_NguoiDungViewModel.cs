@@ -70,6 +70,7 @@ namespace SoloDevApp.Service.ViewModels
         public string MaNguoiDung;
         public int MaBaiHoc;
         public string LoaiBaiTap;
+        public int MaLop;
     }
 
     public class ThongTinNopBaiTapTracNghiemViewModel : ThongTinNopBaiTapViewModelBase

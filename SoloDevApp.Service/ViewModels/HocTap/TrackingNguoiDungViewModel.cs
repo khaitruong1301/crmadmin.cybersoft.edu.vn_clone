@@ -34,7 +34,7 @@ namespace SoloDevApp.Service.ViewModels
     {
         [Required]
         public DateTime NgayThang { get; set; }
-        public string MaBaiHoc { get; set; }
+        public int MaBaiHoc { get; set; }
         public string TieuDe { get; set; }
 
         

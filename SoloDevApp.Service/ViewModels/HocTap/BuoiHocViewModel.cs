@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SoloDevApp.Service.ViewModels
 {
@@ -11,8 +12,7 @@ namespace SoloDevApp.Service.ViewModels
         public int STT { get; set; }
         public int MaLop { get; set; }
         public string MaSkill { get; set; }
-
-        // public DateTime NgayHoc { get; set; }
+        public DateTime NgayHoc { get; set; }
 
 
 
@@ -87,6 +87,6 @@ namespace SoloDevApp.Service.ViewModels
     {
         public int MaLop { get; set; }
         public int SoBuoiHocCuaLop { get; set; }
-        public int MaRoadMapDetail { get; set; } //Có cũng được không có không sao
+        public int MaRoadMapDetail { get; set; }
     }
 }

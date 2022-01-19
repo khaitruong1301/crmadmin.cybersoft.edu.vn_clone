@@ -11,7 +11,7 @@ namespace SoloDevApp.Repository.Repositories
 {
     public interface IBuoiHocRepository : IRepository<BuoiHoc>
     {
-        Task<dynamic> GetTheoLop_BuoiHoc(int maLop);
+       
     }
 
     public class BuoiHocRepository : RepositoryBase<BuoiHoc>, IBuoiHocRepository
@@ -21,24 +21,5 @@ namespace SoloDevApp.Repository.Repositories
         {
         }
 
-        public async Task<dynamic> GetTheoLop_BuoiHoc(int maLop)
-        {
-            using (var conn = CreateConnection())
-            {
-                try
-                {
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@classId", maLop);
-                    parameters.Add("@BuoiHocQuery", null, DbType.Object, ParameterDirection.Output);
-                    return await conn.QueryAsync<HocPhi>("GET_BUOI_HOC_BY_CLASS_ID", parameters, null, null, CommandType.StoredProcedure);
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine(ex);
-                    throw;
-                }
-            }
-
-        }
     }
 }
