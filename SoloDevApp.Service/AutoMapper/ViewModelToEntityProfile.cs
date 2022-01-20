@@ -103,7 +103,11 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<UnitCourseViewModel, UnitCourse>();
             CreateMap<VideoExtraViewModel, VideoExtra>();
             CreateMap<BaiHoc_TaiLieu_Link_TracNghiemViewModel, BaiHoc_TaiLieu_Link_TracNghiem>();
-            CreateMap<LichSuHocTapViewModel, LichSuHocTap>();
+            CreateMap<LichSuHocTapViewModel, LichSuHocTap>()
+                .ForMember(entity => entity.HanNop,
+                                m => m.MapFrom(modelVm => FuncUtilities.ConvertDateToString(modelVm.HanNop)))
+                .ForMember(entity => entity.NgayThang,
+                                m => m.MapFrom(modelVm => FuncUtilities.ConvertDateToString(modelVm.NgayThang)));
             CreateMap<NoiDungThongBaoViewModel, NoiDungThongBao>();
             CreateMap<TrackingNguoiDungViewModel, TrackingNguoiDung>();
 

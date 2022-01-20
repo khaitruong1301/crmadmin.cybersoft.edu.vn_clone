@@ -39,6 +39,8 @@ namespace SoloDevApp.Service.Services
 
         Task<ResponseEntity> GetListClassesByClassId(int classId);
 
+        Task<ResponseEntity> TestTracking(int classId);
+
         Task<ResponseEntity> AddClassesToClass(int classId, int classesId);
 
     }
@@ -881,6 +883,299 @@ namespace SoloDevApp.Service.Services
                         buoiHocVm.TaiLieuProjectLamThem = (_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
 
                         
+
+
+                        //Add VideoXemLai
+                        List<KeyValuePair<string, dynamic>> colums = new List<KeyValuePair<string, dynamic>>();
+
+                        colums.Add(new KeyValuePair<string, dynamic>("MaBuoi", buoiHoc.Id));
+
+                        IEnumerable<XemLaiBuoiHoc> lsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetMultiByListConditionAndAsync(colums);
+
+                        if (lsXemLaiBuoiHoc != null)
+                        {
+                            foreach (XemLaiBuoiHoc video in lsXemLaiBuoiHoc)
+                            {
+                                XemLaiBuoiHocViewModel xemLaiBuoiHocVm = new XemLaiBuoiHocViewModel();
+                                xemLaiBuoiHocVm = _mapper.Map<XemLaiBuoiHocViewModel>(video);
+                                buoiHocVm.VideoXemLai.Add(xemLaiBuoiHocVm);
+                            }
+                        }
+
+                        //Add các Video extra vào
+                        IEnumerable<VideoExtra> lsVideoExtra = await _videoExtraRepository.GetMultiByListConditionAndAsync(colums);
+
+                        if (lsVideoExtra != null)
+                        {
+                            foreach (VideoExtra video in lsVideoExtra)
+                            {
+                                VideoExtraViewModel videoExtraVm = new VideoExtraViewModel();
+                                videoExtraVm = _mapper.Map<VideoExtraViewModel>(video);
+                                buoiHocVm.VideoExtra.Add(videoExtraVm);
+                            }
+                        }
+                        //Add buổi học vào list buổi học
+                        lsBuoiHocVm.Add(buoiHocVm);
+                    }
+
+                    buoiHocBySkillVm.DanhSachBuoiHoc = lsBuoiHocVm;
+                    thongTinBuoiHocTheoLopVm.DanhSachBuoiHocTheoSkill.Add(buoiHocBySkillVm);
+                    thongTinBuoiHocTheoLopVm.DanhSachTaiLieuTheoSkill.Add(taiLieuBuoiHocTheoSkillVm);
+                    thongTinBuoiHocTheoLopVm.DanhSachDiemBaiTapTheoSkill.Add(diemNguoiDungTheoSkillVm);
+                }
+
+                return new ResponseEntity(StatusCodeConstants.OK, thongTinBuoiHocTheoLopVm);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, ex.Message);
+            }
+        }
+
+        public async Task<ResponseEntity> TestTracking(int classId)
+        {
+            try
+            {
+                //set cứng tạm sau này sẽ bóc từ token vào
+                string maNguoiDung = "022d2764-ec59-4eb9-8d25-36b73365950a";
+
+                LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(classId);
+
+                if (lopHoc == null)
+                {
+                    return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
+                }
+
+                ThongTinBuoiHocTheoLopViewModel thongTinBuoiHocTheoLopVm = new ThongTinBuoiHocTheoLopViewModel();
+
+
+                //Lấy tất cả tracking của theo mã người dùng từ đó lấy ra thông báo về học tập và bài tập
+                IEnumerable<TrackingNguoiDung> lsTrackingNguoiDung = await _trackingNguoiDungRepository.GetMultiByConditionAsync("MaNguoiDung", maNguoiDung);
+
+                if (lsTrackingNguoiDung != null)
+                {
+                    thongTinBuoiHocTheoLopVm.ThongBao = TrackingNguoiDungService.getThongBaoNguoiDung(lsTrackingNguoiDung);
+                }
+
+                //Lấy thông tin của lớp học
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.TenLopHoc = lopHoc.TenLopHoc;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.BiDanh = lopHoc.BiDanh;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.NgayBatDau = FuncUtilities.ConvertDateToString(lopHoc.NgayBatDau);
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.NgayKetThuc = FuncUtilities.ConvertDateToString(lopHoc.NgayKetThuc);
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.SoHocVien = lopHoc.SoHocVien;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.ThoiKhoaBieu = lopHoc?.ThoiKhoaBieu;
+                thongTinBuoiHocTheoLopVm.ThongTinLopHoc.Token = lopHoc?.Token;
+
+
+                //Lẩy ra toàn bộ buổi học của lớp
+                List<dynamic> danhSachBuoi = JsonConvert.DeserializeObject<List<dynamic>>(lopHoc.DanhSachBuoi);
+
+                IEnumerable<BuoiHoc> dsBuoiHoc = await _buoiHocRepository.GetMultiByIdAsync(danhSachBuoi);
+
+
+                //Lây ra danh sách top 3 điểm người dùng trong lớp, nếu có id của user trong top 3 thì thôi, còn không thì add id user và cho đứng thứ 4
+                thongTinBuoiHocTheoLopVm.ThongKeDiemNguoiDung.AddRange(await ThongKeNhungNguoiCaoDiemNhatLop(maNguoiDung, danhSachBuoi));
+
+
+
+                //Group danh sách buổi học theo skill và loop
+                foreach (var groupSkill in dsBuoiHoc.GroupBy(x => x.MaSkill))
+                {
+                    BuoiHocBySkillViewModel buoiHocBySkillVm = new BuoiHocBySkillViewModel();
+
+                    TaiLieuBuoiHocTheoSkillViewModel taiLieuBuoiHocTheoSkillVm = new TaiLieuBuoiHocTheoSkillViewModel();
+
+                    DiemNguoiDungTheoSkillViewModel diemNguoiDungTheoSkillVm = new DiemNguoiDungTheoSkillViewModel();
+
+                    List<BuoiHocViewModel> lsBuoiHocVm = new List<BuoiHocViewModel>();
+
+                    diemNguoiDungTheoSkillVm.TenSkill = groupSkill.Key;
+                    taiLieuBuoiHocTheoSkillVm.TenSkill = groupSkill.Key;
+                    buoiHocBySkillVm.TenSkill = groupSkill.Key;
+
+                    //Hardcode hiện thông tin active của skill nếu là HTML-CSS, BOOTSTRAP và GIT thì active còn khác thì inactive
+                    //Trường hợp sau này sẽ sử dụng 1 biến cờ để check trong từng buổi học, nếu buổi học chưa tới thì sẽ inactive
+                    string[] listSkill = { "HTML-CSS", "BOOTSTRAP", "GIT" };
+
+                    if (listSkill.Contains(groupSkill.Key))
+                    {
+                        buoiHocBySkillVm.isActive = true;
+                    }
+                    else
+                    {
+                        buoiHocBySkillVm.isActive = false;
+                    }
+
+                    //Xử lý lấy ra các video khóa học liên quan tới skill
+                    buoiHocBySkillVm.DanhSachKhoaHocBySkill = await LayVideoKhoaHocLienQuanTheoSkill(groupSkill.Key);
+
+
+                    DiemPhanTramCuaBuoiHocViewModel tongDiemTrongSkill = new DiemPhanTramCuaBuoiHocViewModel();
+
+
+                    //Duyệt từng buổi học trong skill để lấy data bài học
+
+                    foreach (var buoiHoc in groupSkill)
+                    {
+
+                        List<dynamic> dsBaiHocTrongBuoi = JsonConvert.DeserializeObject<List<dynamic>>(buoiHoc.DanhSachBaiHocTracNghiem);
+
+                        BuoiHocViewModel buoiHocVm = _mapper.Map<BuoiHocViewModel>(buoiHoc);
+
+                        //Lấy ra dữ liệu BuoiHoc_NguoiDung về bài tập
+                        List<KeyValuePair<string, dynamic>> buoiHocNguoiDungColumns = new List<KeyValuePair<string, dynamic>>();
+
+                        //Gán cứng mã người dùng của sĩ để test sau này sẽ lấy từ token gắn ở header
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", maNguoiDung));
+                        buoiHocNguoiDungColumns.Add(new KeyValuePair<string, dynamic>("MaBuoiHoc", buoiHoc.Id));
+
+                        BuoiHoc_NguoiDung buoiHocNguoiDung = await _buoiHocNguoiDungRepository.GetSingleByListConditionAsync(buoiHocNguoiDungColumns);
+
+                        if (buoiHocNguoiDung != null)
+                        {
+                            IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
+
+                            buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
+
+
+                            //Xử lý tính % điểm của người dùng trong 1 buổi, duyệt tất cả object trong đó nếu là QUIZ_PURPLE thì tính bên thằng tím
+
+                            foreach (var item in lsLichSuHocTap)
+                            {
+                                //Xử lý lấy điểm cho phần trăm
+                                if (item.Diem >= 0)
+                                {
+                                    switch (item.LoaiBaiTap)
+                                    {
+                                        case "QUIZ_PURPLE":
+                                            {
+                                                tongDiemTrongSkill.TongPhanTramVongTronTim.Add(item.Diem * 10);
+
+                                            }
+                                            break;
+                                        case "QUIZ":
+                                            {
+                                                tongDiemTrongSkill.TongPhanTramQuizVongTronCam.Add(item.Diem * 10);
+                                            }
+                                            break;
+                                        default:
+                                            {
+                                                //Do bài tập viết chấm theo thang 100 nên không cần phải * 10
+                                                tongDiemTrongSkill.TongPhanTramBaiTapVongTronCam.Add(item.Diem);
+                                            }
+                                            break;
+                                    }
+                                }
+                                //Xử lý phần đổ bài tập ra chung với điểm, do bài tập nộp mà chưa chấm cũng đổ ra nên phải ở ngoài vòng kiểm tra điểm
+                                BaiTapBuoiHocViewModel baiTap = new BaiTapBuoiHocViewModel();
+
+                                //Gán các giá trị cho bài tập
+                                baiTap.Diem = item.Diem;
+                                baiTap.LoaiBaiTap = item.LoaiBaiTap;
+                                baiTap.HanNop = FuncUtilities.ConvertStringToDateTime(item.HanNop);
+                                baiTap.Id = item.MaBaiHoc;
+
+                                dynamic thongTinBaiTap = null;
+
+                                switch (item.LoaiBaiTap)
+                                {
+                                    case "QUIZ":
+                                        {
+                                            thongTinBaiTap = await _tracNghiemRepository.GetSingleByIdAsync(item.MaBaiHoc);
+                                            baiTap.TieuDe = thongTinBaiTap.TieuDe;
+                                            baiTap.NoiDung = thongTinBaiTap?.NoiDung;
+                                            baiTap.MoTa = thongTinBaiTap?.MoTa;
+                                            buoiHocVm.TracNghiem.Add(baiTap);
+                                        }
+                                        break;
+                                    case "QUIZ_WRITE":
+                                        {
+                                            thongTinBaiTap = await _taiLieuBaiTapRepository.GetSingleByIdAsync(item.MaBaiHoc);
+                                            baiTap.TieuDe = thongTinBaiTap?.TieuDe;
+                                            baiTap.NoiDung = thongTinBaiTap?.NoiDung;
+                                            baiTap.MoTa = thongTinBaiTap?.MoTa;
+                                            buoiHocVm.TaiLieuBaiTap.Add(baiTap);
+                                        }
+                                        break;
+                                    case "CAPSTONE":
+                                        {
+                                            thongTinBaiTap = await _taiLieuCapstoneRepository.GetSingleByIdAsync(item.MaBaiHoc);
+                                            baiTap.TieuDe = thongTinBaiTap?.TieuDe;
+                                            baiTap.NoiDung = thongTinBaiTap?.NoiDung;
+                                            baiTap.MoTa = thongTinBaiTap?.MoTa;
+                                            buoiHocVm.TaiLieuCapstone.Add(baiTap);
+                                        }
+                                        break;
+                                    case "QUIZ_PURPLE":
+                                        {
+                                            thongTinBaiTap = await _tracNghiemExtraRepository.GetSingleByIdAsync(item.MaBaiHoc);
+                                            baiTap.TieuDe = thongTinBaiTap?.TieuDe;
+                                            baiTap.NoiDung = thongTinBaiTap?.NoiDung;
+                                            baiTap.MoTa = thongTinBaiTap?.MoTa;
+                                            buoiHocVm.TracNghiemExtra.Add(baiTap);
+                                        }
+                                        break;
+                                }
+
+
+                                //Xử lý lấy điểm và tieuDeBaiHoc cho phần xem điểm
+                                DiemBaiTapViewModel diemBaiTapVm = new DiemBaiTapViewModel();
+                                diemBaiTapVm.TieuDe = (await _baiHoc_TaiLieu_Link_TracNghiemRepository.GetSingleByIdAsync(item.MaBaiHoc)).TieuDe;
+                                diemBaiTapVm.DiemBaiTap = item.Diem;
+                                diemBaiTapVm.LoaiBaiTap = item.LoaiBaiTap;
+                                diemNguoiDungTheoSkillVm.danhSachDiem.Add(diemBaiTapVm);
+
+
+                            }
+
+                            ////TaiLieuBaiTap
+                            //IEnumerable<TaiLieuBaiTap> lsTaiLieuBaiTap = await _taiLieuBaiTapRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                            //buoiHocVm.TaiLieuBaiTap = (_mapper.Map<List<TaiLieuBaiTapViewModel>>(lsTaiLieuBaiTap));
+
+                            ////TaiLieuCapstone
+                            //IEnumerable<TaiLieuCapstone> lsTaiLieuCapstone = await _taiLieuCapstoneRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                            //buoiHocVm.TaiLieuCapstone = (_mapper.Map<List<TaiLieuCapstoneViewModel>>(lsTaiLieuCapstone));
+
+                            ////TracNghiem
+                            //IEnumerable<TracNghiem> lsTracNghiem = await _tracNghiemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                            //buoiHocVm.TracNghiem = (_mapper.Map<List<TracNghiemViewModel>>(lsTracNghiem));
+
+                        }
+
+                        //Tính phần trăm của skill 
+                        int phanTramCam = 0;
+                        int phanTramTim = 0;
+                        if (tongDiemTrongSkill.TongPhanTramBaiTapVongTronCam.Count() > 0)
+                        {
+                            phanTramCam += (int)(tongDiemTrongSkill.TongPhanTramBaiTapVongTronCam.Average() * 0.7);
+                        }
+                        if (tongDiemTrongSkill.TongPhanTramBaiTapVongTronCam.Count() > 0)
+                        {
+                            phanTramCam += (int)(tongDiemTrongSkill.TongPhanTramQuizVongTronCam.Average() * 0.3);
+                        }
+                        if (tongDiemTrongSkill.TongPhanTramVongTronTim.Count() > 0)
+                        {
+                            phanTramTim += (int)tongDiemTrongSkill.TongPhanTramVongTronTim.Average();
+                        }
+
+                        buoiHocBySkillVm.DiemBuoiHoc = new { phanTramCam = phanTramCam, phanTramTim = phanTramTim };
+
+                        //Lấy ra dữ liệu của các View và gán cho buoiHocView
+                        //TaiLieuBaiHoc
+                        IEnumerable<TaiLieuBaiHoc> lsTaiLieuBaiHoc = await _taiLieuBaiHocRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuBaiHoc = _mapper.Map<List<TaiLieuBaiHocViewModel>>(lsTaiLieuBaiHoc);
+                        //Thêm Tài liệu vào danh sách tài liệu bài học theo skill
+                        taiLieuBuoiHocTheoSkillVm.danhSachBaiHoc.AddRange(buoiHocVm.TaiLieuBaiHoc);
+
+                        //TaiLieuDocThem
+                        IEnumerable<TaiLieuDocThem> lsTaiLieuDocThem = await _taiLieuDocThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuDocThem = (_mapper.Map<List<TaiLieuDocThemViewModel>>(lsTaiLieuDocThem));
+
+                        //TaiLieuProjectLamThem
+                        IEnumerable<TaiLieuProjectLamThem> lsTaiLieuProjectLamThem = await _taiLieuProjectLamThemRepository.GetMultiByIdAsync(dsBaiHocTrongBuoi);
+                        buoiHocVm.TaiLieuProjectLamThem = (_mapper.Map<List<TaiLieuProjectLamThemViewModel>>(lsTaiLieuProjectLamThem));
+
+
 
 
                         //Add VideoXemLai

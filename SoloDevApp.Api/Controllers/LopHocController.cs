@@ -102,6 +102,14 @@ namespace SoloDevApp.Api.Controllers
             return await _lopHocService.GetListClassesByClassId(classId);
         }
 
+        [HttpGet("test-buoihoc/{classId}")]
+        public async Task<IActionResult> TestBuoiHoc(int classId)
+        {
+            return await _lopHocService.TestTracking(classId);
+        }
+
+        
+
         [HttpPost("them-buoi-hoc-vao-lop")]
         public async Task<IActionResult> ThemBuoiHocVaoLop(int classId, int classesId)
         {
