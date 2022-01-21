@@ -36,19 +36,18 @@ namespace SoloDevApp.Api.Controllers
         public async Task<IActionResult> testHamNgayThang()
         {
 
-            //Demo việc cập nhật ngày hiện tại vào db
-            //Lấy ngày hiện tại
-            DateTime NgayHienTai = FuncUtilities.GetDateTimeCurrent();
+            DateTime current = FuncUtilities.GetDateTimeCurrent();
 
-            //dữ liệu dạng json nên phải chuyển về string để lưu dưới db
-            string ngayHienTaiString = FuncUtilities.ConvertDateToString(NgayHienTai);
+            string ngayString = FuncUtilities.ConvertDateToString(current);
 
-            //Demo việc lấy dữ liệu ngày ra để kiểm tra coi cách ngày hiện tại bao nhiêu ngày
-
-            int khoangCachNgay = FuncUtilities.TinhKhoangCachNgay(FuncUtilities.ConvertStringToDate(ngayHienTaiString));
            
+            //DateTime dateTime = FuncUtilities.ConvertStringToDateTime(current);
+            int khoangCachNgayTest = FuncUtilities.TinhKhoangCachNgay(FuncUtilities.ConvertStringToDateTime(ngayString));
+            
 
-            return new ResponseEntity(StatusCodeConstants.OK, khoangCachNgay);
+
+
+            return new ResponseEntity(StatusCodeConstants.OK, khoangCachNgayTest);
         }
 
 
