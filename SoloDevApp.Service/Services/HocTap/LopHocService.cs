@@ -1033,7 +1033,13 @@ namespace SoloDevApp.Service.Services
 
                         if (buoiHocNguoiDung != null)
                         {
-                            IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
+                            List<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<List<LichSuHocTap>>(buoiHocNguoiDung.LichSuHocTap);
+
+                            
+
+                            String ngayTest = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
+                            
+                            DateTime date = FuncUtilities.ConvertStringToDate(ngayTest);
 
                             buoiHocVm.LichSuHocTap = _mapper.Map<List<LichSuHocTapViewModel>>(lsLichSuHocTap);
 

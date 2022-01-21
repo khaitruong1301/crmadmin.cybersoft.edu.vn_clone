@@ -49,37 +49,44 @@ namespace SoloDevApp.Service.Services
                 }
 
                 //Lấy ra danh sách lịch sử học tập
-                IEnumerable<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<IEnumerable<LichSuHocTap>>(entity.LichSuHocTap);
+                List<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<List<LichSuHocTap>>(entity.LichSuHocTap);
 
-                //Lấy ra lich sử của bài tập client gửi lên
-                LichSuHocTap lichSuHocTap = lsLichSuHocTap.Where(x => x.MaBaiHoc == modelVm.MaBaiHoc).FirstOrDefault();
+                //List<LichSuHocTapViewModel> lsLichSuHocTapVm = _mapper.Map <List<LichSuHocTapViewModel>>(lsLichSuHocTap);
 
-                if (entity == null)
+                int lichSuHocTapIndex = lsLichSuHocTap.FindIndex(x => x.MaBaiHoc == modelVm.MaBaiHoc);
+
+                if (lichSuHocTapIndex == -1)
                 {
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND, "Không tìm thấy lịch sử học tập");
                 }
 
-                switch (lichSuHocTap.LoaiBaiTap)
+                //DateTime ngayThang = FuncUtilities.GetDateTimeCurrent(); //Cái này là lấy hiện tại GetDateTimeCurrent
+                //string ngayThangString = FuncUtilities.ConvertDateToString(ngayThang); //convert sang string 
+                
+
+                //ngayThang = FuncUtilities.ConvertStringToDate(ngayThangString);//convert lại ngày thì lỗi
+
+                switch (lsLichSuHocTap[lichSuHocTapIndex].LoaiBaiTap)
                 {
-                    
+
                     case "QUIZ_WRITE":
                         {
                             //Tạo string để lát đẩy vào phần nội dung
                             //Nếu thay đổi thì cần thay đổi view model
 
-                            lichSuHocTap.NoiDung = modelVm.NoiDung;
+                            lsLichSuHocTap[lichSuHocTapIndex].NoiDung = modelVm.NoiDung;
 
                             //Set điểm thành -1 để biết là chưa chấm
-                            lichSuHocTap.Diem = -1;
-                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                            lsLichSuHocTap[lichSuHocTapIndex].Diem = -1;
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
                         }
                         break;
                     case "QUIZ":
                     case "QUIZ-PURPLE":
                         {
                             //Cập nhật điểm vì nộp là bài chấm điểm
-                            lichSuHocTap.Diem = modelVm.Diem;
-                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                            lsLichSuHocTap[lichSuHocTapIndex].Diem = modelVm.Diem;
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
                         }
                         break;
                     case "CAPSTONE":
@@ -88,18 +95,69 @@ namespace SoloDevApp.Service.Services
                             //Nếu thay đổi thì cần thay đổi view model
                             string noiDungNop = $"LinkBai : {modelVm.NoiDung.LinkBai},LinkYoutube : {modelVm.NoiDung.LinkYoutube},LinkDeploy : {modelVm.NoiDung.LinkDeploy}";
 
-                            lichSuHocTap.NoiDung = noiDungNop;
+                            lsLichSuHocTap[lichSuHocTapIndex].NoiDung = noiDungNop;
 
                             //Set điểm thành -1 để biết là chưa chấm
-                            lichSuHocTap.Diem = -1;
-                            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                            lsLichSuHocTap[lichSuHocTapIndex].Diem = -1;
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
                         }
                         break;
                 }
 
                 //Map ngược lại lịch sử học tập thành string sau đó gán vào lại thằng entity rồi cập nhật vào db
+                //lsLichSuHocTap = _mapper.Map<IEnumerable<LichSuHocTap>>(lsLichSuHocTapVm);
+
                 entity.LichSuHocTap = JsonConvert.SerializeObject(lsLichSuHocTap);
-                
+
+                ////Lấy ra lich sử của bài tập client gửi lên
+                //LichSuHocTap lichSuHocTap = lsLichSuHocTap.Where(x => x.MaBaiHoc == modelVm.MaBaiHoc).FirstOrDefault();
+
+                //if (entity == null)
+                //{
+                //    return new ResponseEntity(StatusCodeConstants.NOT_FOUND, "Không tìm thấy lịch sử học tập");
+                //}
+
+                //switch (lichSuHocTap.LoaiBaiTap)
+                //{
+
+                //    case "QUIZ_WRITE":
+                //        {
+                //            //Tạo string để lát đẩy vào phần nội dung
+                //            //Nếu thay đổi thì cần thay đổi view model
+
+                //            lichSuHocTap.NoiDung = modelVm.NoiDung;
+
+                //            //Set điểm thành -1 để biết là chưa chấm
+                //            lichSuHocTap.Diem = -1;
+                //            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                //        }
+                //        break;
+                //    case "QUIZ":
+                //    case "QUIZ-PURPLE":
+                //        {
+                //            //Cập nhật điểm vì nộp là bài chấm điểm
+                //            lichSuHocTap.Diem = modelVm.Diem;
+                //            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                //        }
+                //        break;
+                //    case "CAPSTONE":
+                //        {
+                //            //Tạo string để lát đẩy vào phần nội dung
+                //            //Nếu thay đổi thì cần thay đổi view model
+                //            string noiDungNop = $"LinkBai : {modelVm.NoiDung.LinkBai},LinkYoutube : {modelVm.NoiDung.LinkYoutube},LinkDeploy : {modelVm.NoiDung.LinkDeploy}";
+
+                //            lichSuHocTap.NoiDung = noiDungNop;
+
+                //            //Set điểm thành -1 để biết là chưa chấm
+                //            lichSuHocTap.Diem = -1;
+                //            lichSuHocTap.NgayThang = FuncUtilities.ConvertDateToString(DateTime.Now);
+                //        }
+                //        break;
+                //}
+
+                ////Map ngược lại lịch sử học tập thành string sau đó gán vào lại thằng entity rồi cập nhật vào db
+                //entity.LichSuHocTap = JsonConvert.SerializeObject(lsLichSuHocTap);
+
 
                 //Xử lý cập nhật thông tin vào tracking người dùng
                 List<KeyValuePair<string ,dynamic>> columsTracking = new List<KeyValuePair<string, dynamic>>();

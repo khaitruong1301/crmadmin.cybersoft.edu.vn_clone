@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using SoloDevApp.Service.Utilities;
+using System;
 
 namespace SoloDevApp.Api.Controllers
 {
@@ -29,6 +30,26 @@ namespace SoloDevApp.Api.Controllers
             return new ResponseEntity(StatusCodeConstants.OK, userId);
         }
 
+
+        [HttpGet("test-string-date")]
+        //[Authorize(Roles = "VIEW_ROLE")]
+        public async Task<IActionResult> testHamNgayThang()
+        {
+
+            //Demo việc cập nhật ngày hiện tại vào db
+            //Lấy ngày hiện tại
+            DateTime NgayHienTai = FuncUtilities.GetDateTimeCurrent();
+
+            //dữ liệu dạng json nên phải chuyển về string để lưu dưới db
+            string ngayHienTaiString = FuncUtilities.ConvertDateToString(NgayHienTai);
+
+            //Demo việc lấy dữ liệu ngày ra để kiểm tra coi cách ngày hiện tại bao nhiêu ngày
+
+            int khoangCachNgay = FuncUtilities.TinhKhoangCachNgay(FuncUtilities.ConvertStringToDate(ngayHienTaiString));
+           
+
+            return new ResponseEntity(StatusCodeConstants.OK, khoangCachNgay);
+        }
 
 
     }

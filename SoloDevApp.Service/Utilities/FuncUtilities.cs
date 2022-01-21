@@ -26,7 +26,7 @@ namespace SoloDevApp.Service.Utilities
             }
             return d;
         }
-        public static DateTime GetDateTimeCurrent()
+        public static DateTime GetDateTimeCurrent() // sao k dung hham nay dung no do khai
         {
             string date = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             DateTime d = new DateTime();
