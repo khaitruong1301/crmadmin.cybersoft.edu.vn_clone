@@ -10,6 +10,6 @@ namespace SoloDevApp.Repository.Models
         public string LichSuHocTap { get; set; }
         public bool DaXoa { get; set; }
         public string NgayTao { get; set; }
-        public string NgayThang { get; set; }
+
     }
 }

@@ -49,7 +49,7 @@ namespace SoloDevApp.Service.Services
                 }
 
                 //Lấy ra danh sách lịch sử học tập
-                List<LichSuHocTap> lsLichSuHocTap = JsonConvert.DeserializeObject<List<LichSuHocTap>>(entity.LichSuHocTap);
+                List<LichSuHocTapViewModel> lsLichSuHocTap = JsonConvert.DeserializeObject<List<LichSuHocTapViewModel>>(entity.LichSuHocTap);
 
                 //List<LichSuHocTapViewModel> lsLichSuHocTapVm = _mapper.Map <List<LichSuHocTapViewModel>>(lsLichSuHocTap);
 
@@ -62,7 +62,7 @@ namespace SoloDevApp.Service.Services
 
                 //DateTime ngayThang = FuncUtilities.GetDateTimeCurrent(); //Cái này là lấy hiện tại GetDateTimeCurrent
                 //string ngayThangString = FuncUtilities.ConvertDateToString(ngayThang); //convert sang string 
-                
+
 
                 //ngayThang = FuncUtilities.ConvertStringToDate(ngayThangString);//convert lại ngày thì lỗi
 
@@ -78,7 +78,7 @@ namespace SoloDevApp.Service.Services
 
                             //Set điểm thành -1 để biết là chưa chấm
                             lsLichSuHocTap[lichSuHocTapIndex].Diem = -1;
-                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = DateTime.Now;
                         }
                         break;
                     case "QUIZ":
@@ -86,7 +86,7 @@ namespace SoloDevApp.Service.Services
                         {
                             //Cập nhật điểm vì nộp là bài chấm điểm
                             lsLichSuHocTap[lichSuHocTapIndex].Diem = modelVm.Diem;
-                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = DateTime.Now;
                         }
                         break;
                     case "CAPSTONE":
@@ -99,7 +99,7 @@ namespace SoloDevApp.Service.Services
 
                             //Set điểm thành -1 để biết là chưa chấm
                             lsLichSuHocTap[lichSuHocTapIndex].Diem = -1;
-                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = FuncUtilities.ConvertDateToString(FuncUtilities.GetDateTimeCurrent());
+                            lsLichSuHocTap[lichSuHocTapIndex].NgayThang = DateTime.Now;
                         }
                         break;
                 }
@@ -160,20 +160,21 @@ namespace SoloDevApp.Service.Services
 
 
                 //Xử lý cập nhật thông tin vào tracking người dùng
-                List<KeyValuePair<string ,dynamic>> columsTracking = new List<KeyValuePair<string, dynamic>>();
+                List<KeyValuePair<string, dynamic>> columsTracking = new List<KeyValuePair<string, dynamic>>();
 
                 columsTracking.Add(new KeyValuePair<string, dynamic>("MaNguoiDung", modelVm.MaNguoiDung));
                 columsTracking.Add(new KeyValuePair<string, dynamic>("MaLop", modelVm.MaLop));
                 columsTracking.Add(new KeyValuePair<string, dynamic>("LoaiHanhDong", "BAI_TAP"));
-                
+
 
                 TrackingNguoiDung trackingBaiTap = await _trackingNguoiDungRepository.GetSingleByListConditionAsync(columsTracking);
                 //Chuyển string thành object để xử lý
-                List<ChiTietHanhDongBaiTapViewModel> lsChiTietBaiTap = JsonConvert.DeserializeObject < List<ChiTietHanhDongBaiTapViewModel>>(trackingBaiTap.ChiTietHanhDong);
+                List<ChiTietHanhDongBaiTapViewModel> lsChiTietBaiTap = JsonConvert.DeserializeObject<List<ChiTietHanhDongBaiTapViewModel>>(trackingBaiTap.ChiTietHanhDong);
 
                 //Tìm index của bài tập và cập nhật da nop + ngay thang
                 int baiTapIndex = lsChiTietBaiTap.FindIndex(item => item.MaBaiHoc == modelVm.MaBaiHoc);
-                if (baiTapIndex == -1) {
+                if (baiTapIndex == -1)
+                {
                     return new ResponseEntity(StatusCodeConstants.ERROR_SERVER, "Không có thông tin bài tập trong tracking");
                 }
 
@@ -198,7 +199,7 @@ namespace SoloDevApp.Service.Services
             }
         }
 
-       
+
 
     }
 
