@@ -59,5 +59,23 @@ namespace SoloDevApp.Api.Controllers
             return await _buoiHocService.DeleteByIdAsync(Ids);
         }
 
+        [HttpPost("them-list-buoi-hoc-theo-lop")]
+        public async Task<IActionResult> ThemListBuoiHocTheoLop (InputThemListBuoiHocTheoMaLopViewModel model)
+        {
+            return await _buoiHocService.ThemListBuoiHocTheoMaLop(model);
+        }
+
+        [HttpGet("lay-danh-sach-buoi-hoc-theo-lop/{classId}")]
+        public async Task<IActionResult> LayDanhSachBuoiHocTheoLop(int classId)
+        {
+            return await _buoiHocService.GetListClassesByClassId(classId);
+        }
+
+        [HttpPost("them-buoi-hoc-vao-lop")]
+        public async Task<IActionResult> ThemBuoiHocVaoLop(int classId, int classesId)
+        {
+            return await _buoiHocService.AddClassesToClass(classId, classesId);
+        }
+
     }
 }

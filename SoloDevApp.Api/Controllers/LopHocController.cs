@@ -53,9 +53,9 @@ namespace SoloDevApp.Api.Controllers
         [HttpGet("paging")]
         public async Task<IActionResult> GetPaging(int page, int size, string keywords = "")
         {
-            if (keywords!=null && keywords.Trim() != "")
-                keywords= keywords.Replace("@@", "%");
-            
+            if (keywords != null && keywords.Trim() != "")
+                keywords = keywords.Replace("@@", "%");
+
             return await _lopHocService.GetPagingAsync(page, size, keywords);
         }
 
@@ -93,19 +93,6 @@ namespace SoloDevApp.Api.Controllers
         {
             return await _lopHocService.CheckSoLuongMentor();
         }
-
-        //WIKI BEGIN
-
-        [HttpGet("lay-danh-sach-buoi-hoc-theo-lop/{classId}")]
-        public async Task<IActionResult> LayDanhSachBuoiHocTheoLop(int classId)
-        {
-            return await _lopHocService.GetListClassesByClassId(classId);
-        }
-
-        [HttpPost("them-buoi-hoc-vao-lop")]
-        public async Task<IActionResult> ThemBuoiHocVaoLop(int classId, int classesId)
-        {
-            return await _lopHocService.AddClassesToClass(classId, classesId);
-        }
+ 
     }
 }

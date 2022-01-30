@@ -13609,6 +13609,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "AutoMapper >= 9.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
@@ -13668,6 +13669,10 @@
       "netcoreapp2.1": {
         "targetAlias": "netcoreapp2.1",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[9.0.0, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",

@@ -34,15 +34,15 @@ namespace SoloDevApp.Service.ViewModels
     {
         [Required]
         public DateTime NgayThang { get; set; }
-        public string MaBaiHoc { get; set; }
+        public int MaBaiHoc { get; set; }
         public string TieuDe { get; set; }
 
-        
+
     }
 
     public class ChiTietHanhDongBaiTapViewModel : ChiTietHanhDongBaseViewModel
     {
-        public DateTime NgayHetHan {get; set; }
+        public DateTime NgayHetHan { get; set; }
         public bool DaNop { get; set; }
         public bool DaCham { get; set; }
         public int Diem { get; set; }
@@ -64,7 +64,7 @@ namespace SoloDevApp.Service.ViewModels
 
     }
 
-    public class ChiTietHanhDongUpTaiLieuViewModel :ChiTietHanhDongBaseViewModel { }
+    public class ChiTietHanhDongUpTaiLieuViewModel : ChiTietHanhDongBaseViewModel { }
 
     public class ChiTietHanhDongUpVideoViewModel
     {

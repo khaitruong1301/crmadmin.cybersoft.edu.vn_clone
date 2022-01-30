@@ -24,6 +24,7 @@ namespace SoloDevApp.Service.ViewModels
         public string BiDanh { get; set; }
         public string NoiDung { get; set; }
         public string MoTa { get; set; }
+        public string GhiChu { get; set; }
     }
 
     public class BaiTapBuoiHocViewModel : TaiLieuViewModel

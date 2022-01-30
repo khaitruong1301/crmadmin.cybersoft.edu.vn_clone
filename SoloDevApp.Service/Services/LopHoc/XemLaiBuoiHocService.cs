@@ -35,8 +35,6 @@ namespace SoloDevApp.Service.Services
 
                 IEnumerable<XemLaiBuoiHoc> dsXemLaiBuoiHoc = await _xemLaiBuoiHocRepository.GetTheoMaLop(maLop);
 
-
-
                 return new ResponseEntity(StatusCodeConstants.OK, dsXemLaiBuoiHoc);
             }
             catch (Exception ex)
