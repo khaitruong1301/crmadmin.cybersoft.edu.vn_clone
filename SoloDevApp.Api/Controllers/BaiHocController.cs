@@ -62,5 +62,8 @@ namespace SoloDevApp.Api.Controllers
         {
             return await _baiHocService.DeleteByIdAsync(Ids);
         }
+
+
     }
+   
 }

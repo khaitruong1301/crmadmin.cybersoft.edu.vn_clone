@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SoloDevApp.Api.Controllers
 {
     [Route("api/cauhoi")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class CauHoiController : ControllerBase
     {

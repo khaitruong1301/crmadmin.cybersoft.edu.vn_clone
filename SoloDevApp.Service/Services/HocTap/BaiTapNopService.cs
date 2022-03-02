@@ -84,9 +84,6 @@ namespace SoloDevApp.Service.Services
                 bt.NhanXet = model.NhanXet;
                 await _baiTapNopRepository.UpdateAsync(id, bt);
                 return new ResponseEntity(StatusCodeConstants.OK, bt, MessageConstants.UPDATE_SUCCESS);
-                 
-
-
             }
             catch (Exception ex)
             {
@@ -170,8 +167,6 @@ namespace SoloDevApp.Service.Services
                         }
 
                     }
-
-
 
                 }
                 return new ResponseEntity(StatusCodeConstants.OK, dsBaiTapNopVm);

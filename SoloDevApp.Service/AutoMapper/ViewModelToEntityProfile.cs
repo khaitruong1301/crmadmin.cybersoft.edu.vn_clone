@@ -93,7 +93,28 @@ namespace SoloDevApp.Service.AutoMapper
             CreateMap<ChiNhanhViewModel, ChiNhanh>();
             CreateMap<XepLichViewModel, XepLich>();
             CreateMap<XemLaiBuoiHocViewModel, XemLaiBuoiHoc>();
+            /*=========== ROAD MAP =============*/
+            CreateMap<RoadMapViewModel, RoadMap>();
+            CreateMap<RoadMapDetailViewModel, RoadMapDetail>();
+            CreateMap<BuoiHocViewModel, BuoiHoc>();
+            CreateMap<LoaiBaiTapViewModel, LoaiBaiTap>();
+            CreateMap<SkillViewModel, Skill>();
+            CreateMap<UnitViewModel, Unit>();
+            CreateMap<UnitCourseViewModel, UnitCourse>();
+            CreateMap<VideoExtraViewModel, VideoExtra>();
+            CreateMap<BaiHoc_TaiLieu_Link_TracNghiemViewModel, BaiHoc_TaiLieu_Link_TracNghiem>();
+            CreateMap<LichSuHocTapViewModel, LichSuHocTap>()
+                .ForMember(entity => entity.HanNop,
+                                m => m.MapFrom(modelVm => FuncUtilities.ConvertDateToString(modelVm.HanNop)))
+                .ForMember(entity => entity.NgayThang,
+                                m => m.MapFrom(modelVm => FuncUtilities.ConvertDateToString(modelVm.NgayThang)));
+            CreateMap<NoiDungThongBaoViewModel, NoiDungThongBao>();
+            CreateMap<TrackingNguoiDungViewModel, TrackingNguoiDung>();
 
+            /*=========== ROAD MAP VIEW TABLE =============*/
+            CreateMap<TaiLieuBaiHocViewModel, TaiLieuBaiHoc>();
+            CreateMap<TaiLieuDocThemViewModel, TaiLieuDocThem>();
+            CreateMap<TaiLieuProjectLamThemViewModel, TaiLieuProjectLamThem>();
 
         }
     }

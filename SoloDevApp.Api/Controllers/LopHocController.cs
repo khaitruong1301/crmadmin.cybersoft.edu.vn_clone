@@ -11,7 +11,8 @@ namespace SoloDevApp.Api.Controllers
 {
     [Route("api/lophoc")]
     [ApiController]
-    [ApiKeyAuth]
+    //Tạm tắt debug
+    //[ApiKeyAuth]
     public class LopHocController : ControllerBase
     {
         private ILopHocService _lopHocService;
@@ -52,9 +53,9 @@ namespace SoloDevApp.Api.Controllers
         [HttpGet("paging")]
         public async Task<IActionResult> GetPaging(int page, int size, string keywords = "")
         {
-            if (keywords!=null && keywords.Trim() != "")
-                keywords= keywords.Replace("@@", "%");
-            
+            if (keywords != null && keywords.Trim() != "")
+                keywords = keywords.Replace("@@", "%");
+
             return await _lopHocService.GetPagingAsync(page, size, keywords);
         }
 
@@ -92,5 +93,6 @@ namespace SoloDevApp.Api.Controllers
         {
             return await _lopHocService.CheckSoLuongMentor();
         }
+ 
     }
 }

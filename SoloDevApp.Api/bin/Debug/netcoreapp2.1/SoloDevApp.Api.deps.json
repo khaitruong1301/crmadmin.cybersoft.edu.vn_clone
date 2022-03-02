@@ -8,7 +8,11 @@
       "TRACE",
       "DEBUG",
       "NETCOREAPP",
-      "NETCOREAPP2_1"
+      "NETCOREAPP2_1",
+      "NETCOREAPP1_0_OR_GREATER",
+      "NETCOREAPP1_1_OR_GREATER",
+      "NETCOREAPP2_0_OR_GREATER",
+      "NETCOREAPP2_1_OR_GREATER"
     ],
     "languageVersion": "7.3",
     "platform": "",
@@ -24,6 +28,7 @@
     ".NETCoreApp,Version=v2.1": {
       "SoloDevApp.Api/1.0.0": {
         "dependencies": {
+          "AutoMapper": "9.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",

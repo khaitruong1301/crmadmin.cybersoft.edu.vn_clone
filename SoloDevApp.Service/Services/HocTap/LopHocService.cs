@@ -27,9 +27,8 @@ namespace SoloDevApp.Service.Services
 
         Task<ResponseEntity> GetByUserIdAsync(dynamic id);
 
-
         Task<ResponseEntity> InsertClassAsync(LopHocViewModel model);
-        Task<ResponseEntity> UpdateClassAsync(int id,LopHocViewModel model);
+        Task<ResponseEntity> UpdateClassAsync(int id, LopHocViewModel model);
 
         Task<ResponseEntity> DeleteByIdClassAsync(List<dynamic> Ids);
 
@@ -44,12 +43,18 @@ namespace SoloDevApp.Service.Services
     {
         private ILopHocRepository _lopHocRepository;
         private INguoiDungRepository _nguoiDungRepository;
+        private IBaiHocRepository _baiHocRepository;
         private ILoTrinhRepository _loTrinhRepository;
         private IKhoaHocRepository _khoaHocRepository;
         private IBaiTapRepository _baiTapRepository;
         private IBaiTapNopRepository _baiTapNopRepository;
         private IDiemDanhRepository _diemDanhRepository;
         private ILopHoc_TaiLieuRepository _lopHoc_TaiLieuRepository;
+        private IXemLaiBuoiHocRepository _xemLaiBuoiHocRepository;
+        
+        
+
+
         private readonly IAppSettings _appSettings;
 
 
@@ -61,7 +66,11 @@ namespace SoloDevApp.Service.Services
             IBaiTapNopRepository baiTapNopRepository,
             IDiemDanhRepository diemDanhRepository,
             ILopHoc_TaiLieuRepository lopHoc_TaiLieuRepository,
-             IAppSettings appSettings,
+            IXemLaiBuoiHocRepository xemLaiBuoiHocRepository,
+           
+           
+
+        IAppSettings appSettings,
         IMapper mapper)
             : base(lopHocRepository, mapper)
         {
@@ -73,6 +82,7 @@ namespace SoloDevApp.Service.Services
             _baiTapNopRepository = baiTapNopRepository;
             _diemDanhRepository = diemDanhRepository;
             _lopHoc_TaiLieuRepository = lopHoc_TaiLieuRepository;
+            _xemLaiBuoiHocRepository = xemLaiBuoiHocRepository;
             _appSettings = appSettings;
 
         }
@@ -87,7 +97,7 @@ namespace SoloDevApp.Service.Services
 
                 DateTime setNgayKetThuc = DateTime.ParseExact(lopHoc.NgayKetThuc, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-               
+
                 setNgayKetThuc = setNgayKetThuc.AddMonths(5);
 
                 DateTime baseDate = new DateTime(1970, 1, 1);
@@ -112,7 +122,7 @@ namespace SoloDevApp.Service.Services
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }
@@ -124,7 +134,7 @@ namespace SoloDevApp.Service.Services
             {
 
                 IEnumerable<LopHoc> dsLopHoc = await _lopHocRepository.GetClassByYear(year);
-                
+
                 return new ResponseEntity(StatusCodeConstants.OK, dsLopHoc);
             }
             catch (Exception ex)
@@ -140,48 +150,48 @@ namespace SoloDevApp.Service.Services
             {
                 DateTime dNow = DateTime.Now;
 
-               // IEnumerable<LopHoc> lstLopHoc = await _lopHocRepository.GetAllAsync();
-               // List<LopHoc> lstQuaHan = new List<LopHoc>();
+                // IEnumerable<LopHoc> lstLopHoc = await _lopHocRepository.GetAllAsync();
+                // List<LopHoc> lstQuaHan = new List<LopHoc>();
 
-               // //loc lop hoc qua 2 thang
-               //foreach (LopHoc item in lstLopHoc)
-               // {
-               //     double checkSoNgay = Math.Round((dNow - item.NgayKetThuc).TotalDays);
+                // //loc lop hoc qua 2 thang
+                //foreach (LopHoc item in lstLopHoc)
+                // {
+                //     double checkSoNgay = Math.Round((dNow - item.NgayKetThuc).TotalDays);
 
-               //     if (checkSoNgay > 60)
-               //         lstQuaHan.Add(item);
-               // }
+                //     if (checkSoNgay > 60)
+                //         lstQuaHan.Add(item);
+                // }
 
-               // // kiem tra va xoa tai lieu cua lop 2 thang
-               // foreach (LopHoc item in lstQuaHan)
-               // {
-               //     IEnumerable<LopHoc_TaiLieu> lstLopTaiLieu = await _lopHoc_TaiLieuRepository.GetTheoMaLop(item.Id);
+                // // kiem tra va xoa tai lieu cua lop 2 thang
+                // foreach (LopHoc item in lstQuaHan)
+                // {
+                //     IEnumerable<LopHoc_TaiLieu> lstLopTaiLieu = await _lopHoc_TaiLieuRepository.GetTheoMaLop(item.Id);
 
-               //     lstLopTaiLieu = lstLopTaiLieu.Where(n => n.MaBaiTap == 0);
+                //     lstLopTaiLieu = lstLopTaiLieu.Where(n => n.MaBaiTap == 0);
 
-               //     if (lstLopTaiLieu.Count() > 0)
-               //     {
-               //         foreach (var itemLopTL in lstLopTaiLieu)
-               //         {
+                //     if (lstLopTaiLieu.Count() > 0)
+                //     {
+                //         foreach (var itemLopTL in lstLopTaiLieu)
+                //         {
 
-               //             if (itemLopTL.MaBaiTap == 0)
-               //             {
-               //                 dynamic duongDan = JsonConvert.DeserializeObject(itemLopTL.DuongDan);
-               //                 string fileUrl = duongDan[1];
+                //             if (itemLopTL.MaBaiTap == 0)
+                //             {
+                //                 dynamic duongDan = JsonConvert.DeserializeObject(itemLopTL.DuongDan);
+                //                 string fileUrl = duongDan[1];
 
-               //                 string pathFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-               //                 var path = @pathFolder + @fileUrl;
+                //                 string pathFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                //                 var path = @pathFolder + @fileUrl;
 
-               //                 if (System.IO.File.Exists(path))
-               //                 {
-               //                     System.IO.File.Delete(path);
-               //                 }
+                //                 if (System.IO.File.Exists(path))
+                //                 {
+                //                     System.IO.File.Delete(path);
+                //                 }
 
-               //             }
-               //         }
+                //             }
+                //         }
 
-               //     }
-               // }
+                //     }
+                // }
 
                 // lay danh sach lop
                 IEnumerable<LopHoc> dsLopHoc = await _lopHocRepository.GetAllAsync();
@@ -192,14 +202,14 @@ namespace SoloDevApp.Service.Services
 
                 foreach (LopHoc item in dsLopHoc)
                 {
-                    double date =Math.Round((dNow - item.NgayBatDau).TotalDays);
+                    double date = Math.Round((dNow - item.NgayBatDau).TotalDays);
 
-                    if(date > 30)
+                    if (date > 30)
                     {
                         //lay danh sach diem danh theo lop, lay ngay diem danh gan nhat
                         IEnumerable<DiemDanh> dsDiemDanh = await _diemDanhRepository.GetTheoMaLop(item.Id);
 
-                        if(dsDiemDanh.Count() > 0)
+                        if (dsDiemDanh.Count() > 0)
                         {
                             DiemDanh diemDanh = dsDiemDanh.OrderByDescending(n => n.NgayTao).FirstOrDefault();
 
@@ -214,7 +224,7 @@ namespace SoloDevApp.Service.Services
                             // > 35  3 mentor , 20 < 2 monter <35 , 1 mentor <20
                             if (slDiemDanh <= 23 && slDiemDanh >= 33)
                             {
-                                if(slMentor >= 3)
+                                if (slMentor >= 3)
                                 {
                                     LopHoc lopHoc = await _lopHocRepository.GetSingleByIdAsync(item.Id);
                                     lstLopWarn.Add(lopHoc.TenLopHoc);
@@ -222,7 +232,7 @@ namespace SoloDevApp.Service.Services
                             }
 
                             //if (slDiemDanh < 15)
-                            if (slDiemDanh < 23 )
+                            if (slDiemDanh < 23)
                             {
                                 if (slMentor >= 2)
                                 {
@@ -233,7 +243,7 @@ namespace SoloDevApp.Service.Services
                         }
 
                     }
-                    
+
                 }
 
 
@@ -310,14 +320,14 @@ namespace SoloDevApp.Service.Services
                     return new ResponseEntity(StatusCodeConstants.NOT_FOUND);
 
                 ThongTinLopHocViewModel thongTinLopHocVm = _mapper.Map<ThongTinLopHocViewModel>(lopHoc);
-             /*   foreach (dynamic item in thongTinLopHocVm.DanhSachGiangVien)
-                {
-                    listId.Add(item);
-                }
-                foreach (dynamic item in thongTinLopHocVm.DanhSachMentor)
-                {
-                    listId.Add(item);
-                }*/
+                /*   foreach (dynamic item in thongTinLopHocVm.DanhSachGiangVien)
+                   {
+                       listId.Add(item);
+                   }
+                   foreach (dynamic item in thongTinLopHocVm.DanhSachMentor)
+                   {
+                       listId.Add(item);
+                   }*/
                 foreach (dynamic item in thongTinLopHocVm.DanhSachHocVien)
                 {
                     listId.Add(item);
@@ -339,7 +349,7 @@ namespace SoloDevApp.Service.Services
             }
         }
 
-      
+
 
         private async Task<List<KhoaHoc>> GetCourseActived(int maLoTrinh, DateTime ngayBatDau)
         {
@@ -373,7 +383,7 @@ namespace SoloDevApp.Service.Services
                 //Ngay kich hoat khoa hoc
                 //Tinh khoang cach ngay hien hanh va ngay do
 
-                if (item.KichHoatSan )
+                if (item.KichHoatSan)
                 {
                     dsKhoaHocKichHoat.Add(item);
                     ////Tinh1 khoang cach tu ngay do den ngay hien hanh
@@ -387,15 +397,15 @@ namespace SoloDevApp.Service.Services
                     //    dsKhoaHocKichHoat.Add(item);
                     //}
                 }
-                else 
+                else
                 {
                     DateTime ngayKichHoat = ngayBatDau.AddDays(item.SoNgayKichHoat).AddDays(-7);
                     DateTime ngayKetThuc = ngayKichHoat.AddDays(Setting.thoiGianHoc);//36 ngày
-                    
 
-                    TimeSpan ts =  DateTime.Now.Date - ngayKichHoat.Date;
 
-                    if(ts.Days <= Setting.thoiGianHoc && ts.Days > 0 && ngayKetThuc >= DateTime.Now.Date )
+                    TimeSpan ts = DateTime.Now.Date - ngayKichHoat.Date;
+
+                    if (ts.Days <= Setting.thoiGianHoc && ts.Days > 0 && ngayKetThuc >= DateTime.Now.Date)
                     {
                         dsKhoaHocKichHoat.Add(item);
 
@@ -433,10 +443,10 @@ namespace SoloDevApp.Service.Services
 
                     TimeSpan ts = ngayKichHoat.Date - DateTime.Now.Date;
 
-                    if (ts.Days<=baiTap.SoNgayKichHoat)
+                    if (ts.Days <= baiTap.SoNgayKichHoat)
                     {
                         TimeSpan tsHanNop = ngayHanNop - DateTime.Now.Date;
-                        if (ngayKichHoat>DateTime.Now.Date )
+                        if (ngayKichHoat > DateTime.Now.Date)
                         {
                             continue;
                         }
@@ -453,33 +463,33 @@ namespace SoloDevApp.Service.Services
 
                     }
                 }
-                        //soNgayKichHoat += baiTap.SoNgayKichHoat;
-                        //// NẾU TỔNG SỐ NGÀY KÍCH HOẠT NHỎ HƠN SỐ NGÀY TÍNH TỪ LÚC KHAI GIẢNG ĐẾN HÔM NAY
-                        //if (soNgayKichHoat < soNgayTuLucKhaiGiang)
-                        //{
-                        //    // HIỂN THỊ CHO HỌC VIÊN NHƯNG BÁO LÀ ĐÃ HẾT HẠN NỘP
-                        //    baiTap.TrangThai = false;
-                        //    dsBaiTapVm.Add(baiTap);
-                        //}
-                        //// NẾU TỔNG SỐ NGÀY KÍCH HOẠT BẰNG SỐ NGÀY TÍNH TỪ LÚC KHAI GIẢNG ĐẾN HÔM NAY
-                        //// HOẶC NẾU LỚN HƠN NHƯNG KHÔNG VƯỢT QUÁ SỐ NGÀY KÍCH HOẠT CỦA BÀI TẬP ĐÓ
-                        //else if (soNgayKichHoat == soNgayTuLucKhaiGiang || (soNgayKichHoat - soNgayTuLucKhaiGiang) <= baiTap.SoNgayKichHoat)
-                        //{
-                        //    // HIỂN THỊ CHO HỌC VIÊN VÀ VẪN CHO NỘP BÀI
-                        //    baiTap.TrangThai = true;
-                        //    dsBaiTapVm.Add(baiTap);
-                        //}
-                        //else
-                        //{
-                        //    break;
-                        //}
+                //soNgayKichHoat += baiTap.SoNgayKichHoat;
+                //// NẾU TỔNG SỐ NGÀY KÍCH HOẠT NHỎ HƠN SỐ NGÀY TÍNH TỪ LÚC KHAI GIẢNG ĐẾN HÔM NAY
+                //if (soNgayKichHoat < soNgayTuLucKhaiGiang)
+                //{
+                //    // HIỂN THỊ CHO HỌC VIÊN NHƯNG BÁO LÀ ĐÃ HẾT HẠN NỘP
+                //    baiTap.TrangThai = false;
+                //    dsBaiTapVm.Add(baiTap);
+                //}
+                //// NẾU TỔNG SỐ NGÀY KÍCH HOẠT BẰNG SỐ NGÀY TÍNH TỪ LÚC KHAI GIẢNG ĐẾN HÔM NAY
+                //// HOẶC NẾU LỚN HƠN NHƯNG KHÔNG VƯỢT QUÁ SỐ NGÀY KÍCH HOẠT CỦA BÀI TẬP ĐÓ
+                //else if (soNgayKichHoat == soNgayTuLucKhaiGiang || (soNgayKichHoat - soNgayTuLucKhaiGiang) <= baiTap.SoNgayKichHoat)
+                //{
+                //    // HIỂN THỊ CHO HỌC VIÊN VÀ VẪN CHO NỘP BÀI
+                //    baiTap.TrangThai = true;
+                //    dsBaiTapVm.Add(baiTap);
+                //}
+                //else
+                //{
+                //    break;
+                //}
             }
             return dsBaiTapVm;
         }
 
-   
-   
-      
+
+
+
         public async Task<ResponseEntity> InsertClassAsync(LopHocViewModel model)
         {
 
@@ -494,7 +504,7 @@ namespace SoloDevApp.Service.Services
             List<dynamic> dsMentorGiangVien = new List<dynamic>();
             dsMentorGiangVien.AddRange(model.DanhSachGiangVien);
             dsMentorGiangVien.AddRange(model.DanhSachMentor);
-            foreach(dynamic id in dsMentorGiangVien)
+            foreach (dynamic id in dsMentorGiangVien)
             {
                 //Bổ sung lớp dô mảng lớp
                 NguoiDung nd = await _nguoiDungRepository.GetSingleByIdAsync(id);
@@ -515,43 +525,42 @@ namespace SoloDevApp.Service.Services
 
         public async Task<ResponseEntity> UpdateClassAsync(int id, LopHocViewModel model)
         {
-           
 
-                LopHoc lhHienTai = await _lopHocRepository.GetSingleByIdAsync(id);
-                //Tìm những thằng cũ remove ra
-                HashSet<string> dsGiangVienMentorCu = JsonConvert.DeserializeObject<HashSet<string>>(lhHienTai.DanhSachGiangVien);
-                HashSet<string> dsMentor = JsonConvert.DeserializeObject<HashSet<string>>(lhHienTai.DanhSachMentor);
-                dsGiangVienMentorCu.ToList().AddRange(dsMentor);
+            LopHoc lhHienTai = await _lopHocRepository.GetSingleByIdAsync(id);
+            //Tìm những thằng cũ remove ra
+            HashSet<string> dsGiangVienMentorCu = JsonConvert.DeserializeObject<HashSet<string>>(lhHienTai.DanhSachGiangVien);
+            HashSet<string> dsMentor = JsonConvert.DeserializeObject<HashSet<string>>(lhHienTai.DanhSachMentor);
+            dsGiangVienMentorCu.ToList().AddRange(dsMentor);
 
-                foreach (dynamic idNguoiDung in dsGiangVienMentorCu)
-                {
-                    NguoiDung nd = await _nguoiDungRepository.GetSingleByIdAsync(idNguoiDung);
-                    //Lấy ra lớp học
-                    List<dynamic> dsLopHoc = JsonConvert.DeserializeObject<List<dynamic>>(nd.DanhSachLopHoc);
-                    //Lấy lớp học hiện tại
-                    dsLopHoc.Remove(idNguoiDung);
-                    nd.DanhSachLopHoc = JsonConvert.SerializeObject(dsLopHoc);
-                    await _nguoiDungRepository.UpdateAsync(nd.Id, nd);
+            foreach (dynamic idNguoiDung in dsGiangVienMentorCu)
+            {
+                NguoiDung nd = await _nguoiDungRepository.GetSingleByIdAsync(idNguoiDung);
+                //Lấy ra lớp học
+                List<dynamic> dsLopHoc = JsonConvert.DeserializeObject<List<dynamic>>(nd.DanhSachLopHoc);
+                //Lấy lớp học hiện tại
+                dsLopHoc.Remove(idNguoiDung);
+                nd.DanhSachLopHoc = JsonConvert.SerializeObject(dsLopHoc);
+                await _nguoiDungRepository.UpdateAsync(nd.Id, nd);
 
-                }
+            }
 
-                //Tìm thằng mới add vô
-                //Lấy ra danh sách mentor và người dùng thêm lớp học vào 
-                List<dynamic> dsMentorGiangVien = new List<dynamic>();
-                dsMentorGiangVien.AddRange(model.DanhSachGiangVien);
-                dsMentorGiangVien.AddRange(model.DanhSachMentor);
-                foreach (dynamic idMentorGiangVien in dsMentorGiangVien)
-                {
-                    //Bổ sung lớp dô mảng lớp
-                    NguoiDung nd =  await  _nguoiDungRepository.GetSingleByIdAsync(idMentorGiangVien);
-                    //Lấy ra lớp học
-                    List<dynamic> dsLopHoc = JsonConvert.DeserializeObject<List<dynamic>>(nd.DanhSachLopHoc);
-                    //Lấy lớp học hiện tại
+            //Tìm thằng mới add vô
+            //Lấy ra danh sách mentor và người dùng thêm lớp học vào 
+            List<dynamic> dsMentorGiangVien = new List<dynamic>();
+            dsMentorGiangVien.AddRange(model.DanhSachGiangVien);
+            dsMentorGiangVien.AddRange(model.DanhSachMentor);
+            foreach (dynamic idMentorGiangVien in dsMentorGiangVien)
+            {
+                //Bổ sung lớp dô mảng lớp
+                NguoiDung nd = await _nguoiDungRepository.GetSingleByIdAsync(idMentorGiangVien);
+                //Lấy ra lớp học
+                List<dynamic> dsLopHoc = JsonConvert.DeserializeObject<List<dynamic>>(nd.DanhSachLopHoc);
+                //Lấy lớp học hiện tại
 
-                    dsLopHoc.Add(lhHienTai.Id);
-                    nd.DanhSachLopHoc = JsonConvert.SerializeObject(dsLopHoc);
-                    await _nguoiDungRepository.UpdateAsyncHasArrayNull(nd.Id, nd);
-                }
+                dsLopHoc.Add(lhHienTai.Id);
+                nd.DanhSachLopHoc = JsonConvert.SerializeObject(dsLopHoc);
+                await _nguoiDungRepository.UpdateAsyncHasArrayNull(nd.Id, nd);
+            }
 
             model.Token = GenerateToken(model);
             var result = await UpdateAsyncHasArrayNull(id, model);
@@ -584,5 +593,7 @@ namespace SoloDevApp.Service.Services
             }
             return result;
         }
+
     }
+
 }

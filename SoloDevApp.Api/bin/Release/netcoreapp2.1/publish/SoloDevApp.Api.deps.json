@@ -6,9 +6,13 @@
   "compilationOptions": {
     "defines": [
       "TRACE",
-      "RELEASE",
+      "DEBUG",
       "NETCOREAPP",
-      "NETCOREAPP2_1"
+      "NETCOREAPP2_1",
+      "NETCOREAPP1_0_OR_GREATER",
+      "NETCOREAPP1_1_OR_GREATER",
+      "NETCOREAPP2_0_OR_GREATER",
+      "NETCOREAPP2_1_OR_GREATER"
     ],
     "languageVersion": "7.3",
     "platform": "",
@@ -18,12 +22,13 @@
     "keyFile": "",
     "emitEntryPoint": true,
     "xmlDoc": false,
-    "debugType": "full"
+    "debugType": "portable"
   },
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "SoloDevApp.Api/1.0.0": {
         "dependencies": {
+          "AutoMapper": "9.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",
@@ -788,7 +793,7 @@
           "runtimes/win-arm64/native/sni.dll": {
             "rid": "win-arm64",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "4.6.25512.1"
           }
         }
       },
@@ -797,7 +802,7 @@
           "runtimes/win-x64/native/sni.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "4.6.25512.1"
           }
         }
       },
@@ -806,7 +811,7 @@
           "runtimes/win-x86/native/sni.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "4.6.25512.1"
           }
         }
       },
